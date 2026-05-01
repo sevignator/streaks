@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import PageTitle from '#/components/PageTitle'
 
-export const Route = createFileRoute('/statistics')({
+export const Route = createFileRoute('/_app/statistics')({
   component: RouteComponent,
 })
 

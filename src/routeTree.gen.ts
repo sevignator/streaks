@@ -9,18 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as StatisticsRouteImport } from './routes/statistics'
-import { Route as HabitsRouteImport } from './routes/habits'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppStatisticsRouteImport } from './routes/_app.statistics'
+import { Route as AppHabitsRouteImport } from './routes/_app.habits'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 
-const StatisticsRoute = StatisticsRouteImport.update({
-  id: '/statistics',
-  path: '/statistics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HabitsRoute = HabitsRouteImport.update({
-  id: '/habits',
-  path: '/habits',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -28,51 +24,68 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppStatisticsRoute = AppStatisticsRouteImport.update({
+  id: '/statistics',
+  path: '/statistics',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHabitsRoute = AppHabitsRouteImport.update({
+  id: '/habits',
+  path: '/habits',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/habits': typeof HabitsRoute
-  '/statistics': typeof StatisticsRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/habits': typeof AppHabitsRoute
+  '/statistics': typeof AppStatisticsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/habits': typeof HabitsRoute
-  '/statistics': typeof StatisticsRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/habits': typeof AppHabitsRoute
+  '/statistics': typeof AppStatisticsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/habits': typeof HabitsRoute
-  '/statistics': typeof StatisticsRoute
+  '/_app': typeof AppRouteWithChildren
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/habits': typeof AppHabitsRoute
+  '/_app/statistics': typeof AppStatisticsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/habits' | '/statistics'
+  fullPaths: '/' | '/dashboard' | '/habits' | '/statistics'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/habits' | '/statistics'
-  id: '__root__' | '/' | '/habits' | '/statistics'
+  to: '/' | '/dashboard' | '/habits' | '/statistics'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_app/dashboard'
+    | '/_app/habits'
+    | '/_app/statistics'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  HabitsRoute: typeof HabitsRoute
-  StatisticsRoute: typeof StatisticsRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/statistics': {
-      id: '/statistics'
-      path: '/statistics'
-      fullPath: '/statistics'
-      preLoaderRoute: typeof StatisticsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/habits': {
-      id: '/habits'
-      path: '/habits'
-      fullPath: '/habits'
-      preLoaderRoute: typeof HabitsRouteImport
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -82,13 +95,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/statistics': {
+      id: '/_app/statistics'
+      path: '/statistics'
+      fullPath: '/statistics'
+      preLoaderRoute: typeof AppStatisticsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/habits': {
+      id: '/_app/habits'
+      path: '/habits'
+      fullPath: '/habits'
+      preLoaderRoute: typeof AppHabitsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppHabitsRoute: typeof AppHabitsRoute
+  AppStatisticsRoute: typeof AppStatisticsRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+  AppHabitsRoute: AppHabitsRoute,
+  AppStatisticsRoute: AppStatisticsRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  HabitsRoute: HabitsRoute,
-  StatisticsRoute: StatisticsRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -48,4 +48,5 @@ body {
 .container {
   @apply max-w-4xl;
   @apply mx-auto;
+  @apply px-12;
 }

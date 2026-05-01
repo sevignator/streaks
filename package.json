@@ -28,6 +28,7 @@
     "@tanstack/react-router-ssr-query": "latest",
     "@tanstack/react-start": "latest",
     "@tanstack/router-plugin": "^1.167.28",
+    "argon2": "^0.44.0",
     "bcrypt": "^6.0.0",
     "drizzle-orm": "^0.45.2",
     "lucide-react": "^0.545.0",

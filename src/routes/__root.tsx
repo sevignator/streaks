@@ -1,7 +1,6 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-import Sidebar from '../components/Sidebar'
 
 import appCss from '../styles.css?url'
 
@@ -39,10 +38,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="font-sans text-[var(--clr-text-primary)] antialiased">
-        <div className="grid grid-cols-[20rem_1fr]">
-          <Sidebar />
-          <main>{children}</main>
-        </div>
+        {children}
 
         <TanStackDevtools
           config={{
