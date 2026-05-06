@@ -12,7 +12,9 @@ export const Route = createFileRoute('/_user')({
 function RouteComponent() {
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-5xl mt-12 mb-12 font-bold text-center">Streaks</h1>
+      <h1 className="text-8xl mt-12 mb-18 font-extrabold text-center text-violet-950 tracking-tighter">
+        Streaks
+      </h1>
 
       <TabSelector
         tabs={[
@@ -34,7 +36,7 @@ function RouteComponent() {
 
 function TabSelector({ tabs }: { tabs: Tab[] }) {
   return (
-    <div className="flex mb-8 max-w-fit bg-violet-200 rounded-full p-1.5 mx-auto">
+    <div className="flex mb-18 max-w-fit bg-violet-200 rounded-full p-1.5 mx-auto font-medium">
       {tabs.map((tab) => (
         <Link
           to={tab.to}
