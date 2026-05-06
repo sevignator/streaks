@@ -24,6 +24,10 @@ const userSignupSchema = z
     path: ['confirmPassword'],
   })
 
+const userResetPasswordSchema = z.object({
+  email: z.email().max(255, 'Email must be at most 255 characters long'),
+})
+
 const userLoginSchema = z.object({
   email: z.email().max(255, 'Email must be at most 255 characters long'),
   password: z
@@ -64,6 +68,25 @@ export const userSignupFn = createServerFn({ method: 'POST' })
     }
 
     throw redirect({ to: '/dashboard' })
+  })
+
+export const userResetPasswordFn = createServerFn({
+  method: 'POST',
+})
+  .inputValidator((input: z.input<typeof userResetPasswordSchema>) => input)
+  .handler(async ({ data }) => {
+    const result = userResetPasswordSchema.safeParse(data)
+
+    if (!result.success) {
+      const { fieldErrors, formErrors } = z.flattenError(result.error)
+
+      return {
+        fieldErrors,
+        formErrors,
+      }
+    }
+
+    console.log(result.data)
   })
 
 export const userLoginFn = createServerFn({ method: 'POST' })
