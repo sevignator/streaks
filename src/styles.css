@@ -11,6 +11,9 @@
   --clr-bg-secondary: var(--clr-slate-700);
   --clr-accent: var(--color-violet-900);
   --clr-text-primary: var(--color-slate-900);
+
+  @apply selection:bg-violet-600;
+  @apply selection:text-white;
 }
 
 :root[data-theme='dark'] {
