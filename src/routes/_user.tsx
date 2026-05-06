@@ -1,9 +1,6 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-type Tab = {
-  text: string
-  to: string
-}
+import TabSelector from '#/components/TabSelector'
 
 export const Route = createFileRoute('/_user')({
   component: RouteComponent,
@@ -30,24 +27,6 @@ function RouteComponent() {
       />
 
       <Outlet />
-    </div>
-  )
-}
-
-function TabSelector({ tabs }: { tabs: Tab[] }) {
-  return (
-    <div className="flex mb-18 max-w-fit bg-violet-200 rounded-full p-1.5 mx-auto font-medium">
-      {tabs.map((tab) => (
-        <Link
-          to={tab.to}
-          className="px-5 py-2"
-          activeProps={{
-            className: 'bg-violet-500 text-white rounded-full',
-          }}
-        >
-          {tab.text}
-        </Link>
-      ))}
     </div>
   )
 }
