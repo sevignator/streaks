@@ -22,6 +22,12 @@ function RouteComponent() {
         </p>
       )}
 
+      {search.message === 'password-updated' && (
+        <p className="p-2 bg-green-100 border-green-200 border rounded-md text-green-600 text-center mb-6">
+          Your password has successfully been updated.
+        </p>
+      )}
+
       <LoginForm />
 
       <p className="text-center mt-4">

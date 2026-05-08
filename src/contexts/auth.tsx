@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   createContext,
   useContext,
@@ -20,7 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const getCurrentUser = useServerFn(getCurrentUserFn)
   const [user, setUser] = useState<User | null>(null)
 
-  const fetchUser = async() => {
+  const fetchUser = React.useCallback(async () => {
     try {
       const nextUser = await getCurrentUser()
       setUser(nextUser)
@@ -28,16 +29,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error('Failed to fetch current user', error)
       setUser(null)
     }
-  }
+  }, [])
 
   useEffect(() => {
     fetchUser()
-  }, [fetchUser])
-
-  console.log({user})
+  }, [])
 
   return (
-    <AuthContext.Provider value={{ user, fetchUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, fetchUser }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
 

@@ -36,6 +36,7 @@ export const passwordResetTokens = pgTable('password_reset_tokens', {
   expiresAt: timestamp('expires_at')
     .default(sql`now() + interval '30 minutes'`)
     .notNull(),
+  isRedeemed: boolean('is_redeemed').default(false).notNull(),
 })
 
 export type NewUser = typeof users.$inferInsert

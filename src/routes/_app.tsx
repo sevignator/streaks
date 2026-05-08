@@ -11,12 +11,12 @@ export const Route = createFileRoute('/_app')({
 
     if (!user) {
       throw redirect({
-        to: '/'
+        to: '/',
       })
     }
 
     return { user }
-  }
+  },
 })
 
 function RouteComponent() {

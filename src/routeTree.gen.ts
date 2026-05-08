@@ -18,6 +18,7 @@ import { Route as AppStatisticsRouteImport } from './routes/_app.statistics'
 import { Route as AppHabitsRouteImport } from './routes/_app.habits'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset'
+import { Route as UserLoginResetTokenRouteImport } from './routes/_user.login_.reset_.$token'
 
 const UserRoute = UserRouteImport.update({
   id: '/_user',
@@ -62,6 +63,11 @@ const UserLoginResetRoute = UserLoginResetRouteImport.update({
   path: '/login/reset',
   getParentRoute: () => UserRoute,
 } as any)
+const UserLoginResetTokenRoute = UserLoginResetTokenRouteImport.update({
+  id: '/login_/reset_/$token',
+  path: '/login/reset/$token',
+  getParentRoute: () => UserRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
   '/login/reset': typeof UserLoginResetRoute
+  '/login/reset/$token': typeof UserLoginResetTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
   '/login/reset': typeof UserLoginResetRoute
+  '/login/reset/$token': typeof UserLoginResetTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/_user/login': typeof UserLoginRoute
   '/_user/signup': typeof UserSignupRoute
   '/_user/login_/reset': typeof UserLoginResetRoute
+  '/_user/login_/reset_/$token': typeof UserLoginResetTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/login/reset'
+    | '/login/reset/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/login/reset'
+    | '/login/reset/$token'
   id:
     | '__root__'
     | '/'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/_user/login'
     | '/_user/signup'
     | '/_user/login_/reset'
+    | '/_user/login_/reset_/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -196,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserLoginResetRouteImport
       parentRoute: typeof UserRoute
     }
+    '/_user/login_/reset_/$token': {
+      id: '/_user/login_/reset_/$token'
+      path: '/login/reset/$token'
+      fullPath: '/login/reset/$token'
+      preLoaderRoute: typeof UserLoginResetTokenRouteImport
+      parentRoute: typeof UserRoute
+    }
   }
 }
 
@@ -217,12 +236,14 @@ interface UserRouteChildren {
   UserLoginRoute: typeof UserLoginRoute
   UserSignupRoute: typeof UserSignupRoute
   UserLoginResetRoute: typeof UserLoginResetRoute
+  UserLoginResetTokenRoute: typeof UserLoginResetTokenRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
   UserLoginRoute: UserLoginRoute,
   UserSignupRoute: UserSignupRoute,
   UserLoginResetRoute: UserLoginResetRoute,
+  UserLoginResetTokenRoute: UserLoginResetTokenRoute,
 }
 
 const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)

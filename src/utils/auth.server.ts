@@ -1,3 +1,4 @@
+import { createHmac, randomBytes } from 'node:crypto'
 import argon2 from 'argon2'
 import { eq, DrizzleQueryError } from 'drizzle-orm'
 import { DatabaseError } from 'pg'
@@ -5,6 +6,7 @@ import { DatabaseError } from 'pg'
 import { db } from '#/db'
 import * as schema from '#/db/schema'
 
+const { RESET_TOKEN_SECRET } = process.env
 const { users, passwordResetTokens } = schema
 
 export async function getPasswordHash(password: string): Promise<string> {
@@ -18,32 +20,23 @@ export async function checkPasswordHash(
   return await argon2.verify(hash, password)
 }
 
-export async function getPasswordResetTokenHash(
-  token: string,
+export function getPasswordResetTokenHash(token: string): string {
+  return createHmac('sha256', RESET_TOKEN_SECRET).update(token).digest('hex')
+}
+
+export function checkPasswordResetTokens(tokenA: string, tokenB: string) {
+  const tokenHashA = getPasswordResetTokenHash(tokenA)
+  const tokenHashB = getPasswordResetTokenHash(tokenB)
+  return tokenHashA === tokenHashB
+}
+
+export async function createPasswordResetToken(
+  userId: schema.User['id'],
 ): Promise<string> {
-  return await argon2.hash(token)
-}
-
-export async function checkPasswordResetTokenHash(
-  token: string,
-  hash: string,
-): Promise<boolean> {
-  return await argon2.verify(hash, token)
-}
-
-export async function updateUserPassword(
-  userId: typeof users.id,
-  password: string,
-) {
-  const passwordHash = await getPasswordHash(password)
-  await db.update(users).set({ passwordHash }).where(eq(userId, users.id))
-}
-
-export async function createPasswordResetToken(userId: schema.User['id']) {
-  const token = crypto.randomUUID()
+  const token = randomBytes(32).toString('base64url')
 
   try {
-    const tokenHash = await getPasswordResetTokenHash(token)
+    const tokenHash = getPasswordResetTokenHash(token)
     await db.insert(passwordResetTokens).values({ tokenHash, userId })
   } catch (err) {
     if (
@@ -57,9 +50,34 @@ export async function createPasswordResetToken(userId: schema.User['id']) {
   return token
 }
 
-export async function checkPasswordResetToken(
-  token: Awaited<ReturnType<typeof createPasswordResetToken>>,
-  hash: string,
+export async function updateUserPassword(
+  userId: schema.User['id'],
+  password: string,
 ) {
-  return await argon2.verify(token, hash)
+  const passwordHash = await getPasswordHash(password)
+  await db.update(users).set({ passwordHash }).where(eq(users.id, userId))
+}
+
+export async function getPasswordResetTokenByHash(
+  tokenHash: string,
+): Promise<schema.PasswordResetToken | undefined> {
+  const query = await db
+    .select()
+    .from(passwordResetTokens)
+    .where(eq(passwordResetTokens.tokenHash, tokenHash))
+    .limit(1)
+
+  return query[0]
+}
+
+export async function redeemPasswordResetToken(token: string) {
+  const tokenHash = getPasswordResetTokenHash(token)
+  const tokenRecord = await getPasswordResetTokenByHash(tokenHash)
+
+  if (!tokenRecord) return
+
+  await db
+    .update(passwordResetTokens)
+    .set({ isRedeemed: true })
+    .where(eq(passwordResetTokens.tokenHash, tokenHash))
 }

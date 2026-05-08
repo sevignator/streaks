@@ -36,6 +36,13 @@
       "when": 1778205702311,
       "tag": "0004_lowly_magneto",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1778260367238,
+      "tag": "0005_smooth_logan",
+      "breakpoints": true
     }
   ]
 }

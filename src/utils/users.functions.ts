@@ -91,8 +91,6 @@ export const userResetPasswordFn = createServerFn({
 
     const user = await getUserByEmail(result.data.email)
 
-    // Handle case where the user exists in the database.
-    // If it doesn't exist, just move onto the next step.
     if (user) {
       const token = await createPasswordResetToken(user.id)
 
@@ -101,8 +99,13 @@ export const userResetPasswordFn = createServerFn({
           to: user.email,
           subject: 'Password reset',
           html: `
-            <p>A password reset was requested for your account. Use the following token to reset your password:</p>
-            <p>${token}</p>
+            <p>Hi ${user.nickname}!</p>
+
+            <p>A password reset was requested for your account. Visit the following link to reset your password:</p>
+
+            <p>http://localhost:3000/login/reset/${token}</p>
+
+            <p>This link is only valid for the next 30 minutes.</p>
           `,
         },
       })
@@ -110,7 +113,9 @@ export const userResetPasswordFn = createServerFn({
 
     throw redirect({
       to: '/login',
-      search: { message: 'password-reset' },
+      search: {
+        message: 'password-reset',
+      },
     })
   })
 

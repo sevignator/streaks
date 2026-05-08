@@ -22,21 +22,6 @@ export default function ResetPasswordForm() {
     if (submissionErrors?.fieldErrors || submissionErrors?.formErrors) {
       return
     }
-
-    // @TODO: Add password reset steps
-    // 1. Check user email in the database
-    //   1a. If the user exists, store them in a variable and move on.
-    //   1b. If the user does not exist, show the default pop-up message and go back to the log in form (see step 3).
-    // 2. Send an email to the user that contains a link to edit their password.
-    // 3. Show a default pop-up message indicating that, if a matching account was found, the user should be receiving an email.
-    //   * This is done for security purposes--we don't want to allow bad actors to be able to infer whether an account exists on the system.
-
-    // await setTestEmail({
-    //   data: {
-    //     to: email,
-    //     token: 'random_token_123',
-    //   },
-    // })
   }
 
   return (
