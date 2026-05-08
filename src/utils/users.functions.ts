@@ -1,13 +1,16 @@
+import { redirect } from '@tanstack/react-router'
+import { createServerFn } from '@tanstack/react-start'
+import { z } from 'zod'
+
 import {
   authenticateUser,
   createUser,
   getUserByEmail,
   getUserById,
-} from '#/utils/users.server.ts'
-import { redirect } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-import { z } from 'zod'
-import { useAppSession } from '#/utils/session.ts'
+} from '#/utils/users.server'
+import { useAppSession } from '#/utils/session'
+import { sendEmailFn } from '#/utils/email.functions'
+import { createPasswordResetToken } from '#/utils/auth.server'
 
 const userSignupSchema = z
   .object({
@@ -86,7 +89,29 @@ export const userResetPasswordFn = createServerFn({
       }
     }
 
-    console.log(result.data)
+    const user = await getUserByEmail(result.data.email)
+
+    // Handle case where the user exists in the database.
+    // If it doesn't exist, just move onto the next step.
+    if (user) {
+      const token = await createPasswordResetToken(user.id)
+
+      await sendEmailFn({
+        data: {
+          to: user.email,
+          subject: 'Password reset',
+          html: `
+            <p>A password reset was requested for your account. Use the following token to reset your password:</p>
+            <p>${token}</p>
+          `,
+        },
+      })
+    }
+
+    throw redirect({
+      to: '/login',
+      search: { message: 'password-reset' },
+    })
   })
 
 export const userLoginFn = createServerFn({ method: 'POST' })

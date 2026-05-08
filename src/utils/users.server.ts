@@ -1,17 +1,15 @@
-import { eq } from 'drizzle-orm'
+import { eq, DrizzleQueryError } from 'drizzle-orm'
 import { DatabaseError } from 'pg'
-import { DrizzleQueryError } from 'drizzle-orm'
-import { type NewUser, type User } from '#/db/schema.ts'
-import { checkPasswordHash, getPasswordHash } from '#/utils/auth.ts'
+import { checkPasswordHash, getPasswordHash } from '#/utils/auth.server.ts'
 
 import { db } from '#/db'
-import * as schema from '#/db/schema.ts'
+import * as schema from '#/db/schema'
 
 const { users } = schema
 
 export async function createUser(
-  nickname: NewUser['nickname'],
-  email: NewUser['email'],
+  nickname: schema.NewUser['nickname'],
+  email: schema.NewUser['email'],
   password: string,
 ) {
   const passwordHash = await getPasswordHash(password)
@@ -44,7 +42,7 @@ export async function authenticateUser(email: string, password: string) {
   return user
 }
 
-export async function getUserByEmail(email: User['email']) {
+export async function getUserByEmail(email: schema.User['email']) {
   const query = await db
     .select()
     .from(users)
@@ -54,16 +52,8 @@ export async function getUserByEmail(email: User['email']) {
   return query[0]
 }
 
-export async function getUserById(id: User['id']) {
+export async function getUserById(id: schema.User['id']) {
   const query = await db.select().from(users).where(eq(users.id, id)).limit(1)
 
   return query[0]
-}
-
-export async function updateUserPassword(
-  userId: typeof users.id,
-  password: string,
-) {
-  const passwordHash = await getPasswordHash(password)
-  await db.update(users).set({ passwordHash }).where(eq(userId, users.id))
 }

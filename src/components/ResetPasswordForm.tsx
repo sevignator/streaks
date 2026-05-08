@@ -1,7 +1,6 @@
 import React from 'react'
 import { useServerFn } from '@tanstack/react-start'
 
-import { sendTestEmailFn } from '#/utils/email.functions'
 import { userResetPasswordFn } from '#/utils/users.functions'
 
 type LoginErrors = Awaited<ReturnType<typeof userResetPasswordFn>>
@@ -10,7 +9,6 @@ export default function ResetPasswordForm() {
   const handleResetPassword = useServerFn(userResetPasswordFn)
   const [email, setEmail] = React.useState('')
   const [errors, setErrors] = React.useState<LoginErrors | null>(null)
-  const setTestEmail = useServerFn(sendTestEmailFn)
 
   async function handleSubmit(event: React.SubmitEvent) {
     event.preventDefault()

@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm'
 import { boolean, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
@@ -25,7 +26,21 @@ export const completedHabits = pgTable('completed_habits', {
   completedAt: timestamp('completed_at').defaultNow().notNull(),
 })
 
+export const passwordResetTokens = pgTable('password_reset_tokens', {
+  id: serial().primaryKey(),
+  tokenHash: text().notNull(),
+  userId: serial('user_id')
+    .references(() => users.id)
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  expiresAt: timestamp('expires_at')
+    .default(sql`now() + interval '30 minutes'`)
+    .notNull(),
+})
+
 export type NewUser = typeof users.$inferInsert
 export type User = typeof users.$inferSelect
 export type NewHabit = typeof habits.$inferInsert
 export type Habit = typeof habits.$inferSelect
+export type NewPasswordResetToken = typeof passwordResetTokens.$inferInsert
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect
