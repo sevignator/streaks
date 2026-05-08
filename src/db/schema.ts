@@ -15,7 +15,9 @@ export const habits = pgTable('habits', {
   userId: serial('user_id')
     .references(() => users.id)
     .notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
 })
 
 export const completedHabits = pgTable('completed_habits', {
@@ -23,7 +25,9 @@ export const completedHabits = pgTable('completed_habits', {
   habitId: serial('habit_id')
     .references(() => habits.id)
     .notNull(),
-  completedAt: timestamp('completed_at').defaultNow().notNull(),
+  completedAt: timestamp('completed_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
 })
 
 export const passwordResetTokens = pgTable('password_reset_tokens', {
@@ -32,8 +36,10 @@ export const passwordResetTokens = pgTable('password_reset_tokens', {
   userId: serial('user_id')
     .references(() => users.id)
     .notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  expiresAt: timestamp('expires_at')
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  expiresAt: timestamp('expires_at', { withTimezone: true })
     .default(sql`now() + interval '30 minutes'`)
     .notNull(),
   isRedeemed: boolean('is_redeemed').default(false).notNull(),

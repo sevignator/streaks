@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1777426607311,
-      "tag": "0000_ambiguous_valkyrie",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1777466488901,
-      "tag": "0001_secret_whirlwind",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1777595601091,
-      "tag": "0002_lively_bill_hollister",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1778204235781,
-      "tag": "0003_cloudy_the_enforcers",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1778205702311,
-      "tag": "0004_lowly_magneto",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1778260367238,
-      "tag": "0005_smooth_logan",
+      "when": 1778263147837,
+      "tag": "0000_quiet_tana_nile",
       "breakpoints": true
     }
   ]
