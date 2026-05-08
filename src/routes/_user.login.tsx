@@ -19,6 +19,12 @@ function RouteComponent() {
 
   return (
     <div>
+      {search.message === 'account-created' && (
+        <p className="p-2 bg-green-100 border-green-200 border rounded-md text-green-600 text-center mb-6">
+          Your account has successfully been created.
+        </p>
+      )}
+
       {search.message === 'password-reset' && (
         <p className="p-2 bg-green-100 border-green-200 border rounded-md text-green-600 text-center mb-6">
           A password reset email has been sent to the email address you

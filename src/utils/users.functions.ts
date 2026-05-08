@@ -27,18 +27,6 @@ const userSignupSchema = z
     path: ['confirmPassword'],
   })
 
-const userResetPasswordSchema = z.object({
-  email: z.email().max(255, 'Email must be at most 255 characters long'),
-})
-
-const userLoginSchema = z.object({
-  email: z.email().max(255, 'Email must be at most 255 characters long'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters long')
-    .max(100, 'Password must be at most 100 characters long'),
-})
-
 export const userSignupFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userSignupSchema>) => input)
   .handler(async ({ data }) => {
@@ -53,25 +41,30 @@ export const userSignupFn = createServerFn({ method: 'POST' })
       }
     }
 
-    try {
-      const user = await getUserByEmail(data.email)
+    const user = await getUserByEmail(data.email)
 
-      if (user) {
-        return {
-          fieldErrors: {
-            email: ['This user already exists'],
-          },
-          formErrors: [],
-        }
+    if (user) {
+      return {
+        fieldErrors: {
+          email: ['This user already exists'],
+        },
+        formErrors: [],
       }
-
-      await createUser(data.nickname, data.email, data.password)
-    } catch (err) {
-      console.error(err)
     }
 
-    throw redirect({ to: '/dashboard' })
+    await createUser(data.nickname, data.email, data.password)
+
+    throw redirect({
+      to: '/login',
+      search: {
+        message: 'account-created',
+      },
+    })
   })
+
+const userResetPasswordSchema = z.object({
+  email: z.email().max(255, 'Email must be at most 255 characters long'),
+})
 
 export const userResetPasswordFn = createServerFn({
   method: 'POST',
@@ -118,6 +111,14 @@ export const userResetPasswordFn = createServerFn({
       },
     })
   })
+
+const userLoginSchema = z.object({
+  email: z.email().max(255, 'Email must be at most 255 characters long'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .max(100, 'Password must be at most 100 characters long'),
+})
 
 export const userLoginFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userLoginSchema>) => input)
@@ -172,7 +173,3 @@ export const getCurrentUserFn = createServerFn({ method: 'GET' }).handler(
     return await getUserById(userId)
   },
 )
-
-// References:
-// - Input validation of server functions with Zod: https://tanstack.com/start/latest/docs/framework/react/guide/authentication#4-input-validation
-// - Refined validation for comparing two values with Zod: https://zod.dev/api?id=refinements
