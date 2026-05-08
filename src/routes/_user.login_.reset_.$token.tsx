@@ -2,8 +2,10 @@ import React from 'react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 
-import { getPasswordResetTokenDataFn } from '#/utils/auth.functions'
-import { updateUserPasswordWithTokenFn } from '#/utils/auth.functions'
+import {
+  getPasswordResetTokenDataFn,
+  updateUserPasswordWithTokenFn,
+} from '#/utils/auth.functions'
 
 type LoginErrors = Awaited<ReturnType<typeof updateUserPasswordWithTokenFn>>
 
