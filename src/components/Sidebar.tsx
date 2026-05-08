@@ -14,7 +14,7 @@ export default function Sidebar() {
   }
 
   return (
-    <header className="bg-[var(--clr-bg-secondary)] h-dvh p-4">
+    <header className="bg-(--clr-bg-secondary) h-dvh p-4">
       <nav className="flex flex-col h-full">
         <div className="font-black text-2xl mb-4 p-4">Streaks</div>
 
