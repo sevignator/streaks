@@ -14,6 +14,7 @@ export default function TabSelector({ tabs }: TabSelectorProps) {
     <div className="flex mb-18 max-w-fit bg-violet-200 rounded-full p-1.5 mx-auto font-medium">
       {tabs.map((tab) => (
         <Link
+          key={tab.to}
           to={tab.to}
           className="px-5 py-2"
           activeProps={{
