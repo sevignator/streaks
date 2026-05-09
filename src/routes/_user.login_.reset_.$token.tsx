@@ -68,7 +68,7 @@ function RouteComponent() {
             onBlur: passwordInputSchema,
           }}
           children={(field) => (
-            <InputField field={field} label="Password" type="password" />
+            <InputField field={field} label="New password" type="password" />
           )}
         />
 
