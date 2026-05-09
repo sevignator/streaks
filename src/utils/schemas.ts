@@ -48,3 +48,9 @@ export const emailSchema = z.object({
   subject: z.string(),
   html: z.string(),
 })
+
+export const createHabitSchema = z.object({
+  title: z.string(),
+  userId: userIdSchema,
+  interval: z.number(),
+})

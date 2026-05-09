@@ -14,10 +14,11 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UserSignupRouteImport } from './routes/_user.signup'
 import { Route as UserLoginRouteImport } from './routes/_user.login'
-import { Route as AppStatisticsRouteImport } from './routes/_app.statistics'
+import { Route as AppStatsRouteImport } from './routes/_app.stats'
 import { Route as AppHabitsRouteImport } from './routes/_app.habits'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset'
+import { Route as AppHabitsCreateRouteImport } from './routes/_app.habits_.create'
 import { Route as UserLoginResetTokenRouteImport } from './routes/_user.login_.reset_.$token'
 
 const UserRoute = UserRouteImport.update({
@@ -43,9 +44,9 @@ const UserLoginRoute = UserLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => UserRoute,
 } as any)
-const AppStatisticsRoute = AppStatisticsRouteImport.update({
-  id: '/statistics',
-  path: '/statistics',
+const AppStatsRoute = AppStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => AppRoute,
 } as any)
 const AppHabitsRoute = AppHabitsRouteImport.update({
@@ -63,6 +64,11 @@ const UserLoginResetRoute = UserLoginResetRouteImport.update({
   path: '/login/reset',
   getParentRoute: () => UserRoute,
 } as any)
+const AppHabitsCreateRoute = AppHabitsCreateRouteImport.update({
+  id: '/habits_/create',
+  path: '/habits/create',
+  getParentRoute: () => AppRoute,
+} as any)
 const UserLoginResetTokenRoute = UserLoginResetTokenRouteImport.update({
   id: '/login_/reset_/$token',
   path: '/login/reset/$token',
@@ -73,9 +79,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/habits': typeof AppHabitsRoute
-  '/statistics': typeof AppStatisticsRoute
+  '/stats': typeof AppStatsRoute
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
+  '/habits/create': typeof AppHabitsCreateRoute
   '/login/reset': typeof UserLoginResetRoute
   '/login/reset/$token': typeof UserLoginResetTokenRoute
 }
@@ -83,9 +90,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/habits': typeof AppHabitsRoute
-  '/statistics': typeof AppStatisticsRoute
+  '/stats': typeof AppStatsRoute
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
+  '/habits/create': typeof AppHabitsCreateRoute
   '/login/reset': typeof UserLoginResetRoute
   '/login/reset/$token': typeof UserLoginResetTokenRoute
 }
@@ -96,9 +104,10 @@ export interface FileRoutesById {
   '/_user': typeof UserRouteWithChildren
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/habits': typeof AppHabitsRoute
-  '/_app/statistics': typeof AppStatisticsRoute
+  '/_app/stats': typeof AppStatsRoute
   '/_user/login': typeof UserLoginRoute
   '/_user/signup': typeof UserSignupRoute
+  '/_app/habits_/create': typeof AppHabitsCreateRoute
   '/_user/login_/reset': typeof UserLoginResetRoute
   '/_user/login_/reset_/$token': typeof UserLoginResetTokenRoute
 }
@@ -108,9 +117,10 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/habits'
-    | '/statistics'
+    | '/stats'
     | '/login'
     | '/signup'
+    | '/habits/create'
     | '/login/reset'
     | '/login/reset/$token'
   fileRoutesByTo: FileRoutesByTo
@@ -118,9 +128,10 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/habits'
-    | '/statistics'
+    | '/stats'
     | '/login'
     | '/signup'
+    | '/habits/create'
     | '/login/reset'
     | '/login/reset/$token'
   id:
@@ -130,9 +141,10 @@ export interface FileRouteTypes {
     | '/_user'
     | '/_app/dashboard'
     | '/_app/habits'
-    | '/_app/statistics'
+    | '/_app/stats'
     | '/_user/login'
     | '/_user/signup'
+    | '/_app/habits_/create'
     | '/_user/login_/reset'
     | '/_user/login_/reset_/$token'
   fileRoutesById: FileRoutesById
@@ -180,11 +192,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserLoginRouteImport
       parentRoute: typeof UserRoute
     }
-    '/_app/statistics': {
-      id: '/_app/statistics'
-      path: '/statistics'
-      fullPath: '/statistics'
-      preLoaderRoute: typeof AppStatisticsRouteImport
+    '/_app/stats': {
+      id: '/_app/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof AppStatsRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/habits': {
@@ -208,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserLoginResetRouteImport
       parentRoute: typeof UserRoute
     }
+    '/_app/habits_/create': {
+      id: '/_app/habits_/create'
+      path: '/habits/create'
+      fullPath: '/habits/create'
+      preLoaderRoute: typeof AppHabitsCreateRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_user/login_/reset_/$token': {
       id: '/_user/login_/reset_/$token'
       path: '/login/reset/$token'
@@ -221,13 +240,15 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppHabitsRoute: typeof AppHabitsRoute
-  AppStatisticsRoute: typeof AppStatisticsRoute
+  AppStatsRoute: typeof AppStatsRoute
+  AppHabitsCreateRoute: typeof AppHabitsCreateRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppHabitsRoute: AppHabitsRoute,
-  AppStatisticsRoute: AppStatisticsRoute,
+  AppStatsRoute: AppStatsRoute,
+  AppHabitsCreateRoute: AppHabitsCreateRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

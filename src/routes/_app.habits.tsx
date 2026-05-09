@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import PageTitle from '#/components/PageTitle'
 
@@ -10,6 +10,8 @@ function RouteComponent() {
   return (
     <div className="container">
       <PageTitle text="Habits" />
+
+      <Link to="/habits/create">Create habit</Link>
     </div>
   )
 }

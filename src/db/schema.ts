@@ -1,5 +1,12 @@
 import { sql } from 'drizzle-orm'
-import { boolean, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
+import {
+  boolean,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  integer,
+} from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: serial().primaryKey(),
@@ -11,6 +18,7 @@ export const users = pgTable('users', {
 export const habits = pgTable('habits', {
   id: serial().primaryKey(),
   title: text('title').notNull(),
+  interval: integer('interval').notNull(),
   isActive: boolean('is_active').default(true).notNull(),
   userId: serial('user_id')
     .references(() => users.id)

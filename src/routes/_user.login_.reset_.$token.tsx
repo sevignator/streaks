@@ -48,9 +48,6 @@ function RouteComponent() {
         data: { token, userId, newPassword },
       })
     },
-    validators: {
-      onBlur: passwordResetSchema,
-    },
   })
 
   return (

@@ -21,7 +21,7 @@ export default function Sidebar() {
         <div className="flex flex-col">
           <NavLink text="Dashboard" to="/dashboard" />
           <NavLink text="Habits" to="/habits" />
-          <NavLink text="Statistics" to="/statistics" />
+          <NavLink text="Stats" to="/stats" />
         </div>
 
         <div className="mt-auto">
