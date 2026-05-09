@@ -2,13 +2,16 @@ import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 
 import {
+  userUpdatePasswordSchema,
+  userUpdatePasswordWithTokenSchema,
+} from '#/utils/schemas'
+import {
   getPasswordResetTokenByHash,
   getPasswordResetTokenHash,
   redeemPasswordResetToken,
   updateUserPassword,
 } from '#/utils/auth.server'
 import { getUserById } from '#/utils/users.server'
-import { type User } from '#/db/schema'
 import { redirect } from '@tanstack/react-router'
 
 const getPasswordResetTokenDataSchema = z.object({
@@ -39,15 +42,8 @@ export const getPasswordResetTokenDataFn = createServerFn({ method: 'POST' })
     return { user }
   })
 
-const updateUserPasswordSchema = z.object({
-  userId: z.number(),
-  newPassword: z.string(),
-}) satisfies z.ZodType<{
-  userId: User['id']
-}>
-
 export const updateUserPasswordFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof updateUserPasswordSchema>) => input)
+  .inputValidator((input: z.input<typeof userUpdatePasswordSchema>) => input)
   .handler(async ({ data }) => {
     const { userId, newPassword } = data
 
@@ -61,17 +57,9 @@ export const updateUserPasswordFn = createServerFn({ method: 'POST' })
     })
   })
 
-const updateUserPasswordWithTokenSchema = z.object({
-  token: z.string(),
-  userId: z.number(),
-  newPassword: z.string(),
-}) satisfies z.ZodType<{
-  userId: User['id']
-}>
-
 export const updateUserPasswordWithTokenFn = createServerFn({ method: 'POST' })
   .inputValidator(
-    (input: z.input<typeof updateUserPasswordWithTokenSchema>) => input,
+    (input: z.input<typeof userUpdatePasswordWithTokenSchema>) => input,
   )
   .handler(async ({ data }) => {
     const { token, userId, newPassword } = data

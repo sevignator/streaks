@@ -3,54 +3,26 @@ import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 
 import {
+  emailInputSchema,
+  userLoginSchema,
+  userSignupSchema,
+} from '#/utils/schemas'
+import { useAppSession } from '#/utils/session'
+import {
   authenticateUser,
   createUser,
   getUserByEmail,
   getUserById,
 } from '#/utils/users.server'
-import { useAppSession } from '#/utils/session'
 import { sendEmailFn } from '#/utils/email.functions'
 import { createPasswordResetToken } from '#/utils/auth.server'
-
-const userSignupSchema = z
-  .object({
-    nickname: z.string().max(30, 'Nickname must be at most 30 characters long'),
-    email: z.email().max(255, 'Email must be at most 255 characters long'),
-    password: z
-      .string()
-      .min(8, 'Password must be at least 8 characters long')
-      .max(100, 'Password must be at most 100 characters long'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
 
 export const userSignupFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userSignupSchema>) => input)
   .handler(async ({ data }) => {
-    const result = userSignupSchema.safeParse(data)
-
-    if (!result.success) {
-      const { fieldErrors, formErrors } = z.flattenError(result.error)
-
-      return {
-        fieldErrors,
-        formErrors,
-      }
-    }
-
     const user = await getUserByEmail(data.email)
 
-    if (user) {
-      return {
-        fieldErrors: {
-          email: ['This user already exists'],
-        },
-        formErrors: [],
-      }
-    }
+    if (user) return
 
     await createUser(data.nickname, data.email, data.password)
 
@@ -62,27 +34,12 @@ export const userSignupFn = createServerFn({ method: 'POST' })
     })
   })
 
-const userResetPasswordSchema = z.object({
-  email: z.email().max(255, 'Email must be at most 255 characters long'),
-})
-
 export const userResetPasswordFn = createServerFn({
   method: 'POST',
 })
-  .inputValidator((input: z.input<typeof userResetPasswordSchema>) => input)
+  .inputValidator((input: z.input<typeof emailInputSchema>) => input)
   .handler(async ({ data }) => {
-    const result = userResetPasswordSchema.safeParse(data)
-
-    if (!result.success) {
-      const { fieldErrors, formErrors } = z.flattenError(result.error)
-
-      return {
-        fieldErrors,
-        formErrors,
-      }
-    }
-
-    const user = await getUserByEmail(result.data.email)
+    const user = await getUserByEmail(data)
 
     if (user) {
       const token = await createPasswordResetToken(user.id)
@@ -111,14 +68,6 @@ export const userResetPasswordFn = createServerFn({
       },
     })
   })
-
-const userLoginSchema = z.object({
-  email: z.email().max(255, 'Email must be at most 255 characters long'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters long')
-    .max(100, 'Password must be at most 100 characters long'),
-})
 
 export const userLoginFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userLoginSchema>) => input)

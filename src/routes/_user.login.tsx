@@ -1,11 +1,12 @@
-import React from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
+import { useForm } from '@tanstack/react-form'
 import z from 'zod'
 
 import { userLoginFn } from '#/utils/users.functions'
-
-type LoginErrors = Awaited<ReturnType<typeof userLoginFn>>
+import { emailInputSchema, passwordInputSchema } from '#/utils/schemas'
+import InputField from '#/components/InputField'
+import SubmitButton from '#/components/SubmitButton'
 
 export const Route = createFileRoute('/_user/login')({
   component: RouteComponent,
@@ -16,6 +17,17 @@ export const Route = createFileRoute('/_user/login')({
 
 function RouteComponent() {
   const search = Route.useSearch()
+  const loginUser = useServerFn(userLoginFn)
+  const form = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    onSubmit: async ({ value }) => {
+      const { email, password } = value
+      await loginUser({ data: { email, password } })
+    },
+  })
 
   return (
     <div>
@@ -38,69 +50,48 @@ function RouteComponent() {
         </p>
       )}
 
-      <LoginForm />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          form.handleSubmit(e)
+        }}
+        className="flex flex-col gap-6"
+      >
+        <form.Field
+          name="email"
+          validators={{
+            onBlur: emailInputSchema,
+          }}
+          children={(field) => (
+            <InputField field={field} label="Email" type="email" />
+          )}
+        />
+
+        <form.Field
+          name="password"
+          validators={{
+            onBlur: passwordInputSchema,
+          }}
+          children={(field) => (
+            <InputField field={field} label="Password" type="password" />
+          )}
+        />
+
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <SubmitButton
+              label="Log in"
+              canSubmit={canSubmit}
+              isSubmitting={isSubmitting}
+            />
+          )}
+        />
+      </form>
 
       <p className="text-center mt-4">
         <Link to="/login/reset">Reset password</Link>
       </p>
     </div>
-  )
-}
-
-export function LoginForm() {
-  const handleLogin = useServerFn(userLoginFn)
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [errors, setErrors] = React.useState<LoginErrors | null>(null)
-
-  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    const submissionErrors = await handleLogin({ data: { email, password } })
-
-    setErrors(submissionErrors)
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      {errors?.formErrors}
-
-      <div className="flex flex-col">
-        <label htmlFor="login-email" className="text-xl font-semibold">
-          Email
-        </label>
-        <input
-          type="email"
-          id="login-email"
-          name="email"
-          value={email}
-          onChange={(event) => setEmail(event.currentTarget.value)}
-          className="border-solid border-2 border-slate-300 rounded-md text-2xl p-2"
-        />
-        <div className="text-rose-600">{errors?.fieldErrors?.email}</div>
-      </div>
-
-      <div className="flex flex-col">
-        <label htmlFor="login-password" className="text-xl font-semibold">
-          Password
-        </label>
-        <input
-          type="password"
-          id="login-password"
-          name="password"
-          value={password}
-          onChange={(event) => setPassword(event.currentTarget.value)}
-          className="border-solid border-2 border-slate-300 rounded-md text-2xl p-2"
-        />
-        <div className="text-rose-600">{errors?.fieldErrors?.password}</div>
-      </div>
-
-      <button
-        type="submit"
-        className="bg-violet-600 rounded-md p-3 text-xl text-slate-50 font-bold cursor-pointer"
-      >
-        Log in
-      </button>
-    </form>
   )
 }

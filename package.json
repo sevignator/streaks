@@ -23,6 +23,7 @@
     "@neondatabase/serverless": "^1.1.0",
     "@tailwindcss/vite": "^4.2.4",
     "@tanstack/react-devtools": "latest",
+    "@tanstack/react-form": "^1.29.3",
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
     "@tanstack/react-router-ssr-query": "latest",

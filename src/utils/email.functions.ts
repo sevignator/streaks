@@ -2,21 +2,15 @@ import { createServerFn } from '@tanstack/react-start'
 import { Resend } from 'resend'
 import z from 'zod'
 
+import { emailSchema } from '#/utils/schemas'
+
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const GENERIC_FROM = 'Streaks <notification@streaks.fyi>'
-
-const sendEmailSchema = z.object({
-  to: z.string(),
-  subject: z.string(),
-  html: z.string(),
-})
-
 export const sendEmailFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof sendEmailSchema>) => input)
+  .inputValidator((input: z.input<typeof emailSchema>) => input)
   .handler(async ({ data: handlerData }) => {
     const { data, error } = await resend.emails.send({
-      from: GENERIC_FROM,
+      from: 'Streaks <notification@streaks.fyi>',
       to: handlerData.to,
       subject: handlerData.subject,
       html: handlerData.html,
@@ -24,7 +18,6 @@ export const sendEmailFn = createServerFn({ method: 'POST' })
 
     if (error) {
       console.log(error)
-      console.log('HANDLE ERROR, YOU FOOL!')
     }
 
     console.log(data)
