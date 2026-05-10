@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { getAllHabitsByUserIdFn } from '#/utils/habits.functions'
+import { getCurrentUserFn } from '#/utils/users.functions'
 
 import PageTitle from '#/components/PageTitle'
 import HabitsList from '#/components/HabitsList'
-import { getCurrentUserFn } from '#/utils/users.functions'
 
 export const Route = createFileRoute('/_app/habits')({
   component: RouteComponent,
@@ -13,9 +13,7 @@ export const Route = createFileRoute('/_app/habits')({
 
     if (!user) return []
 
-    const habits = await getAllHabitsByUserIdFn({ data: user.id })
-
-    return habits
+    return await getAllHabitsByUserIdFn({ data: user.id })
   },
 })
 
