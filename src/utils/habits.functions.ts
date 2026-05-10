@@ -2,7 +2,7 @@ import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import type z from 'zod'
 
-import { createHabit } from './habits.server'
+import { createHabit, getAllHabits } from '#/utils/habits.server'
 import { createHabitSchema } from '#/utils/schemas'
 
 export const createHabitFn = createServerFn({ method: 'POST' })
@@ -16,3 +16,11 @@ export const createHabitFn = createServerFn({ method: 'POST' })
       to: '/habits',
     })
   })
+
+export const getAllHabitsFn = createServerFn({ method: 'GET' }).handler(
+  async () => {
+    const habits = await getAllHabits()
+
+    return habits
+  },
+)

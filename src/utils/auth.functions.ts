@@ -1,3 +1,4 @@
+import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 
@@ -12,7 +13,6 @@ import {
   updateUserPassword,
 } from '#/utils/auth.server'
 import { getUserById } from '#/utils/users.server'
-import { redirect } from '@tanstack/react-router'
 
 const getPasswordResetTokenDataSchema = z.object({
   token: z.string(),

@@ -20,3 +20,7 @@ export async function createHabit(
     }
   }
 }
+
+export async function getAllHabits() {
+  return await db.select().from(habits)
+}
