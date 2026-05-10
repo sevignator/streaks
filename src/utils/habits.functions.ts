@@ -2,8 +2,8 @@ import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import type z from 'zod'
 
-import { createHabit, getAllHabits } from '#/utils/habits.server'
-import { createHabitSchema } from '#/utils/schemas'
+import { createHabit, getAllHabitsByUserId } from '#/utils/habits.server'
+import { createHabitSchema, userIdSchema } from '#/utils/schemas'
 
 export const createHabitFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof createHabitSchema>) => input)
@@ -17,10 +17,8 @@ export const createHabitFn = createServerFn({ method: 'POST' })
     })
   })
 
-export const getAllHabitsFn = createServerFn({ method: 'GET' }).handler(
-  async () => {
-    const habits = await getAllHabits()
-
-    return habits
-  },
-)
+export const getAllHabitsByUserIdFn = createServerFn({ method: 'GET' })
+  .inputValidator((input: z.input<typeof userIdSchema>) => input)
+  .handler(async ({ data: userId }) => {
+    return await getAllHabitsByUserId(userId)
+  })

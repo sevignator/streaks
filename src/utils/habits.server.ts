@@ -1,8 +1,8 @@
-import { DrizzleQueryError } from 'drizzle-orm'
+import { DrizzleQueryError, eq } from 'drizzle-orm'
 import { DatabaseError } from 'pg'
 
 import { db } from '#/db'
-import { type NewHabit, habits } from '#/db/schema'
+import { type NewHabit, type User, habits } from '#/db/schema'
 
 export async function createHabit(
   title: NewHabit['title'],
@@ -21,6 +21,6 @@ export async function createHabit(
   }
 }
 
-export async function getAllHabits() {
-  return await db.select().from(habits)
+export async function getAllHabitsByUserId(userId: User['id']) {
+  return await db.select().from(habits).where(eq(habits.userId, userId))
 }
