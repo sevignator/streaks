@@ -9,7 +9,7 @@ import {
   passwordInputSchema,
 } from '#/utils/schemas'
 import { userSignupFn } from '#/utils/users.functions'
-import FieldInfo from '#/components/FieldInfo'
+
 import InputField from '#/components/InputField'
 import SubmitButton from '#/components/SubmitButton'
 

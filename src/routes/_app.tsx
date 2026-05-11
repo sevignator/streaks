@@ -1,8 +1,9 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
 import { AuthProvider } from '#/contexts/auth'
-import Sidebar from '../components/Sidebar'
 import { getCurrentUserFn } from '#/utils/users.functions'
+
+import Sidebar from '../components/Sidebar'
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,

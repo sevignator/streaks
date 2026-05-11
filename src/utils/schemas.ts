@@ -2,6 +2,10 @@ import z from 'zod'
 
 export const userIdSchema = z.number()
 
+export const habitIdSchema = z.number()
+
+export const habitCreatedAt = z.date()
+
 export const nicknameInputSchema = z
   .string()
   .max(30, 'Nickname must be at most 30 characters long')
