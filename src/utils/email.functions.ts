@@ -17,10 +17,8 @@ export const sendEmailFn = createServerFn({ method: 'POST' })
     })
 
     if (error) {
-      console.log(error)
+      console.error(error)
     }
-
-    console.log(data)
   })
 
 export const sendPasswordResetEmailFn = createServerFn({ method: 'POST' })

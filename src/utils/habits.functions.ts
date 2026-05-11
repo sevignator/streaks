@@ -3,14 +3,17 @@ import { createServerFn } from '@tanstack/react-start'
 import z from 'zod'
 
 import {
-  createCompletedHabit,
+  createCompletedHabitOnDate,
   createHabit,
-  deleteCompletedHabit,
+  deleteCompletedHabitFromDate,
   getAllCompletedHabitsFromDate,
   getAllHabitsByUserId,
 } from '#/utils/habits.server'
-import { createHabitSchema, habitIdSchema, userIdSchema } from '#/utils/schemas'
-import { CompletedHabitDateSchema } from '#/utils/habits.schemas'
+import { createHabitSchema, userIdSchema } from '#/utils/schemas'
+import {
+  completedHabitDateSchema,
+  deleteCompletedHabitFromDateSchma,
+} from '#/utils/habits.schemas'
 
 export const createHabitFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof createHabitSchema>) => input)
@@ -33,23 +36,27 @@ export const getAllHabitsByUserIdFn = createServerFn({ method: 'GET' })
 export const createCompletedHabitFn = createServerFn({
   method: 'POST',
 })
-  .inputValidator((input: z.input<typeof habitIdSchema>) => input)
-  .handler(async ({ data: habitId }) => {
-    return await createCompletedHabit(habitId)
+  .inputValidator(
+    (input: z.input<typeof deleteCompletedHabitFromDateSchma>) => input,
+  )
+  .handler(async ({ data: { date, habitId } }) => {
+    return await createCompletedHabitOnDate(date, habitId)
   })
 
 export const deleteCompletedHabitFn = createServerFn({
   method: 'POST',
 })
-  .inputValidator((input: z.input<typeof habitIdSchema>) => input)
-  .handler(async ({ data: habitId }) => {
-    return await deleteCompletedHabit(habitId)
+  .inputValidator(
+    (input: z.input<typeof deleteCompletedHabitFromDateSchma>) => input,
+  )
+  .handler(async ({ data: { date, habitId } }) => {
+    return await deleteCompletedHabitFromDate(date, habitId)
   })
 
 export const getAllCompletedHabitsFromDateFn = createServerFn({
   method: 'GET',
 })
-  .inputValidator((input: z.input<typeof CompletedHabitDateSchema>) => input)
+  .inputValidator((input: z.input<typeof completedHabitDateSchema>) => input)
   .handler(async ({ data: date }) => {
     return await getAllCompletedHabitsFromDate(date)
   })

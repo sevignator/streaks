@@ -24,16 +24,6 @@ export const Route = createFileRoute('/_user/login_/reset_/$token')({
   },
 })
 
-const passwordResetSchema = z
-  .object({
-    password: passwordInputSchema,
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
-
 function RouteComponent() {
   const updateUserPasswordWithToken = useServerFn(updateUserPasswordWithTokenFn)
   const { data, token } = Route.useLoaderData()

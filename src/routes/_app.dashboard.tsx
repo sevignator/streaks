@@ -21,22 +21,20 @@ export const Route = createFileRoute('/_app/dashboard')({
 
     if (!user) return []
 
-    const now = new Date()
+    const today = new Date()
 
-    const completedHabits = await getAllCompletedHabitsFromDateFn({ data: now })
+    const completedHabits = await getAllCompletedHabitsFromDateFn({
+      data: today,
+    })
     const completedHabitIds = completedHabits.map(
       (completion) => completion.habitId,
     )
-
-    console.log(completedHabitIds)
 
     const allHabits = await getAllHabitsByUserIdFn({ data: user.id })
     const allHabitsWithDone = allHabits.map((habit) => ({
       ...habit,
       isDone: completedHabitIds.includes(habit.id),
     }))
-
-    console.log(allHabitsWithDone)
 
     return allHabitsWithDone
   },

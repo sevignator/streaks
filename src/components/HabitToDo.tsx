@@ -26,10 +26,12 @@ export default function HabitToDo({
     const nextIsChecked = !isChecked
     setIsChecked(nextIsChecked)
 
+    const now = new Date()
+
     if (nextIsChecked) {
-      createCompletedHabit({ data: id })
+      createCompletedHabit({ data: { date: now, habitId: id } })
     } else {
-      deleteCompletedHabit({ data: id })
+      deleteCompletedHabit({ data: { date: now, habitId: id } })
     }
   }
 
