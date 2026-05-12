@@ -15,12 +15,17 @@ interface HabitWithIsDone extends Habit {
 
 export const Route = createFileRoute('/_app/dashboard')({
   component: RouteComponent,
-  loader: async (): Promise<HabitWithIsDone[]> => {
+  loader: async (): Promise<{
+    habits: HabitWithIsDone[],
+    now: Date
+  }> => {
     const user = await getCurrentUserFn();
-
-    if (!user) return [];
-
     const now = await getServerDateFn();
+
+    if (!user) return {
+      habits: [],
+      now
+    };
 
     const completions = await getAllCompletionsOnDateFn({
       data: now,
@@ -33,17 +38,22 @@ export const Route = createFileRoute('/_app/dashboard')({
       isDone: completionIds.includes(habit.id),
     }));
 
-    return allHabitsWithDone;
+    return {
+      habits: allHabitsWithDone,
+      now
+    };
   },
 });
 
 function RouteComponent() {
   const { user } = Route.useRouteContext();
-  const habits = Route.useLoaderData();
+  const { habits, now } = Route.useLoaderData();
 
   return (
     <div className="container">
       <PageTitle text={`${user.nickname}'s dashboard`} />
+
+      <div>{now.toISOString()}</div>
 
       <div className="grid gap-4">
         {habits.map(({ id, title, isDone }) => (
