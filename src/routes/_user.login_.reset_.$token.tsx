@@ -1,52 +1,54 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
-import { useServerFn } from '@tanstack/react-start'
-import { useForm } from '@tanstack/react-form'
-import z from 'zod'
+import { createFileRoute, notFound } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useForm } from '@tanstack/react-form';
+import z from 'zod';
 
-import { passwordInputSchema } from '#/schemas/inputs.schemas'
+import { passwordInputSchema } from '#/schemas/inputs.schemas';
 import {
   getPasswordResetTokenDataFn,
   updateUserPasswordWithTokenFn,
-} from '#/utils/auth.functions'
+} from '#/utils/auth.functions';
 
-import InputField from '#/components/InputField'
-import SubmitButton from '#/components/SubmitButton'
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
 
 export const Route = createFileRoute('/_user/login_/reset_/$token')({
   component: RouteComponent,
   loader: async ({ params }) => {
-    const { token } = params
-    const data = await getPasswordResetTokenDataFn({ data: token })
+    const { token } = params;
+    const data = await getPasswordResetTokenDataFn({ data: token });
 
-    if (!data) throw notFound()
+    if (!data) throw notFound();
 
-    return { data, token }
+    return { data, token };
   },
-})
+});
 
 function RouteComponent() {
-  const updateUserPasswordWithToken = useServerFn(updateUserPasswordWithTokenFn)
-  const { data, token } = Route.useLoaderData()
+  const updateUserPasswordWithToken = useServerFn(
+    updateUserPasswordWithTokenFn,
+  );
+  const { data, token } = Route.useLoaderData();
   const form = useForm({
     defaultValues: {
       password: '',
       confirmPassword: '',
     },
     onSubmit: async ({ value }) => {
-      const userId = data.user.id
-      const newPassword = value.password
+      const userId = data.user.id;
+      const newPassword = value.password;
       await updateUserPasswordWithToken({
         data: { token, userId, newPassword },
-      })
+      });
     },
-  })
+  });
 
   return (
     <div>
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit(e)
+          e.preventDefault();
+          form.handleSubmit(e);
         }}
         className="flex flex-col gap-6"
       >
@@ -91,5 +93,5 @@ function RouteComponent() {
         />
       </form>
     </div>
-  )
+  );
 }

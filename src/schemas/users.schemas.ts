@@ -1,5 +1,5 @@
-import z from 'zod'
+import z from 'zod';
 
-export const passwordResetTokenDataSchema = z.string()
+export const passwordResetTokenDataSchema = z.string();
 
-export const userIdSchema = z.number()
+export const userIdSchema = z.number();

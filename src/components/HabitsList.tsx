@@ -1,13 +1,13 @@
-import { Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router';
 
-import { type Habit } from '#/db/schema'
+import { type Habit } from '#/db/schema';
 
 interface HabitsListProps {
-  habits: Habit[]
+  habits: Habit[];
 }
 
 interface HabitListItemProps {
-  habit: Habit
+  habit: Habit;
 }
 
 export default function HabitsList({ habits }: HabitsListProps) {
@@ -17,11 +17,11 @@ export default function HabitsList({ habits }: HabitsListProps) {
         <HabitListItem key={habit.id} habit={habit} />
       ))}
     </ul>
-  )
+  );
 }
 
 function HabitListItem({ habit }: HabitListItemProps) {
-  const { id, title } = habit
+  const { id, title } = habit;
 
   return (
     <li className="p-3 bg-violet-100 rounded-md flex gap-4 justify-between">
@@ -33,5 +33,5 @@ function HabitListItem({ habit }: HabitListItemProps) {
         </Link>
       </div>
     </li>
-  )
+  );
 }

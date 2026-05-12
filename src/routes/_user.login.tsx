@@ -1,34 +1,37 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useServerFn } from '@tanstack/react-start'
-import { useForm } from '@tanstack/react-form'
-import z from 'zod'
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useForm } from '@tanstack/react-form';
+import z from 'zod';
 
-import { userLoginFn } from '#/utils/users.functions'
-import { emailInputSchema, passwordInputSchema } from '#/schemas/inputs.schemas'
+import { userLoginFn } from '#/utils/users.functions';
+import {
+  emailInputSchema,
+  passwordInputSchema,
+} from '#/schemas/inputs.schemas';
 
-import InputField from '#/components/InputField'
-import SubmitButton from '#/components/SubmitButton'
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
 
 export const Route = createFileRoute('/_user/login')({
   component: RouteComponent,
   validateSearch: z.object({
     message: z.string().optional(),
   }),
-})
+});
 
 function RouteComponent() {
-  const search = Route.useSearch()
-  const loginUser = useServerFn(userLoginFn)
+  const search = Route.useSearch();
+  const loginUser = useServerFn(userLoginFn);
   const form = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
     onSubmit: async ({ value }) => {
-      const { email, password } = value
-      await loginUser({ data: { email, password } })
+      const { email, password } = value;
+      await loginUser({ data: { email, password } });
     },
-  })
+  });
 
   return (
     <div>
@@ -53,8 +56,8 @@ function RouteComponent() {
 
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit(e)
+          e.preventDefault();
+          form.handleSubmit(e);
         }}
         className="flex flex-col gap-6"
       >
@@ -94,5 +97,5 @@ function RouteComponent() {
         <Link to="/login/reset">Reset password</Link>
       </p>
     </div>
-  )
+  );
 }

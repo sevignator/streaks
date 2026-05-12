@@ -1,35 +1,35 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useServerFn } from '@tanstack/react-start'
-import { useForm } from '@tanstack/react-form'
+import { createFileRoute } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useForm } from '@tanstack/react-form';
 
-import { useAuth } from '#/contexts/auth'
-import { createHabitFn } from '#/utils/habits.functions'
+import { useAuth } from '#/contexts/auth';
+import { createHabitFn } from '#/utils/habits.functions';
 
-import PageTitle from '#/components/PageTitle'
-import InputField from '#/components/InputField'
-import SubmitButton from '#/components/SubmitButton'
+import PageTitle from '#/components/PageTitle';
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
 
 export const Route = createFileRoute('/_app/habits_/create')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const createHabit = useServerFn(createHabitFn)
-  const { user } = useAuth()
+  const createHabit = useServerFn(createHabitFn);
+  const { user } = useAuth();
   const form = useForm({
     defaultValues: {
       title: '',
       interval: 1,
     },
     onSubmit: async ({ value }) => {
-      if (!user) return
+      if (!user) return;
 
-      const { title, interval } = value
-      const { id: userId } = user
+      const { title, interval } = value;
+      const { id: userId } = user;
 
-      await createHabit({ data: { title, userId, interval } })
+      await createHabit({ data: { title, userId, interval } });
     },
-  })
+  });
 
   return (
     <div className="container">
@@ -37,8 +37,8 @@ function RouteComponent() {
 
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit(e)
+          e.preventDefault();
+          form.handleSubmit(e);
         }}
         className="flex flex-col gap-6"
       >
@@ -70,5 +70,5 @@ function RouteComponent() {
         />
       </form>
     </div>
-  )
+  );
 }

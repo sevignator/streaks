@@ -1,8 +1,8 @@
-import { DrizzleQueryError, eq } from 'drizzle-orm'
-import { DatabaseError } from 'pg'
+import { DrizzleQueryError, eq } from 'drizzle-orm';
+import { DatabaseError } from 'pg';
 
-import { db } from '#/db'
-import { type NewHabit, type User, habits } from '#/db/schema'
+import { db } from '#/db';
+import { type NewHabit, type User, habits } from '#/db/schema';
 
 export async function createHabit(
   title: NewHabit['title'],
@@ -10,17 +10,17 @@ export async function createHabit(
   interval: NewHabit['interval'],
 ) {
   try {
-    await db.insert(habits).values({ title, userId, interval })
+    await db.insert(habits).values({ title, userId, interval });
   } catch (err) {
     if (
       err instanceof DrizzleQueryError &&
       err.cause instanceof DatabaseError
     ) {
-      console.error(err.cause.detail)
+      console.error(err.cause.detail);
     }
   }
 }
 
 export async function getAllHabitsByUserId(userId: User['id']) {
-  return await db.select().from(habits).where(eq(habits.userId, userId))
+  return await db.select().from(habits).where(eq(habits.userId, userId));
 }

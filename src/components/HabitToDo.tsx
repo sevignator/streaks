@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
 import {
   createCompletionOnDateFn,
   deleteCompletionOnDateFn,
-} from '#/utils/completions.functions'
-import { type Habit } from '#/db/schema'
-import { useServerFn } from '@tanstack/react-start'
+} from '#/utils/completions.functions';
+import { type Habit } from '#/db/schema';
+import { useServerFn } from '@tanstack/react-start';
 
 interface HabitToDoProps {
-  id: Habit['id']
-  title: Habit['title']
-  isDone?: boolean
+  id: Habit['id'];
+  title: Habit['title'];
+  isDone?: boolean;
 }
 
 export default function HabitToDo({
@@ -18,20 +18,20 @@ export default function HabitToDo({
   title,
   isDone = false,
 }: HabitToDoProps) {
-  const createCompletionOnDate = useServerFn(createCompletionOnDateFn)
-  const deleteCompletionOnDate = useServerFn(deleteCompletionOnDateFn)
-  const [isChecked, setIsChecked] = React.useState(isDone)
+  const createCompletionOnDate = useServerFn(createCompletionOnDateFn);
+  const deleteCompletionOnDate = useServerFn(deleteCompletionOnDateFn);
+  const [isChecked, setIsChecked] = React.useState(isDone);
 
   async function toggleCheck() {
-    const nextIsChecked = !isChecked
-    setIsChecked(nextIsChecked)
+    const nextIsChecked = !isChecked;
+    setIsChecked(nextIsChecked);
 
-    const now = new Date()
+    const now = new Date();
 
     if (nextIsChecked) {
-      createCompletionOnDate({ data: { date: now, habitId: id } })
+      createCompletionOnDate({ data: { date: now, habitId: id } });
     } else {
-      deleteCompletionOnDate({ data: { date: now, habitId: id } })
+      deleteCompletionOnDate({ data: { date: now, habitId: id } });
     }
   }
 
@@ -95,5 +95,5 @@ export default function HabitToDo({
 
       {title}
     </button>
-  )
+  );
 }

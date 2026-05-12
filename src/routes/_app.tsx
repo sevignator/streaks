@@ -1,24 +1,24 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
-import { AuthProvider } from '#/contexts/auth'
-import { getCurrentUserFn } from '#/utils/users.functions'
+import { AuthProvider } from '#/contexts/auth';
+import { getCurrentUserFn } from '#/utils/users.functions';
 
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../components/Sidebar';
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
   beforeLoad: async () => {
-    const user = await getCurrentUserFn()
+    const user = await getCurrentUserFn();
 
     if (!user) {
       throw redirect({
         to: '/',
-      })
+      });
     }
 
-    return { user }
+    return { user };
   },
-})
+});
 
 function RouteComponent() {
   return (
@@ -30,5 +30,5 @@ function RouteComponent() {
         </main>
       </div>
     </AuthProvider>
-  )
+  );
 }

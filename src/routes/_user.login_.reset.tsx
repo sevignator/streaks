@@ -1,35 +1,35 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useServerFn } from '@tanstack/react-start'
-import { useForm } from '@tanstack/react-form'
+import { createFileRoute } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useForm } from '@tanstack/react-form';
 
-import { emailInputSchema } from '#/schemas/inputs.schemas'
-import { userResetPasswordFn } from '#/utils/users.functions'
+import { emailInputSchema } from '#/schemas/inputs.schemas';
+import { userResetPasswordFn } from '#/utils/users.functions';
 
-import InputField from '#/components/InputField'
-import SubmitButton from '#/components/SubmitButton'
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
 
 export const Route = createFileRoute('/_user/login_/reset')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const userResetPassword = useServerFn(userResetPasswordFn)
+  const userResetPassword = useServerFn(userResetPasswordFn);
   const form = useForm({
     defaultValues: {
       email: '',
     },
     onSubmit: async ({ value }) => {
-      const { email } = value
-      await userResetPassword({ data: email })
+      const { email } = value;
+      await userResetPassword({ data: email });
     },
-  })
+  });
 
   return (
     <div>
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit(e)
+          e.preventDefault();
+          form.handleSubmit(e);
         }}
         className="flex flex-col gap-6"
       >
@@ -55,5 +55,5 @@ function RouteComponent() {
         />
       </form>
     </div>
-  )
+  );
 }

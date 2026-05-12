@@ -1,6 +1,6 @@
-import { drizzle } from 'drizzle-orm/node-postgres'
+import { drizzle } from 'drizzle-orm/node-postgres';
 
-import { env } from '#/env'
-import * as schema from '#/db/schema.ts'
+import { env } from '#/env';
+import * as schema from '#/db/schema.ts';
 
-export const db = drizzle(env.DATABASE_URL, { schema })
+export const db = drizzle(env.DATABASE_URL, { schema });

@@ -1,11 +1,11 @@
-import { type AnyFieldApi } from '@tanstack/react-form'
+import { type AnyFieldApi } from '@tanstack/react-form';
 
-import FieldInfo from '#/components/FieldInfo'
+import FieldInfo from '#/components/FieldInfo';
 
 interface inputFieldProps {
-  field: AnyFieldApi
-  label: string
-  type?: React.HTMLInputTypeAttribute
+  field: AnyFieldApi;
+  label: string;
+  type?: React.HTMLInputTypeAttribute;
 }
 
 export default function InputField({
@@ -29,5 +29,5 @@ export default function InputField({
       />
       <FieldInfo errors={field.state.meta.errors} />
     </div>
-  )
+  );
 }

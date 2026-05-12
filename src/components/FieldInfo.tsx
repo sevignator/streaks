@@ -7,5 +7,5 @@ export default function FieldInfo({ errors }: { errors: any[] }) {
         </div>
       ))}
     </>
-  )
+  );
 }

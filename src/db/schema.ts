@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm'
+import { sql } from 'drizzle-orm';
 import {
   boolean,
   pgTable,
@@ -7,14 +7,14 @@ import {
   timestamp,
   integer,
   date,
-} from 'drizzle-orm/pg-core'
+} from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
   id: serial().primaryKey(),
   nickname: text().notNull(),
   email: text().unique().notNull(),
   passwordHash: text().notNull(),
-})
+});
 
 export const habits = pgTable('habits', {
   id: serial().primaryKey(),
@@ -27,7 +27,7 @@ export const habits = pgTable('habits', {
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
-})
+});
 
 export const completions = pgTable('completions', {
   id: serial().primaryKey(),
@@ -35,7 +35,7 @@ export const completions = pgTable('completions', {
     .references(() => habits.id)
     .notNull(),
   completedOn: date('completed_on', { mode: 'string' }).defaultNow().notNull(),
-})
+});
 
 export const passwordResetTokens = pgTable('password_reset_tokens', {
   id: serial().primaryKey(),
@@ -50,11 +50,11 @@ export const passwordResetTokens = pgTable('password_reset_tokens', {
     .default(sql`now() + interval '30 minutes'`)
     .notNull(),
   isRedeemed: boolean('is_redeemed').default(false).notNull(),
-})
+});
 
-export type NewUser = typeof users.$inferInsert
-export type User = typeof users.$inferSelect
-export type NewHabit = typeof habits.$inferInsert
-export type Habit = typeof habits.$inferSelect
-export type NewPasswordResetToken = typeof passwordResetTokens.$inferInsert
-export type PasswordResetToken = typeof passwordResetTokens.$inferSelect
+export type NewUser = typeof users.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewHabit = typeof habits.$inferInsert;
+export type Habit = typeof habits.$inferSelect;
+export type NewPasswordResetToken = typeof passwordResetTokens.$inferInsert;
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;

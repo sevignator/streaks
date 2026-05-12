@@ -1,7 +1,7 @@
 interface SubmitButtonProps {
-  label: string
-  canSubmit: boolean
-  isSubmitting: boolean
+  label: string;
+  canSubmit: boolean;
+  isSubmitting: boolean;
 }
 
 export default function SubmitButton({
@@ -17,5 +17,5 @@ export default function SubmitButton({
     >
       {isSubmitting ? '...' : label}
     </button>
-  )
+  );
 }

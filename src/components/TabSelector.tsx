@@ -1,12 +1,12 @@
-import { Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router';
 
 interface Tab {
-  text: string
-  to: string
+  text: string;
+  to: string;
 }
 
 interface TabSelectorProps {
-  tabs: Tab[]
+  tabs: Tab[];
 }
 
 export default function TabSelector({ tabs }: TabSelectorProps) {
@@ -25,5 +25,5 @@ export default function TabSelector({ tabs }: TabSelectorProps) {
         </Link>
       ))}
     </div>
-  )
+  );
 }

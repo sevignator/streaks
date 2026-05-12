@@ -1,15 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
-import PageTitle from '#/components/PageTitle'
+import PageTitle from '#/components/PageTitle';
 
 export const Route = createFileRoute('/_app/stats')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   return (
     <div className="container">
       <PageTitle text="Stats" />
     </div>
-  )
+  );
 }

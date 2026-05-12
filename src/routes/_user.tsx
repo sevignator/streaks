@@ -1,10 +1,10 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import TabSelector from '#/components/TabSelector'
+import TabSelector from '#/components/TabSelector';
 
 export const Route = createFileRoute('/_user')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   return (
@@ -28,5 +28,5 @@ function RouteComponent() {
 
       <Outlet />
     </div>
-  )
+  );
 }

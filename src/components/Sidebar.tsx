@@ -1,16 +1,16 @@
-import { type LinkOptions } from '@tanstack/react-router'
-import { useServerFn } from '@tanstack/react-start'
+import { type LinkOptions } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
 
-import ThemeToggle from '#/components/ThemeToggle'
-import NavLink from '#/components/NavLink'
+import ThemeToggle from '#/components/ThemeToggle';
+import NavLink from '#/components/NavLink';
 
-import { useAuth } from '#/contexts/auth'
-import { userLogoutFn } from '#/utils/users.functions'
+import { useAuth } from '#/contexts/auth';
+import { userLogoutFn } from '#/utils/users.functions';
 
 interface NavLinkItem {
-  icon: React.ReactNode
-  text: string
-  to: LinkOptions['to']
+  icon: React.ReactNode;
+  text: string;
+  to: LinkOptions['to'];
 }
 
 const NAV_LINKS: NavLinkItem[] = [
@@ -69,14 +69,14 @@ const NAV_LINKS: NavLinkItem[] = [
     text: 'Stats',
     to: '/stats',
   },
-]
+];
 
 export default function Sidebar() {
-  const { user } = useAuth()
-  const userLogout = useServerFn(userLogoutFn)
+  const { user } = useAuth();
+  const userLogout = useServerFn(userLogoutFn);
 
   async function handleLogout() {
-    await userLogout()
+    await userLogout();
   }
 
   return (
@@ -88,7 +88,7 @@ export default function Sidebar() {
           {NAV_LINKS.map(({ icon, text, to }) => {
             return to ? (
               <NavLink key={text} icon={icon} text={text} to={to} />
-            ) : null
+            ) : null;
           })}
         </div>
 
@@ -99,5 +99,5 @@ export default function Sidebar() {
         </div>
       </nav>
     </header>
-  )
+  );
 }

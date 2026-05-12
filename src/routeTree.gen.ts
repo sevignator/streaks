@@ -8,120 +8,120 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as UserRouteImport } from './routes/_user'
-import { Route as AppRouteImport } from './routes/_app'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as UserSignupRouteImport } from './routes/_user.signup'
-import { Route as UserLoginRouteImport } from './routes/_user.login'
-import { Route as AppStatsRouteImport } from './routes/_app.stats'
-import { Route as AppHabitsRouteImport } from './routes/_app.habits'
-import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
-import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset'
-import { Route as AppHabitsCreateRouteImport } from './routes/_app.habits_.create'
-import { Route as AppHabitsHabitIdRouteImport } from './routes/_app.habits.$habitId'
-import { Route as UserLoginResetTokenRouteImport } from './routes/_user.login_.reset_.$token'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as UserRouteImport } from './routes/_user';
+import { Route as AppRouteImport } from './routes/_app';
+import { Route as IndexRouteImport } from './routes/index';
+import { Route as UserSignupRouteImport } from './routes/_user.signup';
+import { Route as UserLoginRouteImport } from './routes/_user.login';
+import { Route as AppStatsRouteImport } from './routes/_app.stats';
+import { Route as AppHabitsRouteImport } from './routes/_app.habits';
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard';
+import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset';
+import { Route as AppHabitsCreateRouteImport } from './routes/_app.habits_.create';
+import { Route as AppHabitsHabitIdRouteImport } from './routes/_app.habits.$habitId';
+import { Route as UserLoginResetTokenRouteImport } from './routes/_user.login_.reset_.$token';
 
 const UserRoute = UserRouteImport.update({
   id: '/_user',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const UserSignupRoute = UserSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
   getParentRoute: () => UserRoute,
-} as any)
+} as any);
 const UserLoginRoute = UserLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => UserRoute,
-} as any)
+} as any);
 const AppStatsRoute = AppStatsRouteImport.update({
   id: '/stats',
   path: '/stats',
   getParentRoute: () => AppRoute,
-} as any)
+} as any);
 const AppHabitsRoute = AppHabitsRouteImport.update({
   id: '/habits',
   path: '/habits',
   getParentRoute: () => AppRoute,
-} as any)
+} as any);
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AppRoute,
-} as any)
+} as any);
 const UserLoginResetRoute = UserLoginResetRouteImport.update({
   id: '/login_/reset',
   path: '/login/reset',
   getParentRoute: () => UserRoute,
-} as any)
+} as any);
 const AppHabitsCreateRoute = AppHabitsCreateRouteImport.update({
   id: '/habits_/create',
   path: '/habits/create',
   getParentRoute: () => AppRoute,
-} as any)
+} as any);
 const AppHabitsHabitIdRoute = AppHabitsHabitIdRouteImport.update({
   id: '/$habitId',
   path: '/$habitId',
   getParentRoute: () => AppHabitsRoute,
-} as any)
+} as any);
 const UserLoginResetTokenRoute = UserLoginResetTokenRouteImport.update({
   id: '/login_/reset_/$token',
   path: '/login/reset/$token',
   getParentRoute: () => UserRoute,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/dashboard': typeof AppDashboardRoute
-  '/habits': typeof AppHabitsRouteWithChildren
-  '/stats': typeof AppStatsRoute
-  '/login': typeof UserLoginRoute
-  '/signup': typeof UserSignupRoute
-  '/habits/$habitId': typeof AppHabitsHabitIdRoute
-  '/habits/create': typeof AppHabitsCreateRoute
-  '/login/reset': typeof UserLoginResetRoute
-  '/login/reset/$token': typeof UserLoginResetTokenRoute
+  '/': typeof IndexRoute;
+  '/dashboard': typeof AppDashboardRoute;
+  '/habits': typeof AppHabitsRouteWithChildren;
+  '/stats': typeof AppStatsRoute;
+  '/login': typeof UserLoginRoute;
+  '/signup': typeof UserSignupRoute;
+  '/habits/$habitId': typeof AppHabitsHabitIdRoute;
+  '/habits/create': typeof AppHabitsCreateRoute;
+  '/login/reset': typeof UserLoginResetRoute;
+  '/login/reset/$token': typeof UserLoginResetTokenRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/dashboard': typeof AppDashboardRoute
-  '/habits': typeof AppHabitsRouteWithChildren
-  '/stats': typeof AppStatsRoute
-  '/login': typeof UserLoginRoute
-  '/signup': typeof UserSignupRoute
-  '/habits/$habitId': typeof AppHabitsHabitIdRoute
-  '/habits/create': typeof AppHabitsCreateRoute
-  '/login/reset': typeof UserLoginResetRoute
-  '/login/reset/$token': typeof UserLoginResetTokenRoute
+  '/': typeof IndexRoute;
+  '/dashboard': typeof AppDashboardRoute;
+  '/habits': typeof AppHabitsRouteWithChildren;
+  '/stats': typeof AppStatsRoute;
+  '/login': typeof UserLoginRoute;
+  '/signup': typeof UserSignupRoute;
+  '/habits/$habitId': typeof AppHabitsHabitIdRoute;
+  '/habits/create': typeof AppHabitsCreateRoute;
+  '/login/reset': typeof UserLoginResetRoute;
+  '/login/reset/$token': typeof UserLoginResetTokenRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_app': typeof AppRouteWithChildren
-  '/_user': typeof UserRouteWithChildren
-  '/_app/dashboard': typeof AppDashboardRoute
-  '/_app/habits': typeof AppHabitsRouteWithChildren
-  '/_app/stats': typeof AppStatsRoute
-  '/_user/login': typeof UserLoginRoute
-  '/_user/signup': typeof UserSignupRoute
-  '/_app/habits/$habitId': typeof AppHabitsHabitIdRoute
-  '/_app/habits_/create': typeof AppHabitsCreateRoute
-  '/_user/login_/reset': typeof UserLoginResetRoute
-  '/_user/login_/reset_/$token': typeof UserLoginResetTokenRoute
+  __root__: typeof rootRouteImport;
+  '/': typeof IndexRoute;
+  '/_app': typeof AppRouteWithChildren;
+  '/_user': typeof UserRouteWithChildren;
+  '/_app/dashboard': typeof AppDashboardRoute;
+  '/_app/habits': typeof AppHabitsRouteWithChildren;
+  '/_app/stats': typeof AppStatsRoute;
+  '/_user/login': typeof UserLoginRoute;
+  '/_user/signup': typeof UserSignupRoute;
+  '/_app/habits/$habitId': typeof AppHabitsHabitIdRoute;
+  '/_app/habits_/create': typeof AppHabitsCreateRoute;
+  '/_user/login_/reset': typeof UserLoginResetRoute;
+  '/_user/login_/reset_/$token': typeof UserLoginResetTokenRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/dashboard'
@@ -132,8 +132,8 @@ export interface FileRouteTypes {
     | '/habits/$habitId'
     | '/habits/create'
     | '/login/reset'
-    | '/login/reset/$token'
-  fileRoutesByTo: FileRoutesByTo
+    | '/login/reset/$token';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/dashboard'
@@ -144,7 +144,7 @@ export interface FileRouteTypes {
     | '/habits/$habitId'
     | '/habits/create'
     | '/login/reset'
-    | '/login/reset/$token'
+    | '/login/reset/$token';
   id:
     | '__root__'
     | '/'
@@ -158,121 +158,121 @@ export interface FileRouteTypes {
     | '/_app/habits/$habitId'
     | '/_app/habits_/create'
     | '/_user/login_/reset'
-    | '/_user/login_/reset_/$token'
-  fileRoutesById: FileRoutesById
+    | '/_user/login_/reset_/$token';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRouteWithChildren
-  UserRoute: typeof UserRouteWithChildren
+  IndexRoute: typeof IndexRoute;
+  AppRoute: typeof AppRouteWithChildren;
+  UserRoute: typeof UserRouteWithChildren;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_user': {
-      id: '/_user'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof UserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/_user';
+      path: '';
+      fullPath: '/';
+      preLoaderRoute: typeof UserRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_app': {
-      id: '/_app'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/_app';
+      path: '';
+      fullPath: '/';
+      preLoaderRoute: typeof AppRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_user/signup': {
-      id: '/_user/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof UserSignupRouteImport
-      parentRoute: typeof UserRoute
-    }
+      id: '/_user/signup';
+      path: '/signup';
+      fullPath: '/signup';
+      preLoaderRoute: typeof UserSignupRouteImport;
+      parentRoute: typeof UserRoute;
+    };
     '/_user/login': {
-      id: '/_user/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof UserLoginRouteImport
-      parentRoute: typeof UserRoute
-    }
+      id: '/_user/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof UserLoginRouteImport;
+      parentRoute: typeof UserRoute;
+    };
     '/_app/stats': {
-      id: '/_app/stats'
-      path: '/stats'
-      fullPath: '/stats'
-      preLoaderRoute: typeof AppStatsRouteImport
-      parentRoute: typeof AppRoute
-    }
+      id: '/_app/stats';
+      path: '/stats';
+      fullPath: '/stats';
+      preLoaderRoute: typeof AppStatsRouteImport;
+      parentRoute: typeof AppRoute;
+    };
     '/_app/habits': {
-      id: '/_app/habits'
-      path: '/habits'
-      fullPath: '/habits'
-      preLoaderRoute: typeof AppHabitsRouteImport
-      parentRoute: typeof AppRoute
-    }
+      id: '/_app/habits';
+      path: '/habits';
+      fullPath: '/habits';
+      preLoaderRoute: typeof AppHabitsRouteImport;
+      parentRoute: typeof AppRoute;
+    };
     '/_app/dashboard': {
-      id: '/_app/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
-      parentRoute: typeof AppRoute
-    }
+      id: '/_app/dashboard';
+      path: '/dashboard';
+      fullPath: '/dashboard';
+      preLoaderRoute: typeof AppDashboardRouteImport;
+      parentRoute: typeof AppRoute;
+    };
     '/_user/login_/reset': {
-      id: '/_user/login_/reset'
-      path: '/login/reset'
-      fullPath: '/login/reset'
-      preLoaderRoute: typeof UserLoginResetRouteImport
-      parentRoute: typeof UserRoute
-    }
+      id: '/_user/login_/reset';
+      path: '/login/reset';
+      fullPath: '/login/reset';
+      preLoaderRoute: typeof UserLoginResetRouteImport;
+      parentRoute: typeof UserRoute;
+    };
     '/_app/habits_/create': {
-      id: '/_app/habits_/create'
-      path: '/habits/create'
-      fullPath: '/habits/create'
-      preLoaderRoute: typeof AppHabitsCreateRouteImport
-      parentRoute: typeof AppRoute
-    }
+      id: '/_app/habits_/create';
+      path: '/habits/create';
+      fullPath: '/habits/create';
+      preLoaderRoute: typeof AppHabitsCreateRouteImport;
+      parentRoute: typeof AppRoute;
+    };
     '/_app/habits/$habitId': {
-      id: '/_app/habits/$habitId'
-      path: '/$habitId'
-      fullPath: '/habits/$habitId'
-      preLoaderRoute: typeof AppHabitsHabitIdRouteImport
-      parentRoute: typeof AppHabitsRoute
-    }
+      id: '/_app/habits/$habitId';
+      path: '/$habitId';
+      fullPath: '/habits/$habitId';
+      preLoaderRoute: typeof AppHabitsHabitIdRouteImport;
+      parentRoute: typeof AppHabitsRoute;
+    };
     '/_user/login_/reset_/$token': {
-      id: '/_user/login_/reset_/$token'
-      path: '/login/reset/$token'
-      fullPath: '/login/reset/$token'
-      preLoaderRoute: typeof UserLoginResetTokenRouteImport
-      parentRoute: typeof UserRoute
-    }
+      id: '/_user/login_/reset_/$token';
+      path: '/login/reset/$token';
+      fullPath: '/login/reset/$token';
+      preLoaderRoute: typeof UserLoginResetTokenRouteImport;
+      parentRoute: typeof UserRoute;
+    };
   }
 }
 
 interface AppHabitsRouteChildren {
-  AppHabitsHabitIdRoute: typeof AppHabitsHabitIdRoute
+  AppHabitsHabitIdRoute: typeof AppHabitsHabitIdRoute;
 }
 
 const AppHabitsRouteChildren: AppHabitsRouteChildren = {
   AppHabitsHabitIdRoute: AppHabitsHabitIdRoute,
-}
+};
 
 const AppHabitsRouteWithChildren = AppHabitsRoute._addFileChildren(
   AppHabitsRouteChildren,
-)
+);
 
 interface AppRouteChildren {
-  AppDashboardRoute: typeof AppDashboardRoute
-  AppHabitsRoute: typeof AppHabitsRouteWithChildren
-  AppStatsRoute: typeof AppStatsRoute
-  AppHabitsCreateRoute: typeof AppHabitsCreateRoute
+  AppDashboardRoute: typeof AppDashboardRoute;
+  AppHabitsRoute: typeof AppHabitsRouteWithChildren;
+  AppStatsRoute: typeof AppStatsRoute;
+  AppHabitsCreateRoute: typeof AppHabitsCreateRoute;
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -280,15 +280,15 @@ const AppRouteChildren: AppRouteChildren = {
   AppHabitsRoute: AppHabitsRouteWithChildren,
   AppStatsRoute: AppStatsRoute,
   AppHabitsCreateRoute: AppHabitsCreateRoute,
-}
+};
 
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 
 interface UserRouteChildren {
-  UserLoginRoute: typeof UserLoginRoute
-  UserSignupRoute: typeof UserSignupRoute
-  UserLoginResetRoute: typeof UserLoginResetRoute
-  UserLoginResetTokenRoute: typeof UserLoginResetTokenRoute
+  UserLoginRoute: typeof UserLoginRoute;
+  UserSignupRoute: typeof UserSignupRoute;
+  UserLoginResetRoute: typeof UserLoginResetRoute;
+  UserLoginResetTokenRoute: typeof UserLoginResetTokenRoute;
 }
 
 const UserRouteChildren: UserRouteChildren = {
@@ -296,24 +296,24 @@ const UserRouteChildren: UserRouteChildren = {
   UserSignupRoute: UserSignupRoute,
   UserLoginResetRoute: UserLoginResetRoute,
   UserLoginResetTokenRoute: UserLoginResetTokenRoute,
-}
+};
 
-const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
+const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   UserRoute: UserRouteWithChildren,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { getRouter } from './router.tsx';
+import type { createStart } from '@tanstack/react-start';
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

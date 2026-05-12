@@ -2,17 +2,17 @@ import {
   Link,
   type RegisteredRouter,
   type ValidateLinkOptions,
-} from '@tanstack/react-router'
+} from '@tanstack/react-router';
 
 type LinkOptions<
   TRouter extends RegisteredRouter = RegisteredRouter,
   TOptions = unknown,
-> = ValidateLinkOptions<TRouter, TOptions>
+> = ValidateLinkOptions<TRouter, TOptions>;
 
 interface NavLinkProps {
-  icon: React.ReactNode
-  text: string
-  to: LinkOptions['to']
+  icon: React.ReactNode;
+  text: string;
+  to: LinkOptions['to'];
 }
 
 export default function NavLink({ icon, text, to }: NavLinkProps) {
@@ -25,5 +25,5 @@ export default function NavLink({ icon, text, to }: NavLinkProps) {
       <span className="w-5">{icon}</span>
       <span>{text}</span>
     </Link>
-  )
+  );
 }

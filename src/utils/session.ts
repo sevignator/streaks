@@ -1,20 +1,20 @@
-import { useSession } from '@tanstack/react-start/server'
+import { useSession } from '@tanstack/react-start/server';
 
-import { env } from '../env'
-import { type User } from '#/db/schema.ts'
+import { env } from '../env';
+import { type User } from '#/db/schema.ts';
 
 interface SessionData {
-  userId?: User['id']
-  email?: User['email']
+  userId?: User['id'];
+  email?: User['email'];
 }
 
 export function useAppSession() {
-  const sessionPassword = env.SESSION_SECRET
+  const sessionPassword = env.SESSION_SECRET;
 
   if (!sessionPassword) {
     throw new Error(
       'Missing SESSION_SECRET. Set it in your environment before using sessions.',
-    )
+    );
   }
 
   return useSession<SessionData>({
@@ -25,5 +25,5 @@ export function useAppSession() {
       sameSite: 'lax',
       httpOnly: true,
     },
-  })
+  });
 }
