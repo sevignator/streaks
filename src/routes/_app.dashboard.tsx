@@ -48,9 +48,11 @@ function RouteComponent() {
     <div className="container">
       <PageTitle text={`${user.nickname}'s dashboard`} />
 
-      {habits.map(({ id, title, isDone }) => (
-        <HabitToDo key={id} id={id} title={title} isDone={isDone} />
-      ))}
+      <div className="grid gap-4">
+        {habits.map(({ id, title, isDone }) => (
+          <HabitToDo key={id} id={id} title={title} isDone={isDone} />
+        ))}
+      </div>
     </div>
   )
 }
