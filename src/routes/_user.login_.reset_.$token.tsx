@@ -65,7 +65,7 @@ function RouteComponent() {
           validators={{
             onBlur: z
               .string()
-              .refine((data) => data === form.getFieldValue('password'), {
+              .refine((input) => input === form.getFieldValue('password'), {
                 message: 'Passwords do not match',
                 path: ['confirmPassword'],
               }),
