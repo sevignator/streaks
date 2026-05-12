@@ -1,5 +1,6 @@
 import { useSession } from '@tanstack/react-start/server'
 
+import { env } from '../env'
 import { type User } from '#/db/schema.ts'
 
 interface SessionData {
@@ -8,7 +9,7 @@ interface SessionData {
 }
 
 export function useAppSession() {
-  const sessionPassword = process.env.SESSION_SECRET
+  const sessionPassword = env.SESSION_SECRET
 
   if (!sessionPassword) {
     throw new Error(
@@ -20,7 +21,7 @@ export function useAppSession() {
     name: 'app-session',
     password: sessionPassword,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: env.NODE_ENV === 'production',
       sameSite: 'lax',
       httpOnly: true,
     },

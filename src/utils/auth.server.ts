@@ -3,10 +3,10 @@ import argon2 from 'argon2'
 import { eq, DrizzleQueryError } from 'drizzle-orm'
 import { DatabaseError } from 'pg'
 
+import { env } from '../env'
 import { db } from '#/db'
 import * as schema from '#/db/schema'
 
-const { RESET_TOKEN_SECRET } = process.env
 const { users, passwordResetTokens } = schema
 
 export async function getPasswordHash(password: string): Promise<string> {
@@ -21,7 +21,9 @@ export async function checkPasswordHash(
 }
 
 export function getPasswordResetTokenHash(token: string): string {
-  return createHmac('sha256', RESET_TOKEN_SECRET).update(token).digest('hex')
+  return createHmac('sha256', env.RESET_TOKEN_SECRET)
+    .update(token)
+    .digest('hex')
 }
 
 export function checkPasswordResetTokens(tokenA: string, tokenB: string) {
