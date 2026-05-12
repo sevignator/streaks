@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["import", "typescript"],
+  "plugins": [ "import", "typescript" ],
   "categories": {
     "correctness": "off"
   },
@@ -18,10 +18,10 @@
     "eslint.config.js",
     "prettier.config.js"
   ],
-  "rules": {},
+  "rules": { },
   "overrides": [
     {
-      "files": ["**/*.{js,ts,tsx}"],
+      "files": [ "**/*.{js,ts,tsx}" ],
       "rules": {
         "for-direction": "error",
         "no-async-promise-executor": "error",
@@ -66,7 +66,7 @@
         "require-yield": "error",
         "use-isnan": "error",
         "valid-typeof": "error",
-        "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+        "import/consistent-type-specifier-style": [ "error", "prefer-inline" ],
         "import/first": "error",
         "import/no-commonjs": "error",
         "import/no-duplicates": "error",
@@ -101,14 +101,14 @@
         "typescript/prefer-for-of": "warn",
         "typescript/triple-slash-reference": "error"
       },
-      "jsPlugins": ["@stylistic/eslint-plugin"],
+      "jsPlugins": [ "@stylistic/eslint-plugin" ],
       "env": {
         "es2020": true,
         "browser": true
       }
     },
     {
-      "files": ["**/*.vue"],
+      "files": [ "**/*.vue" ],
       "rules": {
         "for-direction": "error",
         "no-async-promise-executor": "error",
@@ -153,7 +153,7 @@
         "require-yield": "error",
         "use-isnan": "error",
         "valid-typeof": "error",
-        "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+        "import/consistent-type-specifier-style": [ "error", "prefer-top-level" ],
         "import/first": "error",
         "import/no-commonjs": "error",
         "import/no-duplicates": "error",
@@ -188,7 +188,7 @@
         "typescript/prefer-for-of": "warn",
         "typescript/triple-slash-reference": "error"
       },
-      "jsPlugins": ["@stylistic/eslint-plugin"],
+      "jsPlugins": [ "@stylistic/eslint-plugin" ],
       "env": {
         "browser": true
       }

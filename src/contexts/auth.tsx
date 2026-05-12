@@ -1,6 +1,6 @@
-import React from 'react'
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const getCurrentUser = useServerFn(getCurrentUserFn)
   const [user, setUser] = useState<UserWithoutPassword | null>(null)
 
-  const fetchUser = React.useCallback(async () => {
+  const fetchUser = useCallback(async () => {
     try {
       const currentUser = await getCurrentUser()
 

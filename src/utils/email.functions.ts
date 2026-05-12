@@ -1,11 +1,11 @@
-import { createServerFn } from '@tanstack/react-start'
-import { Resend } from 'resend'
-import z from 'zod'
+import { createServerFn } from '@tanstack/react-start';
+import { Resend } from 'resend';
+import { type z } from 'zod';
 
-import { env } from '../env'
-import { emailSchema } from '#/schemas/inputs.schemas'
+import { env } from '../env';
+import { type emailSchema } from '#/schemas/inputs.schemas';
 
-const resend = new Resend(env.RESEND_API_KEY)
+const resend = new Resend(env.RESEND_API_KEY);
 
 export const sendEmailFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof emailSchema>) => input)
@@ -15,11 +15,11 @@ export const sendEmailFn = createServerFn({ method: 'POST' })
       to: handlerData.to,
       subject: handlerData.subject,
       html: handlerData.html,
-    })
+    });
 
     if (error) {
-      console.error(error)
+      console.error(error);
     }
-  })
+  });
 
-export const sendPasswordResetEmailFn = createServerFn({ method: 'POST' })
+export const sendPasswordResetEmailFn = createServerFn({ method: 'POST' });
