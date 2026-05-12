@@ -4,6 +4,7 @@ import {
   createCompletionOnDateFn,
   deleteCompletionOnDateFn,
 } from '#/utils/completions.functions';
+import { getServerDateFn } from '#/utils/datetime.function';
 import { type Habit } from '#/db/schema';
 import { useServerFn } from '@tanstack/react-start';
 
@@ -20,13 +21,14 @@ export default function HabitToDo({
 }: HabitToDoProps) {
   const createCompletionOnDate = useServerFn(createCompletionOnDateFn);
   const deleteCompletionOnDate = useServerFn(deleteCompletionOnDateFn);
+  const getServerDate = useServerFn(getServerDateFn);
   const [isChecked, setIsChecked] = React.useState(isDone);
 
   async function toggleCheck() {
     const nextIsChecked = !isChecked;
     setIsChecked(nextIsChecked);
 
-    const now = new Date();
+    const now = await getServerDate();
 
     if (nextIsChecked) {
       createCompletionOnDate({ data: { date: now, habitId: id } });

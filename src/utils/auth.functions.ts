@@ -8,6 +8,7 @@ import {
   redeemPasswordResetToken,
   updateUserPassword,
 } from '#/utils/auth.server';
+import { getServerDateFn } from '#/utils/datetime.function';
 import { getUserById } from '#/utils/users.server';
 import {
   type userUpdatePasswordSchema,
@@ -25,7 +26,7 @@ export const getPasswordResetTokenDataFn = createServerFn({ method: 'POST' })
 
     if (!resetTokenRecord || resetTokenRecord.isRedeemed) return null;
 
-    const now = new Date();
+    const now = await getServerDateFn();
     const resetTokenHasExpired = resetTokenRecord.expiresAt < now;
 
     if (resetTokenHasExpired) return null;

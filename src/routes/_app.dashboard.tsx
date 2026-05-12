@@ -7,6 +7,7 @@ import PageTitle from '#/components/PageTitle';
 import HabitToDo from '#/components/HabitToDo';
 import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
 import { getAllCompletionsOnDateFn } from '#/utils/completions.functions';
+import { getServerDateFn } from '#/utils/datetime.function';
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
@@ -19,10 +20,10 @@ export const Route = createFileRoute('/_app/dashboard')({
 
     if (!user) return [];
 
-    const today = new Date();
+    const now = await getServerDateFn();
 
     const completions = await getAllCompletionsOnDateFn({
-      data: today,
+      data: now,
     });
     const completionIds = completions.map((completion) => completion.habitId);
 
