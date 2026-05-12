@@ -7,7 +7,7 @@ import {
   emailInputSchema,
   nicknameInputSchema,
   passwordInputSchema,
-} from '#/utils/schemas'
+} from '#/schemas/inputs.schemas'
 import { userSignupFn } from '#/utils/users.functions'
 
 import InputField from '#/components/InputField'

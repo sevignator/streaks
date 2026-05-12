@@ -6,6 +6,7 @@ import {
   text,
   timestamp,
   integer,
+  date,
 } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
@@ -28,14 +29,12 @@ export const habits = pgTable('habits', {
     .notNull(),
 })
 
-export const completedHabits = pgTable('completed_habits', {
+export const completions = pgTable('completions', {
   id: serial().primaryKey(),
   habitId: serial('habit_id')
     .references(() => habits.id)
     .notNull(),
-  completedAt: timestamp('completed_at', { withTimezone: true })
-    .defaultNow()
-    .notNull(),
+  completedOn: date('completed_on', { mode: 'string' }).defaultNow().notNull(),
 })
 
 export const passwordResetTokens = pgTable('password_reset_tokens', {

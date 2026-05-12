@@ -3,7 +3,7 @@ import { useServerFn } from '@tanstack/react-start'
 import { useForm } from '@tanstack/react-form'
 import z from 'zod'
 
-import { passwordInputSchema } from '#/utils/schemas'
+import { passwordInputSchema } from '#/schemas/inputs.schemas'
 import {
   getPasswordResetTokenDataFn,
   updateUserPasswordWithTokenFn,
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_user/login_/reset_/$token')({
   component: RouteComponent,
   loader: async ({ params }) => {
     const { token } = params
-    const data = await getPasswordResetTokenDataFn({ data: { token } })
+    const data = await getPasswordResetTokenDataFn({ data: token })
 
     if (!data) throw notFound()
 

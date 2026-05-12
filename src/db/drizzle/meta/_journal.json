@@ -15,6 +15,20 @@
       "when": 1778352140879,
       "tag": "0001_massive_clint_barton",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778548317545,
+      "tag": "0002_chief_metal_master",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1778548567728,
+      "tag": "0003_bright_fenris",
+      "breakpoints": true
     }
   ]
 }

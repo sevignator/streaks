@@ -6,7 +6,7 @@ import {
   emailInputSchema,
   userLoginSchema,
   userSignupSchema,
-} from '#/utils/schemas'
+} from '#/schemas/inputs.schemas'
 import { useAppSession } from '#/utils/session'
 import {
   authenticateUser,
@@ -72,17 +72,6 @@ export const userResetPasswordFn = createServerFn({
 export const userLoginFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userLoginSchema>) => input)
   .handler(async ({ data }) => {
-    const result = userLoginSchema.safeParse(data)
-
-    if (!result.success) {
-      const { fieldErrors, formErrors } = z.flattenError(result.error)
-
-      return {
-        fieldErrors,
-        formErrors,
-      }
-    }
-
     const user = await authenticateUser(data.email, data.password)
 
     if (!user) {

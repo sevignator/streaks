@@ -1,0 +1,1 @@
+ALTER TABLE "completions" RENAME COLUMN "date" TO "completed_on";

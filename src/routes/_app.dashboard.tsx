@@ -5,10 +5,8 @@ import { getCurrentUserFn } from '#/utils/users.functions'
 
 import PageTitle from '#/components/PageTitle'
 import HabitToDo from '#/components/HabitToDo'
-import {
-  getAllCompletedHabitsFromDateFn,
-  getAllHabitsByUserIdFn,
-} from '#/utils/habits.functions'
+import { getAllHabitsByUserIdFn } from '#/utils/habits.functions'
+import { getAllCompletionsOnDateFn } from '#/utils/completions.functions'
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean
@@ -23,17 +21,15 @@ export const Route = createFileRoute('/_app/dashboard')({
 
     const today = new Date()
 
-    const completedHabits = await getAllCompletedHabitsFromDateFn({
+    const completions = await getAllCompletionsOnDateFn({
       data: today,
     })
-    const completedHabitIds = completedHabits.map(
-      (completion) => completion.habitId,
-    )
+    const completionIds = completions.map((completion) => completion.habitId)
 
     const allHabits = await getAllHabitsByUserIdFn({ data: user.id })
     const allHabitsWithDone = allHabits.map((habit) => ({
       ...habit,
-      isDone: completedHabitIds.includes(habit.id),
+      isDone: completionIds.includes(habit.id),
     }))
 
     return allHabitsWithDone

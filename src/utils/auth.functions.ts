@@ -1,11 +1,11 @@
 import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
-import { z } from 'zod'
+import z from 'zod'
 
 import {
   userUpdatePasswordSchema,
   userUpdatePasswordWithTokenSchema,
-} from '#/utils/schemas'
+} from '#/schemas/inputs.schemas'
 import {
   getPasswordResetTokenByHash,
   getPasswordResetTokenHash,
@@ -13,18 +13,13 @@ import {
   updateUserPassword,
 } from '#/utils/auth.server'
 import { getUserById } from '#/utils/users.server'
-
-const getPasswordResetTokenDataSchema = z.object({
-  token: z.string(),
-})
+import { passwordResetTokenDataSchema } from '#/schemas/users.schemas'
 
 export const getPasswordResetTokenDataFn = createServerFn({ method: 'POST' })
   .inputValidator(
-    (input: z.input<typeof getPasswordResetTokenDataSchema>) => input,
+    (input: z.input<typeof passwordResetTokenDataSchema>) => input,
   )
-  .handler(async ({ data }) => {
-    const { token } = data
-
+  .handler(async ({ data: token }) => {
     const tokenHash = getPasswordResetTokenHash(token)
     const resetTokenRecord = await getPasswordResetTokenByHash(tokenHash)
 

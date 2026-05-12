@@ -1,9 +1,9 @@
 import React from 'react'
 
 import {
-  createCompletedHabitFn,
-  deleteCompletedHabitFn,
-} from '#/utils/habits.functions'
+  createCompletionOnDateFn,
+  deleteCompletionOnDateFn,
+} from '#/utils/completions.functions'
 import { type Habit } from '#/db/schema'
 import { useServerFn } from '@tanstack/react-start'
 
@@ -18,8 +18,8 @@ export default function HabitToDo({
   title,
   isDone = false,
 }: HabitToDoProps) {
-  const createCompletedHabit = useServerFn(createCompletedHabitFn)
-  const deleteCompletedHabit = useServerFn(deleteCompletedHabitFn)
+  const createCompletionOnDate = useServerFn(createCompletionOnDateFn)
+  const deleteCompletionOnDate = useServerFn(deleteCompletionOnDateFn)
   const [isChecked, setIsChecked] = React.useState(isDone)
 
   async function toggleCheck() {
@@ -29,9 +29,9 @@ export default function HabitToDo({
     const now = new Date()
 
     if (nextIsChecked) {
-      createCompletedHabit({ data: { date: now, habitId: id } })
+      createCompletionOnDate({ data: { date: now, habitId: id } })
     } else {
-      deleteCompletedHabit({ data: { date: now, habitId: id } })
+      deleteCompletionOnDate({ data: { date: now, habitId: id } })
     }
   }
 

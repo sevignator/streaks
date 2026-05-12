@@ -1,10 +1,6 @@
 import z from 'zod'
 
-export const userIdSchema = z.number()
-
-export const habitIdSchema = z.number()
-
-export const habitCreatedAt = z.date()
+import { userIdSchema } from '#/schemas/users.schemas'
 
 export const nicknameInputSchema = z
   .string()

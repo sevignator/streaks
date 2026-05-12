@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { Resend } from 'resend'
 import z from 'zod'
 
-import { emailSchema } from '#/utils/schemas'
+import { emailSchema } from '#/schemas/inputs.schemas'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
