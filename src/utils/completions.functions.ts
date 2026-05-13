@@ -1,12 +1,12 @@
-import { createServerFn } from "@tanstack/react-start";
-import z from "zod";
+import { createServerFn } from '@tanstack/react-start';
+import z from 'zod';
 
-import { dateISOSchema, habitIdSchema } from "#/utils/schemas";
+import { dateISOSchema, habitIdSchema } from '#/utils/schemas';
 import {
   createCompletionOn,
   deleteCompletionOn,
   getAllCompletionsOn,
-} from "#/utils/completions.server";
+} from '#/utils/completions.server';
 
 const createCompletionOnSchema = z.object({
   date: dateISOSchema,
@@ -14,7 +14,7 @@ const createCompletionOnSchema = z.object({
 });
 
 export const createCompletionOnFn = createServerFn({
-  method: "POST",
+  method: 'POST',
 })
   .inputValidator((input: z.input<typeof createCompletionOnSchema>) => input)
   .handler(async ({ data: { date, habitId } }) => {
@@ -27,7 +27,7 @@ const deleteCompletionOnSchema = z.object({
 });
 
 export const deleteCompletionOnFn = createServerFn({
-  method: "POST",
+  method: 'POST',
 })
   .inputValidator((input: z.input<typeof deleteCompletionOnSchema>) => input)
   .handler(async ({ data: { date, habitId } }) => {
@@ -39,7 +39,7 @@ const getAllCompletionsOnSchema = z.object({
 });
 
 export const getAllCompletionsOnFn = createServerFn({
-  method: "GET",
+  method: 'GET',
 })
   .inputValidator((input: z.input<typeof getAllCompletionsOnSchema>) => input)
   .handler(async ({ data: { date } }) => {

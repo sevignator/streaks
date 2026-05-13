@@ -1,19 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
 
-import { type Habit } from "#/db/schema";
-import { getCurrentUserFn } from "#/utils/users.functions";
-import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
-import { getAllCompletionsOnFn } from "#/utils/completions.functions";
-import { getISODate } from "#/utils/datetime";
+import { type Habit } from '#/db/schema';
+import { getCurrentUserFn } from '#/utils/users.functions';
+import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
+import { getAllCompletionsOnFn } from '#/utils/completions.functions';
+import { getISODate } from '#/utils/datetime';
 
-import PageTitle from "#/components/PageTitle";
-import HabitToDo from "#/components/HabitToDo";
+import PageTitle from '#/components/PageTitle';
+import HabitToDo from '#/components/HabitToDo';
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute("/_app/dashboard")({
+export const Route = createFileRoute('/_app/dashboard')({
   component: RouteComponent,
   loader: async (): Promise<{
     habits: HabitWithIsDone[];

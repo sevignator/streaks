@@ -1,22 +1,22 @@
-import { redirect } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+import { redirect } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
 
 import {
   getPasswordResetTokenByHash,
   getPasswordResetTokenHash,
   redeemPasswordResetToken,
   updateUserPassword,
-} from "#/utils/auth.server";
-import { getServerDateFn } from "#/utils/datetime.function";
-import { getUserById } from "#/utils/users.server";
+} from '#/utils/auth.server';
+import { getServerDateFn } from '#/utils/datetime.function';
+import { getUserById } from '#/utils/users.server';
 import {
   inputPasswordSchema,
   userIdSchema,
   type passwordResetTokenSchema,
-} from "#/utils/schemas";
+} from '#/utils/schemas';
 
-export const getPasswordResetTokenDataFn = createServerFn({ method: "POST" })
+export const getPasswordResetTokenDataFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof passwordResetTokenSchema>) => input)
   .handler(async ({ data: token }) => {
     const tokenHash = getPasswordResetTokenHash(token);
@@ -41,7 +41,7 @@ export const updateUserPasswordSchema = z.object({
   newPassword: inputPasswordSchema,
 });
 
-export const updateUserPasswordFn = createServerFn({ method: "POST" })
+export const updateUserPasswordFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof updateUserPasswordSchema>) => input)
   .handler(async ({ data }) => {
     const { userId, newPassword } = data;
@@ -49,9 +49,9 @@ export const updateUserPasswordFn = createServerFn({ method: "POST" })
     await updateUserPassword(userId, newPassword);
 
     throw redirect({
-      to: "/login",
+      to: '/login',
       search: {
-        message: "password-updated",
+        message: 'password-updated',
       },
     });
   });
@@ -62,7 +62,7 @@ export const updateUserPasswordWithTokenSchema = z.object({
   newPassword: inputPasswordSchema,
 });
 
-export const updateUserPasswordWithTokenFn = createServerFn({ method: "POST" })
+export const updateUserPasswordWithTokenFn = createServerFn({ method: 'POST' })
   .inputValidator(
     (input: z.input<typeof updateUserPasswordWithTokenSchema>) => input,
   )

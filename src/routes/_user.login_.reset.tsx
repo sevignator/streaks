@@ -1,14 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useForm } from "@tanstack/react-form";
+import { createFileRoute } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useForm } from '@tanstack/react-form';
 
-import { inputEmailSchema } from "#/utils/schemas";
-import { userResetPasswordFn } from "#/utils/users.functions";
+import { inputEmailSchema } from '#/utils/schemas';
+import { userResetPasswordFn } from '#/utils/users.functions';
 
-import InputField from "#/components/InputField";
-import SubmitButton from "#/components/SubmitButton";
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
 
-export const Route = createFileRoute("/_user/login_/reset")({
+export const Route = createFileRoute('/_user/login_/reset')({
   component: RouteComponent,
 });
 
@@ -16,7 +16,7 @@ function RouteComponent() {
   const userResetPassword = useServerFn(userResetPasswordFn);
   const form = useForm({
     defaultValues: {
-      email: "",
+      email: '',
     },
     onSubmit: async ({ value }) => {
       const { email } = value;

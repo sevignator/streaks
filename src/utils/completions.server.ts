@@ -1,18 +1,18 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq } from 'drizzle-orm';
 
-import { db } from "#/db";
-import { completions, type Habit } from "#/db/schema";
+import { db } from '#/db';
+import { completions, type Habit } from '#/db/schema';
 
 export async function createCompletionOn(
   dateInISO: string,
-  habitId: Habit["id"],
+  habitId: Habit['id'],
 ) {
   await db.insert(completions).values({ habitId, completedOn: dateInISO });
 }
 
 export async function deleteCompletionOn(
   dateInISO: string,
-  habitId: Habit["id"],
+  habitId: Habit['id'],
 ) {
   await db
     .delete(completions)

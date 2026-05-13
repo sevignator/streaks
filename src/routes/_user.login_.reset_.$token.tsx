@@ -1,18 +1,18 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useForm } from "@tanstack/react-form";
-import z from "zod";
+import { createFileRoute, notFound } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useForm } from '@tanstack/react-form';
+import z from 'zod';
 
-import { inputPasswordSchema } from "#/utils/schemas";
+import { inputPasswordSchema } from '#/utils/schemas';
 import {
   getPasswordResetTokenDataFn,
   updateUserPasswordWithTokenFn,
-} from "#/utils/auth.functions";
+} from '#/utils/auth.functions';
 
-import InputField from "#/components/InputField";
-import SubmitButton from "#/components/SubmitButton";
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
 
-export const Route = createFileRoute("/_user/login_/reset_/$token")({
+export const Route = createFileRoute('/_user/login_/reset_/$token')({
   component: RouteComponent,
   loader: async ({ params }) => {
     const { token } = params;
@@ -31,8 +31,8 @@ function RouteComponent() {
   const { data, token } = Route.useLoaderData();
   const form = useForm({
     defaultValues: {
-      password: "",
-      confirmPassword: "",
+      password: '',
+      confirmPassword: '',
     },
     onSubmit: async ({ value }) => {
       const userId = data.user.id;
@@ -67,9 +67,9 @@ function RouteComponent() {
           validators={{
             onBlur: z
               .string()
-              .refine((input) => input === form.getFieldValue("password"), {
-                message: "Passwords do not match",
-                path: ["confirmPassword"],
+              .refine((input) => input === form.getFieldValue('password'), {
+                message: 'Passwords do not match',
+                path: ['confirmPassword'],
               }),
           }}
           children={(field) => (

@@ -1,21 +1,21 @@
-import { redirect } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+import { redirect } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
 
 import {
   inputEmailSchema,
   inputNicknameSchema,
   inputPasswordSchema,
-} from "#/utils/schemas";
-import { useAppSession } from "#/utils/session";
+} from '#/utils/schemas';
+import { useAppSession } from '#/utils/session';
 import {
   authenticateUser,
   createUser,
   getUserByEmail,
   getUserById,
-} from "#/utils/users.server";
-import { sendEmailFn } from "#/utils/email.functions";
-import { createPasswordResetToken } from "#/utils/auth.server";
+} from '#/utils/users.server';
+import { sendEmailFn } from '#/utils/email.functions';
+import { createPasswordResetToken } from '#/utils/auth.server';
 
 export const userSignupSchema = z
   .object({
@@ -25,11 +25,11 @@ export const userSignupSchema = z
     confirmPassword: z.string(),
   })
   .refine((input) => input.password === input.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
-export const userSignupFn = createServerFn({ method: "POST" })
+export const userSignupFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userSignupSchema>) => input)
   .handler(async ({ data }) => {
     const user = await getUserByEmail(data.email);
@@ -39,15 +39,15 @@ export const userSignupFn = createServerFn({ method: "POST" })
     await createUser(data.nickname, data.email, data.password);
 
     throw redirect({
-      to: "/login",
+      to: '/login',
       search: {
-        message: "account-created",
+        message: 'account-created',
       },
     });
   });
 
 export const userResetPasswordFn = createServerFn({
-  method: "POST",
+  method: 'POST',
 })
   .inputValidator((input: z.input<typeof inputEmailSchema>) => input)
   .handler(async ({ data }) => {
@@ -59,7 +59,7 @@ export const userResetPasswordFn = createServerFn({
       await sendEmailFn({
         data: {
           to: user.email,
-          subject: "Password reset",
+          subject: 'Password reset',
           html: `
             <p>Hi ${user.nickname}!</p>
 
@@ -74,9 +74,9 @@ export const userResetPasswordFn = createServerFn({
     }
 
     throw redirect({
-      to: "/login",
+      to: '/login',
       search: {
-        message: "password-reset",
+        message: 'password-reset',
       },
     });
   });
@@ -86,7 +86,7 @@ export const userLoginSchema = z.object({
   password: inputPasswordSchema,
 });
 
-export const userLoginFn = createServerFn({ method: "POST" })
+export const userLoginFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof userLoginSchema>) => input)
   .handler(async ({ data }) => {
     const user = await authenticateUser(data.email, data.password);
@@ -94,7 +94,7 @@ export const userLoginFn = createServerFn({ method: "POST" })
     if (!user) {
       return {
         fieldErrors: {},
-        formErrors: ["Invalid login credentials"],
+        formErrors: ['Invalid login credentials'],
       };
     }
 
@@ -104,19 +104,19 @@ export const userLoginFn = createServerFn({ method: "POST" })
       email: user.email,
     });
 
-    throw redirect({ to: "/dashboard" });
+    throw redirect({ to: '/dashboard' });
   });
 
-export const userLogoutFn = createServerFn({ method: "POST" }).handler(
+export const userLogoutFn = createServerFn({ method: 'POST' }).handler(
   async () => {
     const session = await useAppSession();
     await session.clear();
 
-    throw redirect({ to: "/" });
+    throw redirect({ to: '/' });
   },
 );
 
-export const getCurrentUserFn = createServerFn({ method: "GET" }).handler(
+export const getCurrentUserFn = createServerFn({ method: 'GET' }).handler(
   async () => {
     const session = await useAppSession();
     const { userId } = session.data;

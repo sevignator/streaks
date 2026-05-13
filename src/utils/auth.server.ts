@@ -1,11 +1,11 @@
-import { createHmac, randomBytes } from "node:crypto";
-import argon2 from "argon2";
-import { eq, DrizzleQueryError } from "drizzle-orm";
-import { DatabaseError } from "pg";
+import { createHmac, randomBytes } from 'node:crypto';
+import argon2 from 'argon2';
+import { eq, DrizzleQueryError } from 'drizzle-orm';
+import { DatabaseError } from 'pg';
 
-import { env } from "../env";
-import { db } from "#/db";
-import * as schema from "#/db/schema";
+import { env } from '../env';
+import { db } from '#/db';
+import * as schema from '#/db/schema';
 
 const { users, passwordResetTokens } = schema;
 
@@ -21,9 +21,9 @@ export async function checkPasswordHash(
 }
 
 export function getPasswordResetTokenHash(token: string): string {
-  return createHmac("sha256", env.RESET_TOKEN_SECRET)
+  return createHmac('sha256', env.RESET_TOKEN_SECRET)
     .update(token)
-    .digest("hex");
+    .digest('hex');
 }
 
 export function checkPasswordResetTokens(tokenA: string, tokenB: string) {
@@ -33,9 +33,9 @@ export function checkPasswordResetTokens(tokenA: string, tokenB: string) {
 }
 
 export async function createPasswordResetToken(
-  userId: schema.User["id"],
+  userId: schema.User['id'],
 ): Promise<string> {
-  const token = randomBytes(32).toString("base64url");
+  const token = randomBytes(32).toString('base64url');
 
   try {
     const tokenHash = getPasswordResetTokenHash(token);
@@ -53,7 +53,7 @@ export async function createPasswordResetToken(
 }
 
 export async function updateUserPassword(
-  userId: schema.User["id"],
+  userId: schema.User['id'],
   password: string,
 ) {
   const passwordHash = await getPasswordHash(password);
