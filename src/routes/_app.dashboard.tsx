@@ -17,7 +17,6 @@ export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
   loader: async (): Promise<{
     habits: HabitWithIsDone[];
-    now: Date;
   }> => {
     const user = await getCurrentUserFn();
     const now = new Date();
@@ -26,7 +25,6 @@ export const Route = createFileRoute("/_app/dashboard")({
     if (!user)
       return {
         habits: [],
-        now,
       };
 
     const completions = await getAllCompletionsOnFn({
@@ -42,22 +40,16 @@ export const Route = createFileRoute("/_app/dashboard")({
 
     return {
       habits: allHabitsWithDone,
-      now,
     };
   },
 });
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext();
-  const { habits, now } = Route.useLoaderData();
+  const { habits } = Route.useLoaderData();
 
   return (
     <div className="container">
-      <PageTitle text={`${user.nickname}'s dashboard`} />
-
-      <p>Server time: {now.toISOString()}</p>
-
-      <p>Client time: {new Date().toString()}</p>
+      <PageTitle text="Dashboard" />
 
       <div className="grid gap-4">
         {habits.map(({ id, title, isDone }) => (

@@ -4,7 +4,7 @@ import { useForm } from "@tanstack/react-form";
 import z from "zod";
 
 import { userLoginFn } from "#/utils/users.functions";
-import { inputEmailSchema, inputPasswordSchema } from "#/schemas/schemas";
+import { inputEmailSchema, inputPasswordSchema } from "#/utils/schemas";
 
 import InputField from "#/components/InputField";
 import SubmitButton from "#/components/SubmitButton";

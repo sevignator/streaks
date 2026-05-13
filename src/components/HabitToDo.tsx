@@ -1,11 +1,11 @@
 import React from "react";
+import { useServerFn } from "@tanstack/react-start";
 
 import {
   createCompletionOnFn,
   deleteCompletionOnFn,
 } from "#/utils/completions.functions";
 import { type Habit } from "#/db/schema";
-import { useServerFn } from "@tanstack/react-start";
 import { getISODate } from "#/utils/datetime";
 
 interface HabitToDoProps {

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useForm } from "@tanstack/react-form";
 
-import { inputEmailSchema } from "#/schemas/schemas";
+import { inputEmailSchema } from "#/utils/schemas";
 import { userResetPasswordFn } from "#/utils/users.functions";
 
 import InputField from "#/components/InputField";

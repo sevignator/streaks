@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useForm } from "@tanstack/react-form";
 import z from "zod";
 
-import { inputPasswordSchema } from "#/schemas/schemas";
+import { inputPasswordSchema } from "#/utils/schemas";
 import {
   getPasswordResetTokenDataFn,
   updateUserPasswordWithTokenFn,
