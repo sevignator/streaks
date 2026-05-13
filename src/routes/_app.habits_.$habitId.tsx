@@ -1,7 +1,11 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
 
-import { editHabitFn, getHabitByUserIdFn } from "#/utils/habits.functions";
+import {
+  deleteHabitFn,
+  editHabitFn,
+  getHabitByUserIdFn,
+} from "#/utils/habits.functions";
 import { getCurrentUserFn } from "#/utils/users.functions";
 
 import PageTitle from "#/components/PageTitle";
@@ -29,6 +33,7 @@ export const Route = createFileRoute("/_app/habits_/$habitId")({
 function RouteComponent() {
   const { habit } = Route.useLoaderData();
 
+  const deleteHabit = useServerFn(deleteHabitFn);
   const editHabit = useServerFn(editHabitFn);
 
   const form = useForm({
@@ -43,6 +48,10 @@ function RouteComponent() {
       await editHabit({ data: { habitId, title, interval } });
     },
   });
+
+  async function handleDelete() {
+    await deleteHabit({ data: habit.id });
+  }
 
   return (
     <div className="container">
@@ -82,6 +91,13 @@ function RouteComponent() {
           )}
         />
       </form>
+
+      <button
+        className="text-red-600 dark:text-red-400 mx-auto block cursor-pointer mt-4 text-lg"
+        onClick={handleDelete}
+      >
+        Delete habit
+      </button>
     </div>
   );
 }

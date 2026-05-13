@@ -41,6 +41,19 @@ export async function editHabit(
   }
 }
 
+export async function deleteHabit(habitId: Habit["id"]) {
+  try {
+    await db.delete(habits).where(eq(habits.id, habitId));
+  } catch (err) {
+    if (
+      err instanceof DrizzleQueryError &&
+      err.cause instanceof DatabaseError
+    ) {
+      console.error(err.cause.detail);
+    }
+  }
+}
+
 export async function getHabitByUserId(
   habitId: Habit["id"],
   userId: User["id"],

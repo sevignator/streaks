@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import {
   createHabit,
+  deleteHabit,
   editHabit,
   getAllHabitsByUserId,
   getHabitByUserId,
@@ -40,6 +41,16 @@ export const editHabitFn = createServerFn({ method: "POST" })
     const { habitId, title, interval } = data;
 
     await editHabit(habitId, title, interval);
+
+    throw redirect({
+      to: "/habits",
+    });
+  });
+
+export const deleteHabitFn = createServerFn({ method: "POST" })
+  .inputValidator((input: z.input<typeof habitIdSchema>) => input)
+  .handler(async ({ data: habitId }) => {
+    await deleteHabit(habitId);
 
     throw redirect({
       to: "/habits",
