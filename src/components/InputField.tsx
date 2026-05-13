@@ -25,7 +25,7 @@ export default function InputField({
         value={field.state.value}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
-        className="border-solid border-2 border-slate-300 rounded-md text-2xl p-2"
+        className="rounded-md border-2 border-solid border-slate-300 p-2 text-2xl"
       />
       <FieldInfo errors={field.state.meta.errors} />
     </div>

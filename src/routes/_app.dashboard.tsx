@@ -51,6 +51,8 @@ function RouteComponent() {
     <div className="container">
       <PageTitle text="Dashboard" />
 
+      <h2 className="mb-4 text-lg font-bold uppercase">Your day</h2>
+
       <div className="grid gap-4">
         {habits.map(({ id, title, isDone }) => (
           <HabitToDo key={id} id={id} title={title} isDone={isDone} />

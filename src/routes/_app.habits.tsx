@@ -26,10 +26,7 @@ function RouteComponent() {
 
       <HabitsList habits={habits} />
 
-      <Link
-        to="/habits/create"
-        className="inline-block px-4 py-2 mt-6 bg-violet-700 text-white rounded-md"
-      >
+      <Link to="/habits/create" className="btn mt-6" data-btn-type="primary">
         Create habit
       </Link>
     </div>

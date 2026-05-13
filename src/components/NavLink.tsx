@@ -3,6 +3,7 @@ import {
   type RegisteredRouter,
   type ValidateLinkOptions,
 } from '@tanstack/react-router';
+import clsx from 'clsx';
 
 type LinkOptions<
   TRouter extends RegisteredRouter = RegisteredRouter,
@@ -19,8 +20,14 @@ export default function NavLink({ icon, text, to }: NavLinkProps) {
   return (
     <Link
       to={to}
-      className="px-4 py-3 font-semibold rounded-full flex items-center gap-2.5"
-      activeProps={{ className: 'bg-white text-[var(--clr-accent)]' }}
+      className="flex items-center gap-2.5 rounded-full px-4 py-3 font-semibold"
+      activeProps={{
+        className: clsx(
+          'bg-slate-50',
+          'text-(--clr-accent)',
+          'dark:bg-slate-950',
+        ),
+      }}
     >
       <span className="w-5">{icon}</span>
       <span>{text}</span>

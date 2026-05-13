@@ -38,25 +38,22 @@ export default function HabitToDo({
   }
 
   return (
-    <button
-      onClick={toggleCheck}
-      className={`
+    <button onClick={toggleCheck} className={`
         flex
-        p-3
-        gap-3
-        text-xl
         items-center
+        gap-3
         rounded-lg
         border
+        p-3
+        text-xl
         transition
         ${isChecked ? 'bg-green-100' : 'bg-violet-100'}
         ${isChecked ? 'border-green-400' : 'border-violet-200'}
         ${isChecked ? 'text-green-950' : 'text-violet-950'}
-        hover:cursor-pointer
         hover:scale-[1.015]
+        hover:cursor-pointer
         active:scale-[1.01]
-      `}
-    >
+      `}>
       <span>
         <svg
           width="36"
@@ -73,25 +70,16 @@ export default function HabitToDo({
             ${isChecked ? 'stroke-green-500' : 'stroke-violet-300'}
           `}
         >
-          <circle
-            cx="12"
-            cy="12"
-            r="10"
-            className={`
+          <circle cx="12" cy="12" r="10" className={`
               transition-[stroke-dasharray]
               ${isChecked ? '[stroke-dasharray:0,0]' : '[stroke-dasharray:2,4]'}
               ${isChecked ? 'fill-green-50' : 'fill-violet-50'}
-            `}
-          />
-          <path
-            d="m9 12 2 2 4-4"
-            pathLength={10}
-            className={`
+            `} />
+          <path d="m9 12 2 2 4-4" pathLength={10} className={`
               transition-[stroke-dashoffset]
               [stroke-dasharray:10,10]
               ${isChecked ? '[stroke-dashoffset:0]' : '[stroke-dashoffset:10]'}
-            `}
-          />
+            `} />
         </svg>
       </span>
 

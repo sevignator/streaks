@@ -33,20 +33,20 @@ function RouteComponent() {
   return (
     <div>
       {search.message === 'account-created' && (
-        <p className="p-2 bg-green-100 border-green-200 border rounded-md text-green-600 text-center mb-6">
+        <p className="mb-6 rounded-md border border-green-200 bg-green-100 p-2 text-center text-green-600">
           Your account has successfully been created.
         </p>
       )}
 
       {search.message === 'password-reset' && (
-        <p className="p-2 bg-green-100 border-green-200 border rounded-md text-green-600 text-center mb-6">
+        <p className="mb-6 rounded-md border border-green-200 bg-green-100 p-2 text-center text-green-600">
           A password reset email has been sent to the email address you
           provided.
         </p>
       )}
 
       {search.message === 'password-updated' && (
-        <p className="p-2 bg-green-100 border-green-200 border rounded-md text-green-600 text-center mb-6">
+        <p className="mb-6 rounded-md border border-green-200 bg-green-100 p-2 text-center text-green-600">
           Your password has successfully been updated.
         </p>
       )}
@@ -90,7 +90,7 @@ function RouteComponent() {
         />
       </form>
 
-      <p className="text-center mt-4">
+      <p className="mt-4 text-center">
         <Link to="/login/reset">Reset password</Link>
       </p>
     </div>

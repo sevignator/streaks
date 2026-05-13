@@ -12,7 +12,7 @@ export default function SubmitButton({
   return (
     <button
       type="submit"
-      className="bg-violet-600 rounded-md p-3 text-xl text-slate-50 font-bold cursor-pointer"
+      className="cursor-pointer rounded-md bg-(--clr-btn-primary) p-3 text-xl font-bold text-slate-50"
       disabled={!canSubmit}
     >
       {isSubmitting ? '...' : label}

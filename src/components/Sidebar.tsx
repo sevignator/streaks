@@ -80,9 +80,9 @@ export default function Sidebar() {
   }
 
   return (
-    <header className="bg-(--clr-bg-secondary) h-dvh p-4">
-      <nav className="flex flex-col h-full">
-        <div className="font-black text-2xl mb-4 p-4">Streaks</div>
+    <header className="h-dvh bg-(--clr-bg-secondary) p-4">
+      <nav className="flex h-full flex-col">
+        <div className="mb-4 p-4 text-2xl font-black">Streaks</div>
 
         <div className="flex flex-col">
           {NAV_LINKS.map(({ icon, text, to }) => {
