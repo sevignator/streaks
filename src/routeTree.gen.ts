@@ -19,7 +19,7 @@ import { Route as AppHabitsRouteImport } from './routes/_app.habits'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset'
 import { Route as AppHabitsCreateRouteImport } from './routes/_app.habits_.create'
-import { Route as AppHabitsHabitIdRouteImport } from './routes/_app.habits.$habitId'
+import { Route as AppHabitsHabitIdRouteImport } from './routes/_app.habits_.$habitId'
 import { Route as UserLoginResetTokenRouteImport } from './routes/_user.login_.reset_.$token'
 
 const UserRoute = UserRouteImport.update({
@@ -71,9 +71,9 @@ const AppHabitsCreateRoute = AppHabitsCreateRouteImport.update({
   getParentRoute: () => AppRoute,
 } as any)
 const AppHabitsHabitIdRoute = AppHabitsHabitIdRouteImport.update({
-  id: '/$habitId',
-  path: '/$habitId',
-  getParentRoute: () => AppHabitsRoute,
+  id: '/habits_/$habitId',
+  path: '/habits/$habitId',
+  getParentRoute: () => AppRoute,
 } as any)
 const UserLoginResetTokenRoute = UserLoginResetTokenRouteImport.update({
   id: '/login_/reset_/$token',
@@ -84,7 +84,7 @@ const UserLoginResetTokenRoute = UserLoginResetTokenRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
-  '/habits': typeof AppHabitsRouteWithChildren
+  '/habits': typeof AppHabitsRoute
   '/stats': typeof AppStatsRoute
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
@@ -96,7 +96,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
-  '/habits': typeof AppHabitsRouteWithChildren
+  '/habits': typeof AppHabitsRoute
   '/stats': typeof AppStatsRoute
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
@@ -111,11 +111,11 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/_user': typeof UserRouteWithChildren
   '/_app/dashboard': typeof AppDashboardRoute
-  '/_app/habits': typeof AppHabitsRouteWithChildren
+  '/_app/habits': typeof AppHabitsRoute
   '/_app/stats': typeof AppStatsRoute
   '/_user/login': typeof UserLoginRoute
   '/_user/signup': typeof UserSignupRoute
-  '/_app/habits/$habitId': typeof AppHabitsHabitIdRoute
+  '/_app/habits_/$habitId': typeof AppHabitsHabitIdRoute
   '/_app/habits_/create': typeof AppHabitsCreateRoute
   '/_user/login_/reset': typeof UserLoginResetRoute
   '/_user/login_/reset_/$token': typeof UserLoginResetTokenRoute
@@ -155,7 +155,7 @@ export interface FileRouteTypes {
     | '/_app/stats'
     | '/_user/login'
     | '/_user/signup'
-    | '/_app/habits/$habitId'
+    | '/_app/habits_/$habitId'
     | '/_app/habits_/create'
     | '/_user/login_/reset'
     | '/_user/login_/reset_/$token'
@@ -239,12 +239,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHabitsCreateRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/habits/$habitId': {
-      id: '/_app/habits/$habitId'
-      path: '/$habitId'
+    '/_app/habits_/$habitId': {
+      id: '/_app/habits_/$habitId'
+      path: '/habits/$habitId'
       fullPath: '/habits/$habitId'
       preLoaderRoute: typeof AppHabitsHabitIdRouteImport
-      parentRoute: typeof AppHabitsRoute
+      parentRoute: typeof AppRoute
     }
     '/_user/login_/reset_/$token': {
       id: '/_user/login_/reset_/$token'
@@ -256,29 +256,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AppHabitsRouteChildren {
-  AppHabitsHabitIdRoute: typeof AppHabitsHabitIdRoute
-}
-
-const AppHabitsRouteChildren: AppHabitsRouteChildren = {
-  AppHabitsHabitIdRoute: AppHabitsHabitIdRoute,
-}
-
-const AppHabitsRouteWithChildren = AppHabitsRoute._addFileChildren(
-  AppHabitsRouteChildren,
-)
-
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
-  AppHabitsRoute: typeof AppHabitsRouteWithChildren
+  AppHabitsRoute: typeof AppHabitsRoute
   AppStatsRoute: typeof AppStatsRoute
+  AppHabitsHabitIdRoute: typeof AppHabitsHabitIdRoute
   AppHabitsCreateRoute: typeof AppHabitsCreateRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
-  AppHabitsRoute: AppHabitsRouteWithChildren,
+  AppHabitsRoute: AppHabitsRoute,
   AppStatsRoute: AppStatsRoute,
+  AppHabitsHabitIdRoute: AppHabitsHabitIdRoute,
   AppHabitsCreateRoute: AppHabitsCreateRoute,
 }
 

@@ -2,7 +2,7 @@
 
 ## Lessons learned
 
-- Put all server-side logic behind a server function (for example, `createServerFn`) instead of calling server-only modules directly from route loaders. This avoids client-navigation/back-button route freezes caused by server/client boundary violations.
+- Never call server-only utilities (for example, `*.server.ts`) directly from route loaders or client-side code; wrap them in a server function (for example, `createServerFn`) and call that instead. This avoids runtime freezes and other server/client boundary issues during navigation.
 - Use deterministic hashing (for example, HMAC-SHA256 with a secret) for retrievable tokens so you can look up records by hash without needing to verify against non-deterministic password hashes.
 - Keep token lifetimes short and explicit (for example, 30 minutes), and enforce expiry checks server-side before allowing sensitive flows like password reset.
 - Guard nullable database reads before dereferencing properties (for example, check `resetTokenRecord` before using `resetTokenRecord.expiresAt`) to avoid loader-time crashes that can appear as UI freezes.
