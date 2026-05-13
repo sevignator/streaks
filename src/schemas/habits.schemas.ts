@@ -1,5 +1,3 @@
-import z from 'zod';
-
-export const habitCreatedAt = z.date();
+import z from "zod";
 
 export const habitIdSchema = z.number();

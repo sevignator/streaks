@@ -1,36 +1,48 @@
-import { createServerFn } from '@tanstack/react-start';
-import type z from 'zod';
+import { createServerFn } from "@tanstack/react-start";
+import z from "zod";
 
+import { habitIdSchema } from "#/schemas/habits.schemas";
+import { dateISOSchema } from "#/schemas/datetime.schemas";
 import {
-  type completionDateSchema,
-  type completionSchema,
-} from '#/schemas/completions.schemas';
-import {
-  createCompletionOnDate,
-  deleteCompletionOnDate,
-  getAllCompletionsFromDate,
-} from '#/utils/completions.server';
+  createCompletionOn,
+  deleteCompletionOn,
+  getAllCompletionsOn,
+} from "#/utils/completions.server";
 
-export const createCompletionOnDateFn = createServerFn({
-  method: 'POST',
+const createCompletionOnSchema = z.object({
+  date: dateISOSchema,
+  habitId: habitIdSchema,
+});
+
+export const createCompletionOnFn = createServerFn({
+  method: "POST",
 })
-  .inputValidator((input: z.input<typeof completionSchema>) => input)
+  .inputValidator((input: z.input<typeof createCompletionOnSchema>) => input)
   .handler(async ({ data: { date, habitId } }) => {
-    return await createCompletionOnDate(date, habitId);
+    return await createCompletionOn(date, habitId);
   });
 
-export const deleteCompletionOnDateFn = createServerFn({
-  method: 'POST',
+const deleteCompletionOnSchema = z.object({
+  date: dateISOSchema,
+  habitId: habitIdSchema,
+});
+
+export const deleteCompletionOnFn = createServerFn({
+  method: "POST",
 })
-  .inputValidator((input: z.input<typeof completionSchema>) => input)
+  .inputValidator((input: z.input<typeof deleteCompletionOnSchema>) => input)
   .handler(async ({ data: { date, habitId } }) => {
-    return await deleteCompletionOnDate(date, habitId);
+    return await deleteCompletionOn(date, habitId);
   });
 
-export const getAllCompletionsOnDateFn = createServerFn({
-  method: 'GET',
+const getAllCompletionsOnSchema = z.object({
+  date: dateISOSchema,
+});
+
+export const getAllCompletionsOnFn = createServerFn({
+  method: "GET",
 })
-  .inputValidator((input: z.input<typeof completionDateSchema>) => input)
-  .handler(async ({ data }) => {
-    return await getAllCompletionsFromDate(data);
+  .inputValidator((input: z.input<typeof getAllCompletionsOnSchema>) => input)
+  .handler(async ({ data: { date } }) => {
+    return await getAllCompletionsOn(date);
   });

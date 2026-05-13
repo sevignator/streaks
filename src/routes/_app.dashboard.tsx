@@ -1,34 +1,36 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from "@tanstack/react-router";
 
-import { type Habit } from '#/db/schema';
-import { getCurrentUserFn } from '#/utils/users.functions';
+import { type Habit } from "#/db/schema";
+import { getCurrentUserFn } from "#/utils/users.functions";
+import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
+import { getAllCompletionsOnFn } from "#/utils/completions.functions";
+import { getISODate } from "#/utils/datetime";
 
-import PageTitle from '#/components/PageTitle';
-import HabitToDo from '#/components/HabitToDo';
-import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
-import { getAllCompletionsOnDateFn } from '#/utils/completions.functions';
-import { getServerDateFn } from '#/utils/datetime.function';
+import PageTitle from "#/components/PageTitle";
+import HabitToDo from "#/components/HabitToDo";
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
   loader: async (): Promise<{
-    habits: HabitWithIsDone[],
-    now: Date
+    habits: HabitWithIsDone[];
+    now: Date;
   }> => {
     const user = await getCurrentUserFn();
-    const now = await getServerDateFn();
+    const now = new Date();
+    const dateInISO = getISODate(now);
 
-    if (!user) return {
-      habits: [],
-      now
-    };
+    if (!user)
+      return {
+        habits: [],
+        now,
+      };
 
-    const completions = await getAllCompletionsOnDateFn({
-      data: now,
+    const completions = await getAllCompletionsOnFn({
+      data: { date: dateInISO },
     });
     const completionIds = completions.map((completion) => completion.habitId);
 
@@ -40,7 +42,7 @@ export const Route = createFileRoute('/_app/dashboard')({
 
     return {
       habits: allHabitsWithDone,
-      now
+      now,
     };
   },
 });
@@ -53,7 +55,9 @@ function RouteComponent() {
     <div className="container">
       <PageTitle text={`${user.nickname}'s dashboard`} />
 
-      <div>{now.toISOString()}</div>
+      <p>Server time: {now.toISOString()}</p>
+
+      <p>Client time: {new Date().toString()}</p>
 
       <div className="grid gap-4">
         {habits.map(({ id, title, isDone }) => (

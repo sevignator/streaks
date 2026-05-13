@@ -29,6 +29,20 @@
       "when": 1778548567728,
       "tag": "0003_bright_fenris",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1778631082233,
+      "tag": "0004_flaky_lionheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1778675212814,
+      "tag": "0005_lumpy_stephen_strange",
+      "breakpoints": true
     }
   ]
 }

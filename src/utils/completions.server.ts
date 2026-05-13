@@ -1,32 +1,32 @@
-import { and, eq, sql } from 'drizzle-orm';
+import { and, eq } from "drizzle-orm";
 
-import { db } from '#/db';
-import { completions, type Habit } from '#/db/schema';
-import { getISODate } from '#/utils/datetime';
+import { db } from "#/db";
+import { completions, type Habit } from "#/db/schema";
 
-export async function createCompletionOnDate(date: Date, habitId: Habit['id']) {
-  const dateInISO = getISODate(date);
+export async function createCompletionOn(
+  dateInISO: string,
+  habitId: Habit["id"],
+) {
   await db.insert(completions).values({ habitId, completedOn: dateInISO });
 }
 
-export async function deleteCompletionOnDate(date: Date, habitId: Habit['id']) {
-  const dateInISO = getISODate(date);
+export async function deleteCompletionOn(
+  dateInISO: string,
+  habitId: Habit["id"],
+) {
   await db
     .delete(completions)
     .where(
       and(
         eq(completions.habitId, habitId),
-        eq(sql`DATE(${completions.completedOn} AT TIME ZONE 'UTC')`, dateInISO),
+        eq(completions.completedOn, dateInISO),
       ),
     );
 }
 
-export async function getAllCompletionsFromDate(date: Date) {
-  const dateInISO = getISODate(date);
+export async function getAllCompletionsOn(dateInISO: string) {
   return await db
     .select()
     .from(completions)
-    .where(
-      eq(sql`DATE(${completions.completedOn} AT TIME ZONE 'UTC')`, dateInISO),
-    );
+    .where(eq(completions.completedOn, dateInISO));
 }
