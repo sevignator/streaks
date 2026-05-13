@@ -1,19 +1,19 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useServerFn } from '@tanstack/react-start';
-import { useForm } from '@tanstack/react-form';
-import z from 'zod';
+import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useForm } from "@tanstack/react-form";
+import z from "zod";
 
 import {
-  emailInputSchema,
-  nicknameInputSchema,
-  passwordInputSchema,
-} from '#/schemas/inputs.schemas';
-import { userSignupFn } from '#/utils/users.functions';
+  inputEmailSchema,
+  inputNicknameSchema,
+  inputPasswordSchema,
+} from "#/schemas/schemas";
+import { userSignupFn } from "#/utils/users.functions";
 
-import InputField from '#/components/InputField';
-import SubmitButton from '#/components/SubmitButton';
+import InputField from "#/components/InputField";
+import SubmitButton from "#/components/SubmitButton";
 
-export const Route = createFileRoute('/_user/signup')({
+export const Route = createFileRoute("/_user/signup")({
   component: RouteComponent,
 });
 
@@ -21,10 +21,10 @@ function RouteComponent() {
   const signupUser = useServerFn(userSignupFn);
   const form = useForm({
     defaultValues: {
-      nickname: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      nickname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     onSubmit: async ({ value }) => {
       const { nickname, email, password, confirmPassword } = value;
@@ -47,7 +47,7 @@ function RouteComponent() {
         <form.Field
           name="nickname"
           validators={{
-            onBlur: nicknameInputSchema,
+            onBlur: inputNicknameSchema,
           }}
           children={(field) => (
             <InputField field={field} label="Nickname" type="text" />
@@ -57,7 +57,7 @@ function RouteComponent() {
         <form.Field
           name="email"
           validators={{
-            onBlur: emailInputSchema,
+            onBlur: inputEmailSchema,
           }}
           children={(field) => (
             <InputField field={field} label="Email" type="email" />
@@ -67,7 +67,7 @@ function RouteComponent() {
         <form.Field
           name="password"
           validators={{
-            onBlur: passwordInputSchema,
+            onBlur: inputPasswordSchema,
           }}
           children={(field) => (
             <InputField field={field} label="Password" type="password" />
@@ -79,9 +79,9 @@ function RouteComponent() {
           validators={{
             onBlur: z
               .string()
-              .refine((input) => input === form.getFieldValue('password'), {
-                message: 'Passwords do not match',
-                path: ['confirmPassword'],
+              .refine((input) => input === form.getFieldValue("password"), {
+                message: "Passwords do not match",
+                path: ["confirmPassword"],
               }),
           }}
           children={(field) => (

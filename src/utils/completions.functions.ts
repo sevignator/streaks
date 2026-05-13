@@ -1,8 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import z from "zod";
 
-import { habitIdSchema } from "#/schemas/habits.schemas";
-import { dateISOSchema } from "#/schemas/datetime.schemas";
+import { dateISOSchema, habitIdSchema } from "#/utils/schemas";
 import {
   createCompletionOn,
   deleteCompletionOn,
