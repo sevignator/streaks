@@ -9,8 +9,8 @@ export const Route = createFileRoute('/_user')({
 
 function RouteComponent() {
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className="mt-12 mb-18 text-center">
+    <div className="mx-auto max-w-2xl py-12">
+      <h1 className="mb-18 text-center">
         <Logo size="6rem" />
       </h1>
 
