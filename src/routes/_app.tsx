@@ -1,30 +1,37 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-
-import { AuthProvider } from '#/contexts/auth';
-import { getCurrentUserFn } from '#/utils/users.functions';
-
-import Sidebar from '../components/Sidebar';
 import { useState } from 'react';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import clsx from 'clsx';
-import SidebarToggle from '#/components/SidebarToggle';
+
+import Sidebar from '#/components/Sidebar';
 import SiteHeader from '#/components/SiteHeader';
+import { getCurrentUserFn } from '#/utils/users.functions';
+import { getLocalTimezone } from '#/utils/datetime';
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
-  beforeLoad: async () => {
-    const user = await getCurrentUserFn();
+  beforeLoad: async ({ context }) => {
+    const currentUser = await getCurrentUserFn();
 
-    if (!user) {
+    if (!currentUser) {
       throw redirect({
         to: '/',
       });
     }
 
-    return { user };
+    const { id, nickname, email } = currentUser;
+    const timezone = getLocalTimezone();
+
+    context.user = {
+      id,
+      nickname,
+      email,
+      timezone,
+    };
   },
 });
 
 function RouteComponent() {
+  const { user } = Route.useRouteContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleMenu() {
@@ -32,23 +39,21 @@ function RouteComponent() {
   }
 
   return (
-    <AuthProvider>
-      <div
-        className={clsx([
-          'grid',
-          'transition-[grid-template-columns]',
-          'overflow-x-clip',
-          isMenuOpen
-            ? 'grid-cols-[1fr_var(--size-sidebar)]'
-            : 'grid-cols-[1fr_0]',
-        ])}
-      >
-        <Sidebar isOpen={isMenuOpen} />
-        <main className="col-1 row-1">
-          <SiteHeader isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          <Outlet />
-        </main>
-      </div>
-    </AuthProvider>
+    <div
+      className={clsx([
+        'grid',
+        'transition-[grid-template-columns]',
+        'overflow-x-clip',
+        isMenuOpen
+          ? 'grid-cols-[1fr_var(--size-sidebar)]'
+          : 'grid-cols-[1fr_0]',
+      ])}
+    >
+      <Sidebar user={user} isOpen={isMenuOpen} />
+      <main className="col-1 row-1">
+        <SiteHeader isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <Outlet />
+      </main>
+    </div>
   );
 }

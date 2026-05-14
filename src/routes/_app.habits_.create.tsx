@@ -2,7 +2,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
 import { useForm } from '@tanstack/react-form';
 
-import { useAuth } from '#/contexts/auth';
 import { createHabitFn } from '#/utils/habits.functions';
 
 import PageTitle from '#/components/PageTitle';
@@ -14,8 +13,9 @@ export const Route = createFileRoute('/_app/habits_/create')({
 });
 
 function RouteComponent() {
+  const { user } = Route.useRouteContext();
+
   const createHabit = useServerFn(createHabitFn);
-  const { user } = useAuth();
   const form = useForm({
     defaultValues: {
       title: '',

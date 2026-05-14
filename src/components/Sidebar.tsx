@@ -1,12 +1,11 @@
 import { type LinkOptions } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
-import clsx from 'clsx';
 
 import ThemeToggle from '#/components/ThemeToggle';
 import NavLink from '#/components/NavLink';
 
-import { useAuth } from '#/contexts/auth';
 import { userLogoutFn } from '#/utils/users.functions';
+import { type AuthenticatedUser } from '#/utils/types';
 
 interface NavLinkItem {
   icon: React.ReactNode;
@@ -73,12 +72,11 @@ const NAV_LINKS: NavLinkItem[] = [
 ];
 
 interface SidebarProps {
+  user: AuthenticatedUser;
   isOpen: boolean;
 }
 
-export default function Sidebar({ isOpen }: SidebarProps) {
-  const { user } = useAuth();
-
+export default function Sidebar({ user, isOpen }: SidebarProps) {
   const userLogout = useServerFn(userLogoutFn);
 
   async function handleLogout() {

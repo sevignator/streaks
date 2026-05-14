@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 interface SidebarToggleProps {
   isOpen: boolean;
@@ -17,25 +17,25 @@ export default function SidebarToggle({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-violet-900 dark:stroke-violet-200 w-7 aspect-square"
+        className="aspect-square w-7 stroke-violet-900 dark:stroke-violet-200"
       >
         <path
           className={clsx(
-            "transition-[d]",
+            'transition-[d]',
             isOpen ? "[d:path('M4,19_L20,5')]" : "[d:path('M4,5_L20,5')]",
           )}
         />
         <path
           d="M4 19h16"
           className={clsx(
-            "transition-[d]",
+            'transition-[d]',
             isOpen ? "[d:path('M4,5_L20,19')]" : "[d:path('M4,12_L20,12')]",
           )}
         />
         <path
           d="M4 19h16"
           className={clsx(
-            "transition-[d]",
+            'transition-[d]',
             isOpen ? "[d:path('M4,5_L20,19')]" : "[d:path('M4,19_L20,19')]",
           )}
         />
