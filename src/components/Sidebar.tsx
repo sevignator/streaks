@@ -1,7 +1,6 @@
 import { type LinkOptions } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
 
-import ThemeToggle from '#/components/ThemeToggle';
 import NavLink from '#/components/NavLink';
 
 import { userLogoutFn } from '#/utils/users.functions';
@@ -97,7 +96,6 @@ export default function Sidebar({ user, isOpen }: SidebarProps) {
         <div className="mt-auto">
           {user?.email}
           <button onClick={handleLogout}>Logout</button>
-          <ThemeToggle />
         </div>
       </div>
     </nav>
