@@ -109,8 +109,7 @@ function ThemeOption({
       onClick={() => setMode(mode)}
       className={clsx(
         'inline-grid aspect-square w-10 cursor-pointer place-items-center rounded-full text-black dark:text-white',
-        mode === activeMode && 'text-white',
-        mode === activeMode && 'bg-(--clr-accent)',
+        mode === activeMode && 'bg-(--clr-accent) text-violet-200',
       )}
     >
       <svg
