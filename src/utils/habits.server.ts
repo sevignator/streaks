@@ -1,13 +1,13 @@
-import { DatabaseError } from "pg";
-import { and, DrizzleQueryError, eq } from "drizzle-orm";
+import { DatabaseError } from 'pg';
+import { and, DrizzleQueryError, eq } from 'drizzle-orm';
 
-import { db } from "#/db";
-import { type Habit, type NewHabit, type User, habits } from "#/db/schema";
+import { db } from '#/db';
+import { type Habit, type NewHabit, type User, habits } from '#/db/schema';
 
 export async function createHabit(
-  title: NewHabit["title"],
-  userId: NewHabit["userId"],
-  interval: NewHabit["interval"],
+  title: NewHabit['title'],
+  userId: NewHabit['userId'],
+  interval: NewHabit['interval'],
 ) {
   try {
     await db.insert(habits).values({ title, userId, interval });
@@ -22,9 +22,9 @@ export async function createHabit(
 }
 
 export async function editHabit(
-  habitId: Habit["id"],
-  title: Habit["title"],
-  interval: Habit["interval"],
+  habitId: Habit['id'],
+  title: Habit['title'],
+  interval: Habit['interval'],
 ) {
   try {
     await db
@@ -41,7 +41,7 @@ export async function editHabit(
   }
 }
 
-export async function deleteHabit(habitId: Habit["id"]) {
+export async function deleteHabit(habitId: Habit['id']) {
   try {
     await db.delete(habits).where(eq(habits.id, habitId));
   } catch (err) {
@@ -55,8 +55,8 @@ export async function deleteHabit(habitId: Habit["id"]) {
 }
 
 export async function getHabitByUserId(
-  habitId: Habit["id"],
-  userId: User["id"],
+  habitId: Habit['id'],
+  userId: User['id'],
 ) {
   const matches = await db
     .select()
@@ -66,6 +66,6 @@ export async function getHabitByUserId(
   return matches[0];
 }
 
-export async function getAllHabitsByUserId(userId: User["id"]) {
+export async function getAllHabitsByUserId(userId: User['id']) {
   return await db.select().from(habits).where(eq(habits.userId, userId));
 }

@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -11,10 +11,12 @@
   /* Light theme variables go here */
   --clr-bg-primary: var(--color-slate-100);
   --clr-bg-secondary: var(--color-slate-200);
+  --clr-bg-tertiary: var(--color-slate-300);
   --clr-accent: var(--color-violet-800);
   --clr-text-primary: var(--color-slate-900);
-
   --clr-btn-primary: var(--color-violet-600);
+
+  --size-sidebar: 320px;
 
   @apply selection:bg-violet-600 selection:text-white;
 }
@@ -23,6 +25,7 @@
   /* Dark theme variables go here */
   --clr-bg-primary: var(--color-slate-800);
   --clr-bg-secondary: var(--color-slate-900);
+  --clr-bg-tertiary: var(--color-slate-950);
   --clr-accent: var(--color-violet-400);
   --clr-text-primary: var(--color-slate-100);
 }
@@ -32,6 +35,7 @@
     /* Dark theme variables go here */
     --clr-bg-primary: var(--color-slate-800);
     --clr-bg-secondary: var(--color-slate-900);
+    --clr-bg-tertiary: var(--color-slate-950);
     --clr-accent: var(--color-violet-400);
     --clr-text-primary: var(--color-slate-100);
   }
@@ -56,13 +60,13 @@ body {
 }
 
 .container {
-  @apply mx-auto max-w-4xl px-12;
+  @apply mx-auto max-w-4xl px-12 mt-14;
 }
 
 .btn {
   @apply inline-block rounded-md bg-slate-600 px-4 py-2 font-bold text-white;
 }
 
-.btn[data-btn-type='primary'] {
+.btn[data-btn-type="primary"] {
   @apply bg-(--clr-btn-primary);
 }

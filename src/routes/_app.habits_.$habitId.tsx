@@ -1,19 +1,19 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { useForm } from "@tanstack/react-form";
+import { createFileRoute, notFound } from '@tanstack/react-router';
+import { useForm } from '@tanstack/react-form';
 
 import {
   deleteHabitFn,
   editHabitFn,
   getHabitByUserIdFn,
-} from "#/utils/habits.functions";
-import { getCurrentUserFn } from "#/utils/users.functions";
+} from '#/utils/habits.functions';
+import { getCurrentUserFn } from '#/utils/users.functions';
 
-import PageTitle from "#/components/PageTitle";
-import InputField from "#/components/InputField";
-import SubmitButton from "#/components/SubmitButton";
-import { useServerFn } from "@tanstack/react-start";
+import PageTitle from '#/components/PageTitle';
+import InputField from '#/components/InputField';
+import SubmitButton from '#/components/SubmitButton';
+import { useServerFn } from '@tanstack/react-start';
 
-export const Route = createFileRoute("/_app/habits_/$habitId")({
+export const Route = createFileRoute('/_app/habits_/$habitId')({
   component: RouteComponent,
   loader: async ({ params }) => {
     const user = await getCurrentUserFn();
@@ -93,7 +93,7 @@ function RouteComponent() {
       </form>
 
       <button
-        className="text-red-600 dark:text-red-400 mx-auto block cursor-pointer mt-4 text-lg"
+        className="mx-auto mt-4 block cursor-pointer text-lg text-red-600 dark:text-red-400"
         onClick={handleDelete}
       >
         Delete habit

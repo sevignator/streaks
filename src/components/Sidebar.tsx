@@ -1,5 +1,6 @@
 import { type LinkOptions } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
+import clsx from 'clsx';
 
 import ThemeToggle from '#/components/ThemeToggle';
 import NavLink from '#/components/NavLink';
@@ -71,8 +72,13 @@ const NAV_LINKS: NavLinkItem[] = [
   },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+}
+
+export default function Sidebar({ isOpen }: SidebarProps) {
   const { user } = useAuth();
+
   const userLogout = useServerFn(userLogoutFn);
 
   async function handleLogout() {
@@ -80,10 +86,8 @@ export default function Sidebar() {
   }
 
   return (
-    <header className="h-dvh bg-(--clr-bg-secondary) p-4">
-      <nav className="flex h-full flex-col">
-        <div className="mb-4 p-4 text-2xl font-black">Streaks</div>
-
+    <nav className="relative col-2 row-1 h-dvh w-(--size-sidebar) border-l border-(--clr-bg-tertiary) bg-(--clr-bg-secondary) transition-transform">
+      <div className="flex h-full flex-col p-4" inert={!isOpen}>
         <div className="flex flex-col">
           {NAV_LINKS.map(({ icon, text, to }) => {
             return to ? (
@@ -97,7 +101,7 @@ export default function Sidebar() {
           <button onClick={handleLogout}>Logout</button>
           <ThemeToggle />
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   );
 }

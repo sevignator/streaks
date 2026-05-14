@@ -1,6 +1,6 @@
-import { redirect } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+import { redirect } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
 
 import {
   createHabit,
@@ -8,8 +8,8 @@ import {
   editHabit,
   getAllHabitsByUserId,
   getHabitByUserId,
-} from "#/utils/habits.server";
-import { habitIdSchema, userIdSchema } from "#/utils/schemas";
+} from '#/utils/habits.server';
+import { habitIdSchema, userIdSchema } from '#/utils/schemas';
 
 export const createHabitSchema = z.object({
   title: z.string(),
@@ -17,7 +17,7 @@ export const createHabitSchema = z.object({
   interval: z.number(),
 });
 
-export const createHabitFn = createServerFn({ method: "POST" })
+export const createHabitFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof createHabitSchema>) => input)
   .handler(async ({ data }) => {
     const { title, userId, interval } = data;
@@ -25,7 +25,7 @@ export const createHabitFn = createServerFn({ method: "POST" })
     await createHabit(title, userId, interval);
 
     throw redirect({
-      to: "/habits",
+      to: '/habits',
     });
   });
 
@@ -35,7 +35,7 @@ export const editHabitSchema = z.object({
   interval: z.number(),
 });
 
-export const editHabitFn = createServerFn({ method: "POST" })
+export const editHabitFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof editHabitSchema>) => input)
   .handler(async ({ data }) => {
     const { habitId, title, interval } = data;
@@ -43,17 +43,17 @@ export const editHabitFn = createServerFn({ method: "POST" })
     await editHabit(habitId, title, interval);
 
     throw redirect({
-      to: "/habits",
+      to: '/habits',
     });
   });
 
-export const deleteHabitFn = createServerFn({ method: "POST" })
+export const deleteHabitFn = createServerFn({ method: 'POST' })
   .inputValidator((input: z.input<typeof habitIdSchema>) => input)
   .handler(async ({ data: habitId }) => {
     await deleteHabit(habitId);
 
     throw redirect({
-      to: "/habits",
+      to: '/habits',
     });
   });
 
@@ -63,7 +63,7 @@ export const getHabitByUserIdSchema = z.object({
 });
 
 export const getHabitByUserIdFn = createServerFn({
-  method: "GET",
+  method: 'GET',
 })
   .inputValidator((input: z.input<typeof getHabitByUserIdSchema>) => input)
   .handler(async ({ data }) => {
@@ -72,7 +72,7 @@ export const getHabitByUserIdFn = createServerFn({
     return getHabitByUserId(habitId, userId);
   });
 
-export const getAllHabitsByUserIdFn = createServerFn({ method: "GET" })
+export const getAllHabitsByUserIdFn = createServerFn({ method: 'GET' })
   .inputValidator((input: z.input<typeof userIdSchema>) => input)
   .handler(async ({ data: userId }) => {
     return await getAllHabitsByUserId(userId);
