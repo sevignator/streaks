@@ -1,4 +1,5 @@
 import SidebarToggle from '#/components/SidebarToggle';
+import Logo from '#/components/Logo';
 
 interface SiteHeaderProps {
   isMenuOpen: boolean;
@@ -11,9 +12,7 @@ export default function SiteHeader({
 }: SiteHeaderProps) {
   return (
     <header className="flex items-center justify-between gap-3 border-b border-(--clr-bg-tertiary) bg-(--clr-bg-secondary) p-1 pl-4">
-      <div className="text-2xl font-bold text-violet-950 dark:text-violet-200">
-        Streaks
-      </div>
+      <Logo size="1.5rem" />
 
       <SidebarToggle isOpen={isMenuOpen} toggleOpen={toggleMenu} />
     </header>
