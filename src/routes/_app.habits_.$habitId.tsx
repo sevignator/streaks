@@ -54,7 +54,7 @@ function RouteComponent() {
   }
 
   return (
-    <div className="container">
+    <div>
       <PageTitle text={`Edit "${habit.title}"`} />
 
       <form

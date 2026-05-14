@@ -11,7 +11,7 @@ export default function SiteHeader({
   toggleMenu,
 }: SiteHeaderProps) {
   return (
-    <header className="flex items-center justify-between gap-3 border-b border-(--clr-bg-tertiary) bg-(--clr-bg-secondary) p-1 pl-4">
+    <header className="flex items-center justify-between gap-3 px-6 py-4">
       <Logo size="1.5rem" />
 
       <SidebarToggle isOpen={isMenuOpen} toggleOpen={toggleMenu} />

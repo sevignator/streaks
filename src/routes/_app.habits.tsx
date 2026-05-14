@@ -21,7 +21,7 @@ function RouteComponent() {
   const habits = Route.useLoaderData();
 
   return (
-    <div className="container">
+    <div>
       <PageTitle text="Habits" />
 
       <HabitsList habits={habits} />

@@ -48,7 +48,7 @@ function RouteComponent() {
   const { habits } = Route.useLoaderData();
 
   return (
-    <div className="container">
+    <div>
       <PageTitle text="Dashboard" />
 
       <h2 className="mb-4 text-lg font-bold uppercase">Your day</h2>

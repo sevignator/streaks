@@ -7,6 +7,7 @@ import {
 } from '#/utils/completions.functions';
 import { type Habit } from '#/db/schema';
 import { getISODate } from '#/utils/datetime';
+import clsx from 'clsx';
 
 interface HabitToDoProps {
   id: Habit['id'];
@@ -38,22 +39,15 @@ export default function HabitToDo({
   }
 
   return (
-    <button onClick={toggleCheck} className={`
-        flex
-        items-center
-        gap-3
-        rounded-lg
-        border
-        p-3
-        text-xl
-        transition
-        ${isChecked ? 'bg-green-100' : 'bg-violet-100'}
-        ${isChecked ? 'border-green-400' : 'border-violet-200'}
-        ${isChecked ? 'text-green-950' : 'text-violet-950'}
-        hover:scale-[1.015]
-        hover:cursor-pointer
-        active:scale-[1.01]
-      `}>
+    <button
+      onClick={toggleCheck}
+      className={clsx(
+        'flex items-center gap-3 rounded-lg border p-3 text-xl transition hover:scale-[1.015] hover:cursor-pointer active:scale-[1.01]',
+        isChecked
+          ? 'border-green-400 bg-green-100 text-green-950'
+          : 'border-violet-200 bg-violet-100 text-violet-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-300',
+      )}
+    >
       <span>
         <svg
           width="36"
@@ -63,23 +57,32 @@ export default function HabitToDo({
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={`
-            block
-            aspect-square
-            transition-colors
-            ${isChecked ? 'stroke-green-500' : 'stroke-violet-300'}
-          `}
+          className={clsx(
+            'block aspect-square transition-colors',
+            isChecked
+              ? 'stroke-green-500'
+              : 'stroke-violet-300 dark:stroke-slate-800',
+          )}
         >
-          <circle cx="12" cy="12" r="10" className={`
-              transition-[stroke-dasharray]
-              ${isChecked ? '[stroke-dasharray:0,0]' : '[stroke-dasharray:2,4]'}
-              ${isChecked ? 'fill-green-50' : 'fill-violet-50'}
-            `} />
-          <path d="m9 12 2 2 4-4" pathLength={10} className={`
-              transition-[stroke-dashoffset]
-              [stroke-dasharray:10,10]
-              ${isChecked ? '[stroke-dashoffset:0]' : '[stroke-dashoffset:10]'}
-            `} />
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            className={clsx(
+              'transition-[stroke-dasharray]',
+              isChecked
+                ? 'fill-green-50 [stroke-dasharray:0,0]'
+                : 'fill-violet-50 [stroke-dasharray:2,4] dark:fill-slate-600',
+            )}
+          />
+          <path
+            d="m9 12 2 2 4-4"
+            pathLength={10}
+            className={clsx(
+              'transition-[stroke-dashoffset] [stroke-dasharray:10,10]',
+              isChecked ? '[stroke-dashoffset:0]' : '[stroke-dashoffset:10]',
+            )}
+          />
         </svg>
       </span>
 

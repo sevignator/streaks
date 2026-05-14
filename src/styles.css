@@ -10,7 +10,7 @@
 :root {
   /* Light theme variables go here */
   --clr-bg-primary: var(--color-slate-100);
-  --clr-bg-secondary: var(--color-slate-200);
+  --clr-bg-secondary: var(--color-slate-50);
   --clr-bg-tertiary: var(--color-slate-300);
   --clr-accent: var(--color-violet-800);
   --clr-text-primary: var(--color-slate-900);
@@ -23,8 +23,8 @@
 
 :root.dark {
   /* Dark theme variables go here */
-  --clr-bg-primary: var(--color-slate-800);
-  --clr-bg-secondary: var(--color-slate-900);
+  --clr-bg-primary: var(--color-slate-900);
+  --clr-bg-secondary: var(--color-slate-800);
   --clr-bg-tertiary: var(--color-slate-950);
   --clr-accent: var(--color-violet-400);
   --clr-text-primary: var(--color-slate-100);
@@ -33,8 +33,8 @@
 @media (prefers-color-scheme: dark) {
   :root.dark {
     /* Dark theme variables go here */
-    --clr-bg-primary: var(--color-slate-800);
-    --clr-bg-secondary: var(--color-slate-900);
+    --clr-bg-primary: var(--color-slate-900);
+    --clr-bg-secondary: var(--color-slate-800);
     --clr-bg-tertiary: var(--color-slate-950);
     --clr-accent: var(--color-violet-400);
     --clr-text-primary: var(--color-slate-100);
@@ -60,7 +60,7 @@ body {
 }
 
 .container {
-  @apply mx-auto mt-14 max-w-4xl px-12;
+  @apply mx-auto max-w-4xl;
 }
 
 .btn {

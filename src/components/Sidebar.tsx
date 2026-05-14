@@ -84,9 +84,9 @@ export default function Sidebar({ user, isOpen }: SidebarProps) {
   }
 
   return (
-    <nav className="relative col-2 row-1 h-dvh w-(--size-sidebar) border-l border-(--clr-bg-tertiary) bg-(--clr-bg-secondary) transition-transform">
-      <div className="flex h-full flex-col p-4" inert={!isOpen}>
-        <div className="flex flex-col">
+    <nav className="relative col-2 row-1 w-(--size-sidebar) transition-transform">
+      <div className="flex h-full flex-col py-4 pl-4" inert={!isOpen}>
+        <div className="flex flex-col gap-1">
           {NAV_LINKS.map(({ icon, text, to }) => {
             return to ? (
               <NavLink key={text} icon={icon} text={text} to={to} />

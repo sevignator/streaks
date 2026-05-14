@@ -20,13 +20,9 @@ export default function NavLink({ icon, text, to }: NavLinkProps) {
   return (
     <Link
       to={to}
-      className="flex items-center gap-2.5 rounded-full px-4 py-3 font-semibold"
+      className="flex items-center gap-2.5 rounded-l-full px-4 py-3 font-semibold"
       activeProps={{
-        className: clsx(
-          'bg-slate-50',
-          'text-(--clr-accent)',
-          'dark:bg-slate-950',
-        ),
+        className: clsx('bg-slate-50 text-(--clr-accent)  dark:bg-slate-950'),
       }}
     >
       <span className="w-5">{icon}</span>

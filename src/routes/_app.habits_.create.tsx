@@ -32,7 +32,7 @@ function RouteComponent() {
   });
 
   return (
-    <div className="container">
+    <div>
       <PageTitle text="New habit" />
 
       <form
