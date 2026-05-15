@@ -1,18 +1,18 @@
-import { and, eq } from 'drizzle-orm';
+import { and, eq } from "drizzle-orm";
 
-import { db } from '#/db';
-import { completions, type Habit } from '#/db/schema';
+import { db } from "#/db";
+import { completions, habits, type Habit, type User } from "#/db/schema";
 
 export async function createCompletionOn(
   dateInISO: string,
-  habitId: Habit['id'],
+  habitId: Habit["id"],
 ) {
   await db.insert(completions).values({ habitId, completedOn: dateInISO });
 }
 
 export async function deleteCompletionOn(
   dateInISO: string,
-  habitId: Habit['id'],
+  habitId: Habit["id"],
 ) {
   await db
     .delete(completions)
@@ -24,9 +24,17 @@ export async function deleteCompletionOn(
     );
 }
 
-export async function getAllCompletionsOn(dateInISO: string) {
+export async function getAllCompletionsByUserId(userId: User["id"]) {
   return await db
     .select()
     .from(completions)
-    .where(eq(completions.completedOn, dateInISO));
+    .innerJoin(habits, eq(completions.habitId, habits.id))
+    .where(eq(habits.userId, userId));
+}
+
+export async function getAllCompletionsByHabitId(habitId: Habit["id"]) {
+  return await db
+    .select()
+    .from(completions)
+    .where(eq(completions.habitId, habitId));
 }

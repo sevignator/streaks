@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 type ThemeMode = "light" | "dark" | "auto";
 
@@ -78,7 +78,7 @@ function ThemeOption({
   activeMode: ThemeMode;
   setMode: (mode: ThemeMode) => void;
 }) {
-  const ICON_PATH: Record<ThemeMode, React.ReactNode> = {
+  const ICON_PATH: Record<ThemeMode, ReactNode> = {
     auto: (
       <>
         <rect width="20" height="14" x="2" y="3" rx="2" />

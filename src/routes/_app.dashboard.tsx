@@ -1,51 +1,61 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from "@tanstack/react-router";
 
-import { type Habit } from '#/db/schema';
-import { getCurrentUserFn } from '#/utils/users.functions';
-import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
-import { getAllCompletionsOnFn } from '#/utils/completions.functions';
-import { getISODate } from '#/utils/datetime';
+import { type Completion, type Habit } from "#/db/schema";
+import { getCurrentUserFn } from "#/utils/users.functions";
+import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
+import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
+import { getLocalTime } from "#/utils/datetime";
 
-import PageTitle from '#/components/PageTitle';
-import HabitToDo from '#/components/HabitToDo';
+import PageTitle from "#/components/PageTitle";
+import HabitToDo from "#/components/HabitToDo";
+
+interface CompletionWithHabitData {
+  completions: Completion;
+  habits: Habit;
+}
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
   loader: async (): Promise<{
+    completions: CompletionWithHabitData[];
     habits: HabitWithIsDone[];
   }> => {
     const user = await getCurrentUserFn();
-    const now = new Date();
-    const isoDate = getISODate(now);
+    const isoDate = getLocalTime();
 
-    if (!user)
+    if (!user) {
       return {
+        completions: [],
         habits: [],
       };
+    }
 
-    const completions = await getAllCompletionsOnFn({
-      data: { date: isoDate },
+    const completionsWithHabitsData = await getAllCompletionsByUserIdFn({
+      data: { userId: user.id },
     });
-    const completionIds = completions.map((completion) => completion.habitId);
+    const dailyCompletionIds = completionsWithHabitsData
+      .filter((completion) => completion.completions.completedOn === isoDate)
+      .map((completion) => completion.completions.habitId);
 
     const allHabits = await getAllHabitsByUserIdFn({ data: user.id });
     const allHabitsWithDone = allHabits.map((habit) => ({
       ...habit,
-      isDone: completionIds.includes(habit.id),
+      isDone: dailyCompletionIds.includes(habit.id),
     }));
 
     return {
+      completions: completionsWithHabitsData,
       habits: allHabitsWithDone,
     };
   },
 });
 
 function RouteComponent() {
-  const { habits } = Route.useLoaderData();
+  const { completions, habits } = Route.useLoaderData();
 
   return (
     <div>
@@ -54,9 +64,21 @@ function RouteComponent() {
       <h2 className="mb-4 text-lg font-bold uppercase">Your day</h2>
 
       <div className="grid gap-4">
-        {habits.map(({ id, title, isDone }) => (
-          <HabitToDo key={id} id={id} title={title} isDone={isDone} />
-        ))}
+        {habits.map(({ id, title, isDone }) => {
+          const relatedCompletions = completions.filter((completion) => {
+            return completion.habits.id === id;
+          });
+
+          return (
+            <HabitToDo
+              key={id}
+              id={id}
+              title={title}
+              isDone={isDone}
+              count={relatedCompletions.length}
+            />
+          );
+        })}
       </div>
     </div>
   );
