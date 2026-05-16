@@ -4,7 +4,11 @@ import { type Completion, type Habit } from "#/db/schema";
 import { getCurrentUserFn } from "#/utils/users.functions";
 import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
 import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
-import { getCurrentStreak, getLocalISODate } from "#/utils/datetime";
+import {
+  getCurrentStreak,
+  getFormattedDate,
+  getLocalISODate,
+} from "#/utils/datetime";
 
 import PageTitle from "#/components/PageTitle";
 import HabitToDo from "#/components/HabitToDo";
@@ -59,9 +63,7 @@ function RouteComponent() {
 
   const today = new Date();
   const todayISODate = getLocalISODate(today);
-  const todayFormattedDate = Intl.DateTimeFormat("en-CA", {
-    dateStyle: "full",
-  }).format(today);
+  const todayFormattedDate = getFormattedDate(today);
 
   return (
     <div>
