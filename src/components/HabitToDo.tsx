@@ -1,3 +1,4 @@
+import { useState } from "React";
 import { useServerFn } from "@tanstack/react-start";
 import { useRouter } from "@tanstack/react-router";
 import clsx from "clsx";
@@ -26,17 +27,25 @@ export default function HabitToDo({
   const createCompletionOnDate = useServerFn(createCompletionOnFn);
   const deleteCompletionOnDate = useServerFn(deleteCompletionOnFn);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   async function toggleIsDone() {
-    const nextIsDone = !isDone;
-    const isoDate = getLocalISODate();
+    setIsLoading(true);
 
-    if (nextIsDone) {
-      await createCompletionOnDate({ data: { date: isoDate, habitId: id } });
-    } else {
-      await deleteCompletionOnDate({ data: { date: isoDate, habitId: id } });
+    try {
+      const nextIsDone = !isDone;
+      const isoDate = getLocalISODate();
+
+      if (nextIsDone) {
+        await createCompletionOnDate({ data: { date: isoDate, habitId: id } });
+      } else {
+        await deleteCompletionOnDate({ data: { date: isoDate, habitId: id } });
+      }
+
+      await router.invalidate();
+    } finally {
+      setIsLoading(false);
     }
-
-    await router.invalidate();
   }
 
   return (
@@ -49,9 +58,8 @@ export default function HabitToDo({
           : "border-violet-200 bg-violet-100 text-violet-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-300",
       )}
     >
-      <span>
+      <div className="relative w-12">
         <svg
-          width="36"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -85,7 +93,7 @@ export default function HabitToDo({
             )}
           />
         </svg>
-      </span>
+      </div>
 
       {title}
 
