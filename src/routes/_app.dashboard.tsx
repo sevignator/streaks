@@ -4,7 +4,7 @@ import { type Completion, type Habit } from "#/db/schema";
 import { getCurrentUserFn } from "#/utils/users.functions";
 import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
 import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
-import { getLocalTime } from "#/utils/datetime";
+import { getLocalISODate } from "#/utils/datetime";
 
 import PageTitle from "#/components/PageTitle";
 import HabitToDo from "#/components/HabitToDo";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_app/dashboard")({
     habits: HabitWithIsDone[];
   }> => {
     const user = await getCurrentUserFn();
-    const isoDate = getLocalTime();
+    const isoDate = getLocalISODate();
 
     if (!user) {
       return {
