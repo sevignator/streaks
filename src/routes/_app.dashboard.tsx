@@ -1,13 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from "@tanstack/react-router";
 
-import { type Completion, type Habit } from '#/db/schema';
-import { getCurrentUserFn } from '#/utils/users.functions';
-import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
-import { getAllCompletionsByUserIdFn } from '#/utils/completions.functions';
-import { getCurrentStreak, getLocalISODate } from '#/utils/datetime';
+import { type Completion, type Habit } from "#/db/schema";
+import { getCurrentUserFn } from "#/utils/users.functions";
+import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
+import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
+import { getCurrentStreak, getLocalISODate } from "#/utils/datetime";
 
-import PageTitle from '#/components/PageTitle';
-import HabitToDo from '#/components/HabitToDo';
+import PageTitle from "#/components/PageTitle";
+import HabitToDo from "#/components/HabitToDo";
 
 interface CompletionWithHabitData {
   completions: Completion;
@@ -18,7 +18,7 @@ interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
   loader: async (): Promise<{
     completions: CompletionWithHabitData[];
@@ -56,13 +56,20 @@ export const Route = createFileRoute('/_app/dashboard')({
 
 function RouteComponent() {
   const { completions, habits } = Route.useLoaderData();
-  const todayISODate = getLocalISODate();
+
+  const today = new Date();
+  const todayISODate = getLocalISODate(today);
+  const todayFormattedDate = Intl.DateTimeFormat("en-CA", {
+    dateStyle: "full",
+  }).format(today);
 
   return (
     <div>
       <PageTitle text="Dashboard" />
 
-      <h2 className="mb-4 text-lg font-bold uppercase">Your day</h2>
+      <h2 className="mb-6 text-lg font-semibold text-slate-400 dark:text-slate-300">
+        {todayFormattedDate}
+      </h2>
 
       <div className="grid gap-4">
         {habits.map(({ id, title, isDone }) => {
