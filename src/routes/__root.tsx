@@ -2,13 +2,13 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
-} from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { TanStackDevtools } from "@tanstack/react-devtools";
+} from '@tanstack/react-router';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
 
-import appCss from "../styles.css?url";
+import appCss from '../styles.css?url';
 
-import { type RouterContext } from "#/context";
+import { type RouterContext } from '#/context';
 
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`;
 
@@ -16,32 +16,32 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
       {
-        charSet: "utf-8",
+        charSet: 'utf-8',
       },
       {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
       },
       {
-        title: "Streaks",
+        title: 'Streaks',
       },
     ],
     links: [
       {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
       },
       {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossOrigin: 'anonymous',
       },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
       },
       {
-        rel: "stylesheet",
+        rel: 'stylesheet',
         href: appCss,
       },
     ],
@@ -61,11 +61,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
         <TanStackDevtools
           config={{
-            position: "bottom-right",
+            position: 'bottom-right',
           }}
           plugins={[
             {
-              name: "Tanstack Router",
+              name: 'Tanstack Router',
               render: <TanStackRouterDevtoolsPanel />,
             },
           ]}

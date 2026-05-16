@@ -1,13 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
 
-import { type Completion, type Habit } from "#/db/schema";
-import { getCurrentUserFn } from "#/utils/users.functions";
-import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
-import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
-import { getLocalISODate } from "#/utils/datetime";
+import { type Completion, type Habit } from '#/db/schema';
+import { getCurrentUserFn } from '#/utils/users.functions';
+import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
+import { getAllCompletionsByUserIdFn } from '#/utils/completions.functions';
+import { getCurrentStreak, getLocalISODate } from '#/utils/datetime';
 
-import PageTitle from "#/components/PageTitle";
-import HabitToDo from "#/components/HabitToDo";
+import PageTitle from '#/components/PageTitle';
+import HabitToDo from '#/components/HabitToDo';
 
 interface CompletionWithHabitData {
   completions: Completion;
@@ -18,7 +18,7 @@ interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute("/_app/dashboard")({
+export const Route = createFileRoute('/_app/dashboard')({
   component: RouteComponent,
   loader: async (): Promise<{
     completions: CompletionWithHabitData[];
@@ -56,6 +56,7 @@ export const Route = createFileRoute("/_app/dashboard")({
 
 function RouteComponent() {
   const { completions, habits } = Route.useLoaderData();
+  const todayISODate = getLocalISODate();
 
   return (
     <div>
@@ -75,7 +76,12 @@ function RouteComponent() {
               id={id}
               title={title}
               isDone={isDone}
-              count={relatedCompletions.length}
+              streak={getCurrentStreak(
+                relatedCompletions
+                  .map((completion) => completion.completions.completedOn)
+                  .filter((date): date is string => Boolean(date)),
+                todayISODate,
+              )}
             />
           );
         })}

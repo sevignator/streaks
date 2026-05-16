@@ -1,39 +1,39 @@
-import clsx from "clsx";
-import { useEffect, useState, type ReactNode } from "react";
+import clsx from 'clsx';
+import { useEffect, useState, type ReactNode } from 'react';
 
-type ThemeMode = "light" | "dark" | "auto";
+type ThemeMode = 'light' | 'dark' | 'auto';
 
 function getInitialMode(): ThemeMode {
-  if (typeof window === "undefined") {
-    return "auto";
+  if (typeof window === 'undefined') {
+    return 'auto';
   }
 
-  const stored = window.localStorage.getItem("theme");
-  if (stored === "light" || stored === "dark" || stored === "auto") {
+  const stored = window.localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark' || stored === 'auto') {
     return stored;
   }
 
-  return "auto";
+  return 'auto';
 }
 
 function applyThemeMode(mode: ThemeMode) {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const resolved = mode === "auto" ? (prefersDark ? "dark" : "light") : mode;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const resolved = mode === 'auto' ? (prefersDark ? 'dark' : 'light') : mode;
 
-  document.documentElement.classList.remove("light", "dark");
+  document.documentElement.classList.remove('light', 'dark');
   document.documentElement.classList.add(resolved);
 
-  if (mode === "auto") {
-    document.documentElement.removeAttribute("data-theme");
+  if (mode === 'auto') {
+    document.documentElement.removeAttribute('data-theme');
   } else {
-    document.documentElement.setAttribute("data-theme", mode);
+    document.documentElement.setAttribute('data-theme', mode);
   }
 
   document.documentElement.style.colorScheme = resolved;
 }
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>("auto");
+  const [mode, setMode] = useState<ThemeMode>('auto');
 
   useEffect(() => {
     const initialMode = getInitialMode();
@@ -42,16 +42,16 @@ export default function ThemeToggle() {
   }, []);
 
   useEffect(() => {
-    if (mode !== "auto") {
+    if (mode !== 'auto') {
       return;
     }
 
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => applyThemeMode("auto");
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = () => applyThemeMode('auto');
 
-    media.addEventListener("change", onChange);
+    media.addEventListener('change', onChange);
     return () => {
-      media.removeEventListener("change", onChange);
+      media.removeEventListener('change', onChange);
     };
   }, [mode]);
 
@@ -108,8 +108,8 @@ function ThemeOption({
     <button
       onClick={() => setMode(mode)}
       className={clsx(
-        "inline-grid aspect-square w-10 cursor-pointer place-items-center rounded-full text-black dark:text-white",
-        mode === activeMode && "bg-(--clr-accent) text-violet-200",
+        'inline-grid aspect-square w-10 cursor-pointer place-items-center rounded-full text-black dark:text-white',
+        mode === activeMode && 'bg-(--clr-accent) text-violet-200',
       )}
     >
       <svg

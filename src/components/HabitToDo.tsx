@@ -14,38 +14,30 @@ interface HabitToDoProps {
   id: Habit["id"];
   title: Habit["title"];
   isDone?: boolean;
-  count?: number;
+  streak?: number;
 }
 
 export default function HabitToDo({
   id,
   title,
   isDone = false,
-  count = 0,
+  streak = 0,
 }: HabitToDoProps) {
   const router = useRouter();
   const createCompletionOnDate = useServerFn(createCompletionOnFn);
   const deleteCompletionOnDate = useServerFn(deleteCompletionOnFn);
 
-  const [isLoading, setIsLoading] = useState(false);
-
   async function toggleIsDone() {
-    setIsLoading(true);
+    const nextIsDone = !isDone;
+    const isoDate = getLocalISODate();
 
-    try {
-      const nextIsDone = !isDone;
-      const isoDate = getLocalISODate();
-
-      if (nextIsDone) {
-        await createCompletionOnDate({ data: { date: isoDate, habitId: id } });
-      } else {
-        await deleteCompletionOnDate({ data: { date: isoDate, habitId: id } });
-      }
-
-      await router.invalidate();
-    } finally {
-      setIsLoading(false);
+    if (nextIsDone) {
+      await createCompletionOnDate({ data: { date: isoDate, habitId: id } });
+    } else {
+      await deleteCompletionOnDate({ data: { date: isoDate, habitId: id } });
     }
+
+    await router.invalidate();
   }
 
   return (
@@ -97,11 +89,9 @@ export default function HabitToDo({
 
       {title}
 
-      <div className="ml-auto">
-        <div className="text-xs">Completed</div>
-        <div className="text-[1.25rem]">
-          {count} {count === 1 ? "time" : "times"}
-        </div>
+      <div className="ml-auto flex flex-col gap-0.5">
+        <div className="text-xs uppercase">Streak</div>
+        <div className="text-2xl font-bold leading-6">{streak}</div>
       </div>
     </button>
   );
