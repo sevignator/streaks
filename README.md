@@ -1,6 +1,6 @@
 # Streaks
 
-Streaks is a habit-tracking web application to help dedicated folks achieve their goals by maintaining... well, you guessed it: *streaks*! It's about showing up and "[not breaking the chain](https://lifehacker.com/jerry-seinfelds-productivity-secret-281626)" as Jerry Seinfeld would put to.
+Streaks is a habit-tracking web application that helps dedicated folks achieve their goals by maintaining... well, you guessed it: *streaks*! It's about showing up and "[not breaking the chain](https://lifehacker.com/jerry-seinfelds-productivity-secret-281626)", as Jerry Seinfeld would put to.
 
 ## Getting Started
 
