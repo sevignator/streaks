@@ -73,7 +73,7 @@ function RouteComponent() {
         {todayFormattedDate}
       </h2>
 
-      <div className="grid gap-4">
+      <div className="grid gap-3">
         {habits.map(({ id, title, isDone }) => {
           const relatedCompletions = completions.filter((completion) => {
             return completion.habits.id === id;
