@@ -39,7 +39,7 @@ export default function InputField({
         value={field.state.value}
         onBlur={field.handleBlur}
         onChange={handleOnChange}
-        className="dark: rounded-md border border-solid border-slate-300 bg-slate-50 p-2 text-2xl dark:border-slate-600 dark:bg-slate-700"
+        className="rounded-md border border-solid border-slate-300 bg-slate-50 p-2 text-xl dark:border-slate-600 dark:bg-slate-700"
       />
       <FieldInfo errors={field.state.meta.errors} />
     </div>

@@ -1,5 +1,7 @@
 # Streaks
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/63fa44fa-0527-46ce-8334-24ea1964f15b/deploy-status)](https://app.netlify.com/projects/streaks-app/deploys)
+
 Streaks is a habit-tracking web application that helps dedicated folks achieve their goals by maintaining... well, you guessed it: _streaks_! It's about showing up and "[not breaking the chain](https://lifehacker.com/jerry-seinfelds-productivity-secret-281626)", as Jerry Seinfeld would put it.
 
 ## Getting Started
