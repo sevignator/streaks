@@ -1,15 +1,15 @@
-import { type LinkOptions } from '@tanstack/react-router';
-import { useServerFn } from '@tanstack/react-start';
+import { type LinkOptions } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 
-import NavLink from '#/components/NavLink';
+import NavLink from "#/components/NavLink";
 
-import { userLogoutFn } from '#/utils/users.functions';
-import { type AuthenticatedUser } from '#/utils/types';
+import { userLogoutFn } from "#/utils/users.functions";
+import { type AuthenticatedUser } from "#/utils/types";
 
 interface NavLinkItem {
   icon: React.ReactNode;
   text: string;
-  to: LinkOptions['to'];
+  to: LinkOptions["to"];
 }
 
 const NAV_LINKS: NavLinkItem[] = [
@@ -27,8 +27,8 @@ const NAV_LINKS: NavLinkItem[] = [
         <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       </svg>
     ),
-    text: 'Dashboard',
-    to: '/dashboard',
+    text: "Dashboard",
+    to: "/dashboard",
   },
   {
     icon: (
@@ -44,30 +44,30 @@ const NAV_LINKS: NavLinkItem[] = [
         <path d="m9 11 3 3L22 4" />
       </svg>
     ),
-    text: 'Habits',
-    to: '/habits',
+    text: "Habits",
+    to: "/habits",
   },
-  {
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 16v5" />
-        <path d="M16 14v7" />
-        <path d="M20 10v11" />
-        <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
-        <path d="M4 18v3" />
-        <path d="M8 14v7" />
-      </svg>
-    ),
-    text: 'Stats',
-    to: '/stats',
-  },
+  // {
+  //   icon: (
+  //     <svg
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       stroke="currentColor"
+  //       strokeWidth="2"
+  //       strokeLinecap="round"
+  //       strokeLinejoin="round"
+  //     >
+  //       <path d="M12 16v5" />
+  //       <path d="M16 14v7" />
+  //       <path d="M20 10v11" />
+  //       <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
+  //       <path d="M4 18v3" />
+  //       <path d="M8 14v7" />
+  //     </svg>
+  //   ),
+  //   text: 'Stats',
+  //   to: '/stats',
+  // },
 ];
 
 interface SidebarProps {
