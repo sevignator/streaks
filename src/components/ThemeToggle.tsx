@@ -89,7 +89,7 @@ function ThemeOption({
     <button
       onClick={() => setMode()}
       className={clsx(
-        'inline-grid aspect-square w-9.5 cursor-pointer place-items-center rounded-full text-violet-900 dark:text-violet-200',
+        'inline-grid aspect-square w-8 cursor-pointer place-items-center rounded-full p-1.5 text-violet-900 dark:text-violet-200',
         mode === activeMode && 'bg-(--clr-accent) text-white dark:text-white',
       )}
     >
@@ -100,7 +100,6 @@ function ThemeOption({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-6"
       >
         {ICONS_PATH[mode]}
       </svg>
