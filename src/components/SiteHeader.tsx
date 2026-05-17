@@ -1,6 +1,6 @@
-import Logo from "#/components/Logo";
-import SidebarToggle from "#/components/SidebarToggle";
-import ThemeToggle from "#/components/ThemeToggle";
+import Logo from '#/components/Logo';
+import SidebarToggle from '#/components/SidebarToggle';
+import ThemeToggle from '#/components/ThemeToggle';
 
 interface SiteHeaderProps {
   isMenuOpen: boolean;

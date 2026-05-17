@@ -1,6 +1,6 @@
-import { type AnyFieldApi } from "@tanstack/react-form";
+import { type AnyFieldApi } from '@tanstack/react-form';
 
-import FieldInfo from "#/components/FieldInfo";
+import FieldInfo from '#/components/FieldInfo';
 
 interface inputFieldProps {
   field: AnyFieldApi;
@@ -11,14 +11,14 @@ interface inputFieldProps {
 export default function InputField({
   field,
   label,
-  type = "text",
+  type = 'text',
 }: inputFieldProps) {
   let handleOnChange: (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
   ) => void;
 
   switch (type) {
-    case "number": {
+    case 'number': {
       handleOnChange = (e) => field.handleChange(e.target.valueAsNumber);
       break;
     }

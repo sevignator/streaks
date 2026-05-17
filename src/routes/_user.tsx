@@ -1,15 +1,15 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import TabSelector from "#/components/TabSelector";
-import Logo from "#/components/Logo";
+import TabSelector from '#/components/TabSelector';
+import Logo from '#/components/Logo';
 
-export const Route = createFileRoute("/_user")({
+export const Route = createFileRoute('/_user')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
-    <div className="mx-auto max-w-2xl py-12 px-2">
+    <div className="mx-auto max-w-2xl px-2 py-12">
       <h1 className="mb-12 text-center">
         <Logo size="6rem" />
       </h1>
@@ -17,12 +17,12 @@ function RouteComponent() {
       <TabSelector
         tabs={[
           {
-            text: "Log in",
-            to: "/login",
+            text: 'Log in',
+            to: '/login',
           },
           {
-            text: "Sign up",
-            to: "/signup",
+            text: 'Sign up',
+            to: '/signup',
           },
         ]}
       />
