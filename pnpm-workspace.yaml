@@ -1,6 +1,6 @@
 allowBuilds:
-  '@parcel/watcher': set this to true or false
+  '@parcel/watcher': false
   argon2: false
   esbuild: false
-  sharp: set this to true or false
+  sharp: false
   unrs-resolver: false
