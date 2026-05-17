@@ -1,17 +1,17 @@
-import { useServerFn } from '@tanstack/react-start';
-import { useRouter } from '@tanstack/react-router';
-import clsx from 'clsx';
+import { useServerFn } from "@tanstack/react-start";
+import { useRouter } from "@tanstack/react-router";
+import clsx from "clsx";
 
-import { type Habit } from '#/db/schema';
+import { type Habit } from "#/db/schema";
 import {
   createCompletionOnFn,
   deleteCompletionOnFn,
-} from '#/utils/completions.functions';
-import { getLocalISODate } from '#/utils/datetime';
+} from "#/utils/completions.functions";
+import { getLocalISODate } from "#/utils/datetime";
 
 interface HabitToDoProps {
-  id: Habit['id'];
-  title: Habit['title'];
+  id: Habit["id"];
+  title: Habit["title"];
   isDone?: boolean;
   streak?: number;
 }
@@ -43,13 +43,13 @@ export default function HabitToDo({
     <button
       onClick={toggleIsDone}
       className={clsx(
-        'flex items-center gap-3 rounded-lg border p-3 text-xl transition hover:scale-[1.015] hover:cursor-pointer active:scale-[1.01]',
+        "flex items-center gap-3 rounded-lg border p-3 text-lg transition hover:scale-[1.015] hover:cursor-pointer active:scale-[1.01]",
         isDone
-          ? 'border-green-400 bg-green-100 text-green-950'
-          : 'border-violet-200 bg-violet-100 text-violet-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-300',
+          ? "border-green-400 bg-green-100 text-green-950"
+          : "border-violet-200 bg-violet-100 text-violet-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-300",
       )}
     >
-      <div className="relative w-12">
+      <div className="relative min-w-10">
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -58,10 +58,10 @@ export default function HabitToDo({
           strokeLinecap="round"
           strokeLinejoin="round"
           className={clsx(
-            'block aspect-square transition-colors',
+            "block aspect-square transition-colors",
             isDone
-              ? 'stroke-green-500'
-              : 'stroke-violet-300 dark:stroke-slate-800',
+              ? "stroke-green-500"
+              : "stroke-violet-300 dark:stroke-slate-800",
           )}
         >
           <circle
@@ -69,24 +69,24 @@ export default function HabitToDo({
             cy="12"
             r="10"
             className={clsx(
-              'transition-[stroke-dasharray]',
+              "transition-[stroke-dasharray]",
               isDone
-                ? 'fill-green-50 [stroke-dasharray:0,0]'
-                : 'fill-violet-50 [stroke-dasharray:2,4] dark:fill-slate-600',
+                ? "fill-green-50 [stroke-dasharray:0,0]"
+                : "fill-violet-50 [stroke-dasharray:2,4] dark:fill-slate-600",
             )}
           />
           <path
             d="m9 12 2 2 4-4"
             pathLength={10}
             className={clsx(
-              'transition-[stroke-dashoffset] [stroke-dasharray:10,10]',
-              isDone ? '[stroke-dashoffset:0]' : '[stroke-dashoffset:10]',
+              "transition-[stroke-dashoffset] [stroke-dasharray:10,10]",
+              isDone ? "[stroke-dashoffset:0]" : "[stroke-dashoffset:10]",
             )}
           />
         </svg>
       </div>
 
-      {title}
+      <div className="text-left leading-6">{title}</div>
 
       <div className="ml-auto flex flex-col gap-0.5">
         <div className="text-xs uppercase">Streak</div>
