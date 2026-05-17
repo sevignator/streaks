@@ -14,6 +14,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UserSignupRouteImport } from './routes/_user.signup'
 import { Route as UserLoginRouteImport } from './routes/_user.login'
+import { Route as AppUserRouteImport } from './routes/_app.user'
 import { Route as AppStatsRouteImport } from './routes/_app.stats'
 import { Route as AppHabitsRouteImport } from './routes/_app.habits'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
@@ -44,6 +45,11 @@ const UserLoginRoute = UserLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => UserRoute,
+} as any)
+const AppUserRoute = AppUserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppStatsRoute = AppStatsRouteImport.update({
   id: '/stats',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AppDashboardRoute
   '/habits': typeof AppHabitsRoute
   '/stats': typeof AppStatsRoute
+  '/user': typeof AppUserRoute
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
   '/habits/$habitId': typeof AppHabitsHabitIdRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AppDashboardRoute
   '/habits': typeof AppHabitsRoute
   '/stats': typeof AppStatsRoute
+  '/user': typeof AppUserRoute
   '/login': typeof UserLoginRoute
   '/signup': typeof UserSignupRoute
   '/habits/$habitId': typeof AppHabitsHabitIdRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/habits': typeof AppHabitsRoute
   '/_app/stats': typeof AppStatsRoute
+  '/_app/user': typeof AppUserRoute
   '/_user/login': typeof UserLoginRoute
   '/_user/signup': typeof UserSignupRoute
   '/_app/habits_/$habitId': typeof AppHabitsHabitIdRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/habits'
     | '/stats'
+    | '/user'
     | '/login'
     | '/signup'
     | '/habits/$habitId'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/habits'
     | '/stats'
+    | '/user'
     | '/login'
     | '/signup'
     | '/habits/$habitId'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/_app/dashboard'
     | '/_app/habits'
     | '/_app/stats'
+    | '/_app/user'
     | '/_user/login'
     | '/_user/signup'
     | '/_app/habits_/$habitId'
@@ -203,6 +215,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof UserLoginRouteImport
       parentRoute: typeof UserRoute
+    }
+    '/_app/user': {
+      id: '/_app/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof AppUserRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/stats': {
       id: '/_app/stats'
@@ -260,6 +279,7 @@ interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppHabitsRoute: typeof AppHabitsRoute
   AppStatsRoute: typeof AppStatsRoute
+  AppUserRoute: typeof AppUserRoute
   AppHabitsHabitIdRoute: typeof AppHabitsHabitIdRoute
   AppHabitsCreateRoute: typeof AppHabitsCreateRoute
 }
@@ -268,6 +288,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppHabitsRoute: AppHabitsRoute,
   AppStatsRoute: AppStatsRoute,
+  AppUserRoute: AppUserRoute,
   AppHabitsHabitIdRoute: AppHabitsHabitIdRoute,
   AppHabitsCreateRoute: AppHabitsCreateRoute,
 }

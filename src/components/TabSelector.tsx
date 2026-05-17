@@ -11,7 +11,7 @@ interface TabSelectorProps {
 
 export default function TabSelector({ tabs }: TabSelectorProps) {
   return (
-    <div className="mx-auto mb-18 flex max-w-fit rounded-full border border-slate-300 bg-slate-50 p-1.5 font-medium dark:border-slate-600 dark:bg-slate-900">
+    <div className="mx-auto mb-18 flex max-w-fit rounded-full border border-slate-200 bg-slate-50 p-1.5 font-medium dark:border-slate-800 dark:bg-slate-950">
       {tabs.map((tab) => (
         <Link
           key={tab.to}

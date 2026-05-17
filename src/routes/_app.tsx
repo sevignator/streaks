@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import Sidebar from '#/components/Sidebar';
 import SiteHeader from '#/components/SiteHeader';
-import { getCurrentUserFn } from '#/utils/users.functions';
+import { getCurrentUserFn, getUserImageUrlFn } from '#/utils/users.functions';
 import { getLocalTimezone } from '#/utils/datetime';
 
 export const Route = createFileRoute('/_app')({
@@ -19,6 +19,7 @@ export const Route = createFileRoute('/_app')({
     }
 
     const { id, nickname, email } = currentUser;
+    const imageUrl = await getUserImageUrlFn({ data: { email } });
     const timezone = getLocalTimezone();
 
     return {
@@ -26,6 +27,7 @@ export const Route = createFileRoute('/_app')({
         id,
         nickname,
         email,
+        imageUrl,
         timezone,
       },
     };

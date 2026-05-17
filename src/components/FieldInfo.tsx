@@ -2,7 +2,7 @@ export default function FieldInfo({ errors }: { errors: any[] }) {
   return (
     <>
       {errors.map((error, i) => (
-        <div key={i} className="text-rose-600">
+        <div key={i} className="text-rose-600 dark:text-rose-400">
           {error?.message}
         </div>
       ))}

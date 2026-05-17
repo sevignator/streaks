@@ -1,15 +1,15 @@
-import { type LinkOptions } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
+import { type LinkOptions } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
 
-import NavLink from "#/components/NavLink";
+import { type AuthenticatedUser } from '#/utils/types';
 
-import { userLogoutFn } from "#/utils/users.functions";
-import { type AuthenticatedUser } from "#/utils/types";
+import NavLink from '#/components/NavLink';
+import UserCard from '#/components/UserCard';
 
 interface NavLinkItem {
   icon: React.ReactNode;
   text: string;
-  to: LinkOptions["to"];
+  to: LinkOptions['to'];
 }
 
 const NAV_LINKS: NavLinkItem[] = [
@@ -27,8 +27,8 @@ const NAV_LINKS: NavLinkItem[] = [
         <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       </svg>
     ),
-    text: "Dashboard",
-    to: "/dashboard",
+    text: 'Dashboard',
+    to: '/dashboard',
   },
   {
     icon: (
@@ -44,8 +44,8 @@ const NAV_LINKS: NavLinkItem[] = [
         <path d="m9 11 3 3L22 4" />
       </svg>
     ),
-    text: "Habits",
-    to: "/habits",
+    text: 'Habits',
+    to: '/habits',
   },
   // {
   //   icon: (
@@ -76,12 +76,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ user, isOpen }: SidebarProps) {
-  const userLogout = useServerFn(userLogoutFn);
-
-  async function handleLogout() {
-    await userLogout();
-  }
-
   return (
     <nav className="relative col-2 row-1 w-(--size-sidebar) transition-transform">
       <div className="flex h-full flex-col py-4 pl-4" inert={!isOpen}>
@@ -94,8 +88,7 @@ export default function Sidebar({ user, isOpen }: SidebarProps) {
         </div>
 
         <div className="mt-auto">
-          {user?.email}
-          <button onClick={handleLogout}>Logout</button>
+          <UserCard user={user} />
         </div>
       </div>
     </nav>

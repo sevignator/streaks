@@ -13,6 +13,7 @@ import {
   createUser,
   getUserByEmail,
   getUserById,
+  getUserImageUrl,
 } from '#/utils/users.server';
 import { sendEmailFn } from '#/utils/email.functions';
 import { createPasswordResetToken } from '#/utils/auth.server';
@@ -128,3 +129,15 @@ export const getCurrentUserFn = createServerFn({ method: 'GET' }).handler(
     return await getUserById(userId);
   },
 );
+
+const getUserImageUrlSchema = z.object({
+  email: z.email(),
+});
+
+export const getUserImageUrlFn = createServerFn({
+  method: 'GET',
+})
+  .inputValidator(getUserImageUrlSchema)
+  .handler(async ({ data }) => {
+    return getUserImageUrl(data.email);
+  });

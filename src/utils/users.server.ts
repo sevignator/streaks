@@ -1,7 +1,8 @@
+import { createHash } from 'node:crypto';
 import { eq, DrizzleQueryError } from 'drizzle-orm';
 import { DatabaseError } from 'pg';
-import { checkPasswordHash, getPasswordHash } from '#/utils/auth.server.ts';
 
+import { checkPasswordHash, getPasswordHash } from '#/utils/auth.server.ts';
 import { db } from '#/db';
 import * as schema from '#/db/schema';
 
@@ -56,4 +57,13 @@ export async function getUserById(id: schema.User['id']) {
   const query = await db.select().from(users).where(eq(users.id, id)).limit(1);
 
   return query[0];
+}
+
+export function getUserImageUrl(email: string, size = 100) {
+  console.log('Loading image');
+  const normalized = email.trim().toLowerCase();
+  const hash = createHash('md5').update(normalized).digest('hex');
+  const imageUrl = `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon`;
+
+  return imageUrl;
 }
