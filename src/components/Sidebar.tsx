@@ -1,11 +1,10 @@
 import { type LinkOptions } from '@tanstack/react-router';
+import clsx from 'clsx';
 
 import { type AuthenticatedUser } from '#/utils/types';
 
 import NavLink from '#/components/NavLink';
 import UserCard from '#/components/UserCard';
-import clsx from 'clsx';
-import ThemeToggle from './ThemeToggle';
 
 interface NavLinkItem {
   icon: React.ReactNode;
