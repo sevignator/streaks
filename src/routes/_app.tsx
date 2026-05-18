@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import clsx from 'clsx';
+import { useState } from "react";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import clsx from "clsx";
 
-import Sidebar from '#/components/Sidebar';
-import SiteHeader from '#/components/SiteHeader';
-import { getCurrentUserFn, getUserImageUrlFn } from '#/utils/users.functions';
-import { getLocalTimezone } from '#/utils/datetime';
+import Sidebar from "#/components/Sidebar";
+import SiteHeader from "#/components/SiteHeader";
+import { getCurrentUserFn, getUserImageUrlFn } from "#/utils/users.functions";
+import { getLocalTimezone } from "#/utils/datetime";
 
-export const Route = createFileRoute('/_app')({
+export const Route = createFileRoute("/_app")({
   component: RouteComponent,
   beforeLoad: async () => {
     const currentUser = await getCurrentUserFn();
 
     if (!currentUser) {
       throw redirect({
-        to: '/',
+        to: "/",
       });
     }
 
@@ -47,16 +47,23 @@ function RouteComponent() {
       <SiteHeader isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
       <div
-        className={clsx([
-          'grid flex-1 overflow-x-clip transition-[grid-template-columns]',
+        className={clsx(
+          "grid flex-1 overflow-x-clip transition-[grid-template-columns]",
           isMenuOpen
-            ? 'grid-cols-[1fr_var(--size-sidebar)]'
-            : 'grid-cols-[1fr_0]',
-        ])}
+            ? "md:grid-cols-[1fr_var(--size-sidebar)]"
+            : "md:grid-cols-[1fr_0]",
+        )}
       >
-        <Sidebar user={user} isOpen={isMenuOpen} />
+        <Sidebar
+          user={user}
+          inert={!isMenuOpen}
+          className={clsx(
+            "flex flex-col transition-[height] overflow-clip",
+            isMenuOpen ? "h-auto" : "h-0 md:h-auto",
+          )}
+        />
 
-        <main className={clsx('col-1 row-1 flex flex-col p-2')}>
+        <main className="flex flex-col p-2 pt-0 md:col-1 md:row-1">
           <div className="container flex-1 rounded-3xl border border-slate-300 bg-(--clr-bg-secondary) px-[clamp(10px,2.5vw,40px)] py-10 dark:border-slate-950">
             <Outlet />
           </div>

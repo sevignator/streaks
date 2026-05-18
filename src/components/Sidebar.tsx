@@ -1,15 +1,16 @@
-import { type LinkOptions } from '@tanstack/react-router';
-import { useServerFn } from '@tanstack/react-start';
+import { type LinkOptions } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 
-import { type AuthenticatedUser } from '#/utils/types';
+import { type AuthenticatedUser } from "#/utils/types";
 
-import NavLink from '#/components/NavLink';
-import UserCard from '#/components/UserCard';
+import NavLink from "#/components/NavLink";
+import UserCard from "#/components/UserCard";
+import clsx from "clsx";
 
 interface NavLinkItem {
   icon: React.ReactNode;
   text: string;
-  to: LinkOptions['to'];
+  to: LinkOptions["to"];
 }
 
 const NAV_LINKS: NavLinkItem[] = [
@@ -27,8 +28,8 @@ const NAV_LINKS: NavLinkItem[] = [
         <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       </svg>
     ),
-    text: 'Dashboard',
-    to: '/dashboard',
+    text: "Dashboard",
+    to: "/dashboard",
   },
   {
     icon: (
@@ -44,8 +45,8 @@ const NAV_LINKS: NavLinkItem[] = [
         <path d="m9 11 3 3L22 4" />
       </svg>
     ),
-    text: 'Habits',
-    to: '/habits',
+    text: "Habits",
+    to: "/habits",
   },
   // {
   //   icon: (
@@ -70,16 +71,18 @@ const NAV_LINKS: NavLinkItem[] = [
   // },
 ];
 
-interface SidebarProps {
+interface SidebarProps extends React.ComponentPropsWithoutRef<"nav"> {
   user: AuthenticatedUser;
-  isOpen: boolean;
 }
 
-export default function Sidebar({ user, isOpen }: SidebarProps) {
+export default function Sidebar({ user, ...delegated }: SidebarProps) {
   return (
-    <nav className="relative col-2 row-1 w-(--size-sidebar) transition-transform">
-      <div className="flex h-full flex-col py-4 pl-4" inert={!isOpen}>
-        <div className="flex flex-col gap-1">
+    <nav
+      {...delegated}
+      className={clsx("px-2 md:mb-2 md:pr-0", delegated.className)}
+    >
+      <div className="h-full flex flex-col pt-4 pb-8 md:pt-0 md:pb-4 gap-4">
+        <div className="md:pr-0 flex flex-col gap-1">
           {NAV_LINKS.map(({ icon, text, to }) => {
             return to ? (
               <NavLink key={text} icon={icon} text={text} to={to} />
@@ -87,7 +90,7 @@ export default function Sidebar({ user, isOpen }: SidebarProps) {
           })}
         </div>
 
-        <div className="mt-auto">
+        <div className="mt-auto md:pr-4">
           <UserCard user={user} />
         </div>
       </div>
