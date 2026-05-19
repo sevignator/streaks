@@ -56,7 +56,7 @@ export default function ThemeToggle() {
   }, [mode]);
 
   return (
-    <div className="flex gap-1 rounded-full border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-slate-950">
+    <div className="flex w-min gap-1 rounded-full border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-slate-950">
       <ThemeOption
         mode="auto"
         activeMode={mode}

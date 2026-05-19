@@ -7,12 +7,9 @@ interface SiteHeaderProps {
   toggleMenu: () => void;
 }
 
-export default function SiteHeader({
-  isMenuOpen,
-  toggleMenu,
-}: SiteHeaderProps) {
+export default function Navbar({ isMenuOpen, toggleMenu }: SiteHeaderProps) {
   return (
-    <header className="flex items-center justify-between gap-3 px-4 py-4">
+    <header className="mb-2 flex items-center justify-between gap-3 px-4 py-4">
       <Logo size="2rem" />
 
       <div className="flex items-center gap-3">

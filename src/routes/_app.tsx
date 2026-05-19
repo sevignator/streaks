@@ -1,20 +1,20 @@
-import { useState } from "react";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import clsx from "clsx";
+import { useState } from 'react';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import clsx from 'clsx';
 
-import Sidebar from "#/components/Sidebar";
-import SiteHeader from "#/components/SiteHeader";
-import { getCurrentUserFn, getUserImageUrlFn } from "#/utils/users.functions";
-import { getLocalTimezone } from "#/utils/datetime";
+import Sidebar from '#/components/Sidebar';
+import Navbar from '#/components/Navbar';
+import { getCurrentUserFn, getUserImageUrlFn } from '#/utils/users.functions';
+import { getLocalTimezone } from '#/utils/datetime';
 
-export const Route = createFileRoute("/_app")({
+export const Route = createFileRoute('/_app')({
   component: RouteComponent,
   beforeLoad: async () => {
     const currentUser = await getCurrentUserFn();
 
     if (!currentUser) {
       throw redirect({
-        to: "/",
+        to: '/',
       });
     }
 
@@ -44,22 +44,22 @@ function RouteComponent() {
 
   return (
     <div className="flex min-h-lvh flex-col">
-      <SiteHeader isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
       <div
         className={clsx(
-          "grid flex-1 overflow-x-clip transition-[grid-template-columns]",
+          'grid flex-1 grid-rows-[min-content_1fr] overflow-x-clip transition-[grid-template-columns] md:grid-rows-1',
           isMenuOpen
-            ? "md:grid-cols-[1fr_var(--size-sidebar)]"
-            : "md:grid-cols-[1fr_0]",
+            ? 'grid-cols-none md:grid-cols-[1fr_var(--size-sidebar)]'
+            : 'grid-cols-none md:grid-cols-[1fr_0]',
         )}
       >
         <Sidebar
           user={user}
           inert={!isMenuOpen}
           className={clsx(
-            "flex flex-col transition-[height] overflow-clip",
-            isMenuOpen ? "h-auto" : "h-0 md:h-auto",
+            'flex flex-col overflow-clip transition-[height]',
+            isMenuOpen ? 'h-auto' : 'h-0 md:h-auto',
           )}
         />
 

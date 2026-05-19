@@ -1,8 +1,8 @@
-import { type AuthenticatedUser } from "#/utils/types";
-import { Link } from "@tanstack/react-router";
-import clsx from "clsx";
+import { type AuthenticatedUser } from '#/utils/types';
+import { Link } from '@tanstack/react-router';
+import clsx from 'clsx';
 
-interface UserCardProps extends React.ComponentPropsWithoutRef<"a"> {
+interface UserCardProps extends React.ComponentPropsWithoutRef<'a'> {
   user: AuthenticatedUser;
 }
 
@@ -13,7 +13,7 @@ export default function UserCard({ user, ...delegated }: UserCardProps) {
       {...delegated}
       className={clsx(
         delegated.className,
-        "flex items-center gap-2 rounded-full border border-slate-200 bg-(--clr-bg-secondary) p-1 dark:border-slate-700",
+        'flex items-center gap-2 rounded-full border border-slate-200 p-1 dark:border-slate-800 dark:bg-[rgb(0_0_0/0.2)]',
       )}
     >
       <img
