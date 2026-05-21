@@ -12,9 +12,10 @@ import {
 
 export const users = pgTable('users', {
   id: serial().primaryKey(),
-  nickname: text().notNull(),
-  email: text().unique().notNull(),
-  passwordHash: text().notNull(),
+  nickname: text('nickname').notNull(),
+  email: text('email').unique().notNull(),
+  passwordHash: text('password_hash').notNull(),
+  timeZone: text('time_zone').notNull(),
 });
 
 export const habits = pgTable('habits', {
@@ -47,7 +48,7 @@ export const completions = pgTable(
 
 export const passwordResetTokens = pgTable('password_reset_tokens', {
   id: serial().primaryKey(),
-  tokenHash: text().notNull(),
+  tokenHash: text('token_hash').notNull(),
   userId: serial('user_id')
     .references(() => users.id)
     .notNull(),

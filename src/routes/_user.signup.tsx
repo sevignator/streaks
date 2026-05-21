@@ -12,6 +12,7 @@ import { userSignupFn } from '#/utils/users.functions';
 
 import InputField from '#/components/InputField';
 import SubmitButton from '#/components/SubmitButton';
+import { getLocalTimezone } from '#/utils/datetime';
 
 export const Route = createFileRoute('/_user/signup')({
   component: RouteComponent,
@@ -28,9 +29,10 @@ function RouteComponent() {
     },
     onSubmit: async ({ value }) => {
       const { nickname, email, password, confirmPassword } = value;
+      const timeZone = getLocalTimezone();
 
       await signupUser({
-        data: { nickname, email, password, confirmPassword },
+        data: { nickname, email, password, confirmPassword, timeZone },
       });
     },
   });

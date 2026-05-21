@@ -43,6 +43,13 @@
       "when": 1778675212814,
       "tag": "0005_lumpy_stephen_strange",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779365819483,
+      "tag": "0006_equal_cyclops",
+      "breakpoints": true
     }
   ]
 }

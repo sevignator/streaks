@@ -6,6 +6,7 @@ import {
   inputEmailSchema,
   inputNicknameSchema,
   inputPasswordSchema,
+  inputTimeZoneSchema,
 } from '#/utils/schemas';
 import { useAppSession } from '#/utils/session';
 import {
@@ -24,6 +25,7 @@ export const userSignupSchema = z
     email: inputEmailSchema,
     password: inputPasswordSchema,
     confirmPassword: z.string(),
+    timeZone: inputTimeZoneSchema,
   })
   .refine((input) => input.password === input.confirmPassword, {
     message: 'Passwords do not match',
@@ -37,7 +39,8 @@ export const userSignupFn = createServerFn({ method: 'POST' })
 
     if (user) return;
 
-    await createUser(data.nickname, data.email, data.password);
+    const { nickname, email, password, timeZone } = data;
+    await createUser(nickname, email, password, timeZone);
 
     throw redirect({
       to: '/login',

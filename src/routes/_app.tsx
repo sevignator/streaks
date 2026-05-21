@@ -3,7 +3,6 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import clsx from 'clsx';
 
 import { getCurrentUserFn, getUserImageUrlFn } from '#/utils/users.functions';
-import { getLocalTimezone } from '#/utils/datetime';
 import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
 import { getAllCompletionsByUserIdFn } from '#/utils/completions.functions';
 
@@ -21,9 +20,8 @@ export const Route = createFileRoute('/_app')({
       });
     }
 
-    const { id, nickname, email } = currentUser;
+    const { id, nickname, email, timeZone } = currentUser;
     const imageUrl = await getUserImageUrlFn({ data: { email } });
-    const timeZone = getLocalTimezone();
 
     const habits = await getAllHabitsByUserIdFn({ data: id });
     const completions = await getAllCompletionsByUserIdFn({

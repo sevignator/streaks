@@ -12,11 +12,12 @@ export async function createUser(
   nickname: schema.NewUser['nickname'],
   email: schema.NewUser['email'],
   password: string,
+  timeZone: schema.NewUser['timeZone'],
 ) {
   const passwordHash = await getPasswordHash(password);
 
   try {
-    await db.insert(users).values({ nickname, email, passwordHash });
+    await db.insert(users).values({ nickname, email, passwordHash, timeZone });
   } catch (err) {
     if (
       err instanceof DrizzleQueryError &&
