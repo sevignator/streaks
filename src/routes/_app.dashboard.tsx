@@ -47,7 +47,7 @@ export const Route = createFileRoute("/_app/dashboard")({
 
 function RouteComponent() {
   const { user, completions } = Route.useRouteContext();
-  const { habitsWithIsDone, isoDate } = Route.useLoaderData();
+  const { habitsWithIsDone, isoDate, formattedDate } = Route.useLoaderData();
 
   const habitsToDo: HabitWithIsDone[] = [];
   const habitsDone: HabitWithIsDone[] = [];
