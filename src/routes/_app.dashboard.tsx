@@ -21,10 +21,12 @@ export const Route = createFileRoute("/_app/dashboard")({
   }): {
     habitsWithIsDone: HabitWithIsDone[];
     isoDate: string;
+    formattedDate: string;
   } => {
     const { user, habits, completions } = context;
     const today = new Date();
     const isoDate = getISODateWithTimezone(today, user.timeZone);
+    const formattedDate = getFormattedDate(today);
 
     const dailyCompletionIds = completions
       .filter((completion) => completion.completions.completedOn === isoDate)
@@ -38,6 +40,7 @@ export const Route = createFileRoute("/_app/dashboard")({
     return {
       habitsWithIsDone,
       isoDate,
+      formattedDate,
     };
   },
 });
@@ -45,8 +48,6 @@ export const Route = createFileRoute("/_app/dashboard")({
 function RouteComponent() {
   const { user, completions } = Route.useRouteContext();
   const { habitsWithIsDone, isoDate } = Route.useLoaderData();
-
-  const formattedDate = getFormattedDate(isoDate);
 
   const habitsToDo: HabitWithIsDone[] = [];
   const habitsDone: HabitWithIsDone[] = [];
