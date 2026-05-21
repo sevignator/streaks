@@ -1,5 +1,5 @@
 import { useServerFn } from '@tanstack/react-start';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
 import {
@@ -19,6 +19,7 @@ export const Route = createFileRoute('/_app/habits_/create')({
 function RouteComponent() {
   const { user } = Route.useRouteContext();
 
+  const router = useRouter();
   const createHabit = useServerFn(createHabitFn);
   const form = useForm({
     defaultValues: {
@@ -32,6 +33,7 @@ function RouteComponent() {
       const { id: userId } = user;
 
       await createHabit({ data: { title, userId, interval } });
+      await router.invalidate();
     },
   });
 

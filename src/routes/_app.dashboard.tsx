@@ -1,20 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
 
-import { type Habit } from "#/db/schema";
+import { type Habit } from '#/db/schema';
 import {
   getCurrentStreak,
   getFormattedDate,
   getISODateWithTimezone,
-} from "#/utils/datetime";
+} from '#/utils/datetime';
 
-import HabitToDo from "#/components/HabitToDo";
-import PageTitle from "#/components/PageTitle";
+import HabitToDo from '#/components/HabitToDo';
+import PageTitle from '#/components/PageTitle';
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute("/_app/dashboard")({
+export const Route = createFileRoute('/_app/dashboard')({
   component: RouteComponent,
   loader: ({
     context,
