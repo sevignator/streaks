@@ -58,7 +58,12 @@ function RouteComponent() {
             onBlur: inputPasswordSchema,
           }}
           children={(field) => (
-            <InputField field={field} label="New password" type="password" />
+            <InputField
+              field={field}
+              label="New password"
+              type="password"
+              autoComplete="new-password"
+            />
           )}
         />
 
@@ -77,6 +82,7 @@ function RouteComponent() {
               field={field}
               label="Confirm password"
               type="password"
+              autoComplete="new-password"
             />
           )}
         />
