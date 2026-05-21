@@ -5,12 +5,12 @@ interface LogoProps {
 export default function Logo({ size }: LogoProps) {
   return (
     <span
-      className="inline-block font-extrabold tracking-tighter text-violet-950 dark:text-violet-200"
+      className="inline-block font-extrabold tracking-tighter text-violet-700 dark:text-violet-200"
       style={{
         fontSize: size,
       }}
     >
-      Streaks
+      Streaks<span className="text-violet-900 dark:text-violet-400">.fyi</span>
     </span>
   );
 }

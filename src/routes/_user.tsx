@@ -9,9 +9,9 @@ export const Route = createFileRoute('/_user')({
 
 function RouteComponent() {
   return (
-    <div className="mx-auto max-w-2xl px-2 py-12">
+    <div className="mx-auto max-w-2xl px-4 py-12">
       <h1 className="mb-12 text-center">
-        <Logo size="6rem" />
+        <Logo size="clamp(60px, 10vw, 90px" />
       </h1>
 
       <TabSelector
