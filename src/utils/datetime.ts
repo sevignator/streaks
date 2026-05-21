@@ -9,12 +9,22 @@ export function getFormattedDate(date: Date) {
 }
 
 export function getISODateWithTimezone(date: Date, timeZone: string) {
-  const isoDate = new Intl.DateTimeFormat('en-CA', {
+  const parts = new Intl.DateTimeFormat('en-US', {
     timeZone,
-    dateStyle: 'short',
-  }).format(date);
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
 
-  return isoDate;
+  const year = parts.find((part) => part.type === 'year')?.value;
+  const month = parts.find((part) => part.type === 'month')?.value;
+  const day = parts.find((part) => part.type === 'day')?.value;
+
+  if (!year || !month || !day) {
+    throw new Error('Unable to format ISO date for timezone');
+  }
+
+  return `${year}-${month}-${day}`;
 }
 
 function getPreviousISODate(isoDate: string, timeZone: string) {
