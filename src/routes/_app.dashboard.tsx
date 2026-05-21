@@ -1,24 +1,25 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from "@tanstack/react-router";
 
-import { type Habit } from '#/db/schema';
+import { type Habit } from "#/db/schema";
 import {
   getCurrentStreak,
   getFormattedDate,
   getISODateWithTimezone,
-} from '#/utils/datetime';
+} from "#/utils/datetime";
 
-import HabitToDo from '#/components/HabitToDo';
-import PageTitle from '#/components/PageTitle';
+import HabitToDo from "#/components/HabitToDo";
+import PageTitle from "#/components/PageTitle";
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
   loader: ({
     context,
   }): {
+    serverTime: Date;
     habitsWithIsDone: HabitWithIsDone[];
   } => {
     const { user, habits, completions } = context;
@@ -35,6 +36,7 @@ export const Route = createFileRoute('/_app/dashboard')({
     }));
 
     return {
+      serverTime: today,
       habitsWithIsDone,
     };
   },
@@ -42,7 +44,7 @@ export const Route = createFileRoute('/_app/dashboard')({
 
 function RouteComponent() {
   const { user, completions } = Route.useRouteContext();
-  const { habitsWithIsDone } = Route.useLoaderData();
+  const { serverTime, habitsWithIsDone } = Route.useLoaderData();
 
   const today = new Date();
   const todayISODate = getISODateWithTimezone(today, user.timeZone);
@@ -66,6 +68,9 @@ function RouteComponent() {
       <h2 className="mb-9 text-lg font-semibold text-slate-400 dark:text-slate-300">
         {todayFormattedDate}
       </h2>
+
+      <p>Server time: {serverTime.toString()}</p>
+      <p>Client time: {today.toString()}</p>
 
       <h3 className="font-regular mb-2 text-lg text-violet-600 uppercase dark:text-violet-300">
         To do
