@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import TabSelector from '#/components/TabSelector';
 import Logo from '#/components/Logo';
+import TabSelector from '#/components/TabSelector';
 
 export const Route = createFileRoute('/_user')({
   component: RouteComponent,

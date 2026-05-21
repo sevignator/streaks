@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
+import { createFileRoute } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
 import { inputEmailSchema } from '#/utils/schemas';

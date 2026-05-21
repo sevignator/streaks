@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import clsx from 'clsx';
 
-import Sidebar from '#/components/Sidebar';
-import Navbar from '#/components/Navbar';
 import { getCurrentUserFn, getUserImageUrlFn } from '#/utils/users.functions';
 import { getLocalTimezone } from '#/utils/datetime';
+import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
+import { getAllCompletionsByUserIdFn } from '#/utils/completions.functions';
+
+import Navbar from '#/components/Navbar';
+import Sidebar from '#/components/Sidebar';
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
@@ -20,7 +23,12 @@ export const Route = createFileRoute('/_app')({
 
     const { id, nickname, email } = currentUser;
     const imageUrl = await getUserImageUrlFn({ data: { email } });
-    const timezone = getLocalTimezone();
+    const timeZone = getLocalTimezone();
+
+    const habits = await getAllHabitsByUserIdFn({ data: id });
+    const completions = await getAllCompletionsByUserIdFn({
+      data: { userId: id },
+    });
 
     return {
       user: {
@@ -28,8 +36,10 @@ export const Route = createFileRoute('/_app')({
         nickname,
         email,
         imageUrl,
-        timezone,
+        timeZone,
       },
+      habits,
+      completions,
     };
   },
 });

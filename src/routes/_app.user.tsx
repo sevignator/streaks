@@ -11,6 +11,7 @@ export const Route = createFileRoute("/_app/user")({
 
 function RouteComponent() {
   const { user } = Route.useRouteContext();
+
   const userLogout = useServerFn(userLogoutFn);
 
   async function handleLogout() {
@@ -21,7 +22,7 @@ function RouteComponent() {
     <div>
       <PageTitle text={user.nickname} />
 
-      <p className="mb-8">Timezone: {user.timezone}</p>
+      <p className="mb-8">Timezone: {user.timeZone}</p>
 
       <button onClick={handleLogout} className="btn">
         Logout

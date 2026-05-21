@@ -3,22 +3,22 @@ export function getLocalTimezone() {
 }
 
 export function getFormattedDate(date: Date) {
-  return Intl.DateTimeFormat("en-CA", {
-    dateStyle: "full",
+  return Intl.DateTimeFormat('en-CA', {
+    dateStyle: 'full',
   }).format(date);
 }
 
 export function getISODateWithTimezone(date: Date, timeZone: string) {
-  const isoDate = new Intl.DateTimeFormat("en-CA", {
+  const isoDate = new Intl.DateTimeFormat('en-CA', {
     timeZone,
-    dateStyle: "short",
+    dateStyle: 'short',
   }).format(date);
 
   return isoDate;
 }
 
 function getPreviousISODate(isoDate: string, timeZone: string) {
-  const [year, month, day] = isoDate.split("-").map(Number);
+  const [year, month, day] = isoDate.split('-').map(Number);
   const date = new Date(year, month - 1, day);
   date.setDate(date.getDate() - 1);
 

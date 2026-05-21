@@ -1,21 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { type Completion, type Habit } from "#/db/schema";
-import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
-import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
+import { type Habit } from "#/db/schema";
 import {
   getCurrentStreak,
   getFormattedDate,
   getISODateWithTimezone,
 } from "#/utils/datetime";
 
-import PageTitle from "#/components/PageTitle";
 import HabitToDo from "#/components/HabitToDo";
-
-interface CompletionWithHabitData {
-  completions: Completion;
-  habits: Habit;
-}
+import PageTitle from "#/components/PageTitle";
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
@@ -23,56 +16,42 @@ interface HabitWithIsDone extends Habit {
 
 export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
-  loader: async ({
+  loader: ({
     context,
-  }): Promise<{
-    completions: CompletionWithHabitData[];
-    habits: HabitWithIsDone[];
-  }> => {
-    const { user } = context;
+  }): {
+    habitsWithIsDone: HabitWithIsDone[];
+  } => {
+    const { user, habits, completions } = context;
     const today = new Date();
-    const isoDate = getISODateWithTimezone(today, user.timezone);
+    const isoDate = getISODateWithTimezone(today, user.timeZone);
 
-    if (!user) {
-      return {
-        completions: [],
-        habits: [],
-      };
-    }
-
-    const completionsWithHabitsData = await getAllCompletionsByUserIdFn({
-      data: { userId: user.id },
-    });
-    const dailyCompletionIds = completionsWithHabitsData
+    const dailyCompletionIds = completions
       .filter((completion) => completion.completions.completedOn === isoDate)
       .map((completion) => completion.completions.habitId);
 
-    const allHabits = await getAllHabitsByUserIdFn({ data: user.id });
-
-    const allHabitsWithDone = allHabits.map((habit) => ({
+    const habitsWithIsDone = habits.map((habit) => ({
       ...habit,
       isDone: dailyCompletionIds.includes(habit.id),
     }));
 
     return {
-      completions: completionsWithHabitsData,
-      habits: allHabitsWithDone,
+      habitsWithIsDone,
     };
   },
 });
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext();
-  const { completions, habits } = Route.useLoaderData();
+  const { user, completions } = Route.useRouteContext();
+  const { habitsWithIsDone } = Route.useLoaderData();
 
   const today = new Date();
-  const todayISODate = getISODateWithTimezone(today, user.timezone);
+  const todayISODate = getISODateWithTimezone(today, user.timeZone);
   const todayFormattedDate = getFormattedDate(today);
 
   const habitsToDo: HabitWithIsDone[] = [];
   const habitsDone: HabitWithIsDone[] = [];
 
-  habits.forEach((habit) => {
+  habitsWithIsDone.forEach((habit) => {
     if (habit.isDone) {
       habitsDone.push(habit);
     } else {
@@ -111,7 +90,7 @@ function RouteComponent() {
                     .map((completion) => completion.completions.completedOn)
                     .filter((date): date is string => Boolean(date)),
                   todayISODate,
-                  user.timezone,
+                  user.timeZone,
                 )}
               />
             );
@@ -144,7 +123,7 @@ function RouteComponent() {
                     .map((completion) => completion.completions.completedOn)
                     .filter((date): date is string => Boolean(date)),
                   todayISODate,
-                  user.timezone,
+                  user.timeZone,
                 )}
               />
             );
