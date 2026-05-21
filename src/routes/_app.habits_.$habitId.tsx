@@ -1,31 +1,25 @@
-import { useServerFn } from '@tanstack/react-start';
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import { useForm } from '@tanstack/react-form';
+import { useServerFn } from "@tanstack/react-start";
+import { createFileRoute } from "@tanstack/react-router";
+import { useForm } from "@tanstack/react-form";
 
 import {
   inputHabitIntervalSchema,
   inputHabitTitleSchema,
-} from '#/utils/schemas';
+} from "#/utils/schemas";
 import {
   deleteHabitFn,
   editHabitFn,
   getHabitByUserIdFn,
-} from '#/utils/habits.functions';
-import { getCurrentUserFn } from '#/utils/users.functions';
+} from "#/utils/habits.functions";
 
-import PageTitle from '#/components/PageTitle';
-import InputField from '#/components/InputField';
-import SubmitButton from '#/components/SubmitButton';
+import PageTitle from "#/components/PageTitle";
+import InputField from "#/components/InputField";
+import SubmitButton from "#/components/SubmitButton";
 
-export const Route = createFileRoute('/_app/habits_/$habitId')({
+export const Route = createFileRoute("/_app/habits_/$habitId")({
   component: RouteComponent,
-  loader: async ({ params }) => {
-    const user = await getCurrentUserFn();
-
-    if (!user) {
-      throw notFound();
-    }
-
+  loader: async ({ context, params }) => {
+    const { user } = context;
     const habit = await getHabitByUserIdFn({
       data: { userId: user.id, habitId: Number.parseInt(params.habitId) },
     });

@@ -1,17 +1,14 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
-import { getCurrentUserFn } from '#/utils/users.functions';
+import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
 
-import PageTitle from '#/components/PageTitle';
-import HabitsList from '#/components/HabitsList';
+import PageTitle from "#/components/PageTitle";
+import HabitsList from "#/components/HabitsList";
 
-export const Route = createFileRoute('/_app/habits')({
+export const Route = createFileRoute("/_app/habits")({
   component: RouteComponent,
-  loader: async () => {
-    const user = await getCurrentUserFn();
-
-    if (!user) return [];
+  loader: async ({ context }) => {
+    const { user } = context;
 
     return await getAllHabitsByUserIdFn({ data: user.id });
   },

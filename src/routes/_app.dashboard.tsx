@@ -1,17 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from "@tanstack/react-router";
 
-import { type Completion, type Habit } from '#/db/schema';
-import { getCurrentUserFn } from '#/utils/users.functions';
-import { getAllHabitsByUserIdFn } from '#/utils/habits.functions';
-import { getAllCompletionsByUserIdFn } from '#/utils/completions.functions';
+import { type Completion, type Habit } from "#/db/schema";
+import { getAllHabitsByUserIdFn } from "#/utils/habits.functions";
+import { getAllCompletionsByUserIdFn } from "#/utils/completions.functions";
 import {
   getCurrentStreak,
   getFormattedDate,
-  getLocalISODate,
-} from '#/utils/datetime';
+  getISODateWithTimezone,
+} from "#/utils/datetime";
 
-import PageTitle from '#/components/PageTitle';
-import HabitToDo from '#/components/HabitToDo';
+import PageTitle from "#/components/PageTitle";
+import HabitToDo from "#/components/HabitToDo";
 
 interface CompletionWithHabitData {
   completions: Completion;
@@ -22,14 +21,17 @@ interface HabitWithIsDone extends Habit {
   isDone: boolean;
 }
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
-  loader: async (): Promise<{
+  loader: async ({
+    context,
+  }): Promise<{
     completions: CompletionWithHabitData[];
     habits: HabitWithIsDone[];
   }> => {
-    const user = await getCurrentUserFn();
-    const isoDate = getLocalISODate();
+    const { user } = context;
+    const today = new Date();
+    const isoDate = getISODateWithTimezone(today, user.timezone);
 
     if (!user) {
       return {
@@ -60,10 +62,11 @@ export const Route = createFileRoute('/_app/dashboard')({
 });
 
 function RouteComponent() {
+  const { user } = Route.useRouteContext();
   const { completions, habits } = Route.useLoaderData();
 
   const today = new Date();
-  const todayISODate = getLocalISODate(today);
+  const todayISODate = getISODateWithTimezone(today, user.timezone);
   const todayFormattedDate = getFormattedDate(today);
 
   const habitsToDo: HabitWithIsDone[] = [];
@@ -102,11 +105,13 @@ function RouteComponent() {
                 id={id}
                 title={title}
                 isDone={isDone}
+                isoDate={todayISODate}
                 streak={getCurrentStreak(
                   relatedCompletions
                     .map((completion) => completion.completions.completedOn)
                     .filter((date): date is string => Boolean(date)),
                   todayISODate,
+                  user.timezone,
                 )}
               />
             );
@@ -133,11 +138,13 @@ function RouteComponent() {
                 id={id}
                 title={title}
                 isDone={isDone}
+                isoDate={todayISODate}
                 streak={getCurrentStreak(
                   relatedCompletions
                     .map((completion) => completion.completions.completedOn)
                     .filter((date): date is string => Boolean(date)),
                   todayISODate,
+                  user.timezone,
                 )}
               />
             );
