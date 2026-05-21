@@ -20,6 +20,7 @@ export const Route = createFileRoute("/_app/dashboard")({
     context,
   }): {
     habitsWithIsDone: HabitWithIsDone[];
+    isoDate: string;
   } => {
     const { user, habits, completions } = context;
     const today = new Date();
@@ -36,17 +37,16 @@ export const Route = createFileRoute("/_app/dashboard")({
 
     return {
       habitsWithIsDone,
+      isoDate,
     };
   },
 });
 
 function RouteComponent() {
   const { user, completions } = Route.useRouteContext();
-  const { habitsWithIsDone } = Route.useLoaderData();
+  const { habitsWithIsDone, isoDate } = Route.useLoaderData();
 
-  const today = new Date();
-  const todayISODate = getISODateWithTimezone(today, user.timeZone);
-  const todayFormattedDate = getFormattedDate(today);
+  const formattedDate = getFormattedDate(isoDate);
 
   const habitsToDo: HabitWithIsDone[] = [];
   const habitsDone: HabitWithIsDone[] = [];
@@ -64,7 +64,7 @@ function RouteComponent() {
       <PageTitle text="Dashboard" />
 
       <h2 className="mb-9 text-lg font-semibold text-slate-400 dark:text-slate-300">
-        {todayFormattedDate}
+        {formattedDate}
       </h2>
 
       <h3 className="font-regular mb-2 text-lg text-violet-600 uppercase dark:text-violet-300">
@@ -84,12 +84,12 @@ function RouteComponent() {
                 id={id}
                 title={title}
                 isDone={isDone}
-                isoDate={todayISODate}
+                isoDate={isoDate}
                 streak={getCurrentStreak(
                   relatedCompletions
                     .map((completion) => completion.completions.completedOn)
                     .filter((date): date is string => Boolean(date)),
-                  todayISODate,
+                  isoDate,
                   user.timeZone,
                 )}
               />
@@ -117,12 +117,12 @@ function RouteComponent() {
                 id={id}
                 title={title}
                 isDone={isDone}
-                isoDate={todayISODate}
+                isoDate={isoDate}
                 streak={getCurrentStreak(
                   relatedCompletions
                     .map((completion) => completion.completions.completedOn)
                     .filter((date): date is string => Boolean(date)),
-                  todayISODate,
+                  isoDate,
                   user.timeZone,
                 )}
               />
