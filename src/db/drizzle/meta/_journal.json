@@ -5,50 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1778263147837,
-      "tag": "0000_quiet_tana_nile",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1778352140879,
-      "tag": "0001_massive_clint_barton",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1778548317545,
-      "tag": "0002_chief_metal_master",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1778548567728,
-      "tag": "0003_bright_fenris",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1778631082233,
-      "tag": "0004_flaky_lionheart",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1778675212814,
-      "tag": "0005_lumpy_stephen_strange",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1779365819483,
-      "tag": "0006_equal_cyclops",
+      "when": 1779412910787,
+      "tag": "0000_new_cargill",
       "breakpoints": true
     }
   ]

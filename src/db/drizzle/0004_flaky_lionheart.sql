@@ -1,1 +1,0 @@
-ALTER TABLE "completions" RENAME COLUMN "completed_on" TO "created_at";

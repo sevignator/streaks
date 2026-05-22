@@ -1,1 +1,0 @@
-ALTER TABLE "completions" ADD COLUMN "completed_on" date;

@@ -1,1 +1,0 @@
-ALTER TABLE "habits" ADD COLUMN "interval" integer NOT NULL;
