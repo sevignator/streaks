@@ -2,14 +2,14 @@ export function getLocalTimezone() {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
-export function getFormattedDate(date: Date, timeZone: string) {
+export function getFormattedDate(date: Date, timeZone = "UTC") {
   return Intl.DateTimeFormat("en-CA", {
     dateStyle: "full",
     timeZone,
   }).format(date);
 }
 
-export function getISODateWithTimezone(date: Date, timeZone: string) {
+export function getISODateWithTimezone(date: Date, timeZone = "UTC") {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone,
     year: "numeric",
@@ -28,7 +28,7 @@ export function getISODateWithTimezone(date: Date, timeZone: string) {
   return `${year}-${month}-${day}`;
 }
 
-function getPreviousISODate(isoDate: string, timeZone: string) {
+function getPreviousISODate(isoDate: string, timeZone = "UTC") {
   const [year, month, day] = isoDate.split("-").map(Number);
   const date = new Date(year, month - 1, day);
   date.setDate(date.getDate() - 1);
@@ -39,7 +39,7 @@ function getPreviousISODate(isoDate: string, timeZone: string) {
 export function getCurrentStreak(
   completionDates: string[],
   todayISODate: string,
-  timeZone: string,
+  timeZone = "UTC",
 ) {
   let streak = 0;
 
