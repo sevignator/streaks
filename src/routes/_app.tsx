@@ -20,7 +20,8 @@ export const Route = createFileRoute('/_app')({
       });
     }
 
-    const { id, nickname, email, timeZone } = currentUser;
+    const { passwordHash, ...userWithoutPassword } = currentUser;
+    const { id, email } = userWithoutPassword;
     const imageUrl = await getUserImageUrlFn({ data: { email } });
 
     const habits = await getAllHabitsByUserIdFn({ data: id });
@@ -30,11 +31,8 @@ export const Route = createFileRoute('/_app')({
 
     return {
       user: {
-        id,
-        nickname,
-        email,
+        ...userWithoutPassword,
         imageUrl,
-        timeZone,
       },
       habits,
       completions,
