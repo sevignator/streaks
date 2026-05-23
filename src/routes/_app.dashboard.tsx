@@ -1,15 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
 
-import { type Habit } from "#/db/schema";
+import { type Habit } from '#/db/schema';
 import {
   getCurrentStreak,
   getFormattedDate,
   getISODateWithTimezone,
-} from "#/utils/datetime";
+} from '#/utils/datetime';
 
-import HabitToDo from "#/components/HabitToDo";
-import PageTitle from "#/components/PageTitle";
-import { useEffect, useState } from "react";
+import HabitToDo from '#/components/HabitToDo';
+import PageTitle from '#/components/PageTitle';
+import { useEffect, useState } from 'react';
 
 interface HabitWithIsDone extends Habit {
   isDone: boolean;
@@ -18,8 +18,8 @@ interface HabitWithIsDone extends Habit {
 type CompareFn = (a: HabitWithIsDone, b: HabitWithIsDone) => number;
 
 const compareFns = {
-  "alpha-asc": (a, b) => (a.title < b.title ? -1 : 1),
-  "alpha-desc": (a, b) => (a.title > b.title ? -1 : 1),
+  'alpha-asc': (a, b) => (a.title < b.title ? -1 : 1),
+  'alpha-desc': (a, b) => (a.title > b.title ? -1 : 1),
 } satisfies Record<string, CompareFn>;
 
 type SortingOptions = keyof typeof compareFns;
@@ -28,7 +28,7 @@ function isSortingOption(text: string): text is SortingOptions {
   return Object.hasOwn(compareFns, text);
 }
 
-export const Route = createFileRoute("/_app/dashboard")({
+export const Route = createFileRoute('/_app/dashboard')({
   component: RouteComponent,
   loader: ({
     context,
@@ -63,13 +63,13 @@ function RouteComponent() {
   const { user, completions } = Route.useRouteContext();
   const { habitsWithIsDone, isoDate, formattedDate } = Route.useLoaderData();
 
-  const [sortedBy, setSortedBy] = useState<SortingOptions>("alpha-asc");
+  const [sortedBy, setSortedBy] = useState<SortingOptions>('alpha-asc');
   const [habits, setHabits] = useState(
     habitsWithIsDone.toSorted(compareFns[sortedBy]),
   );
 
   useEffect(() => {
-    console.log("Changing");
+    console.log('Changing');
   }, [habits]);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ function RouteComponent() {
 
   return (
     <div>
-      <div className="flex gap-8 flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between gap-8">
         <PageTitle text="Dashboard" />
 
         <label htmlFor="todos-sort">
@@ -93,7 +93,7 @@ function RouteComponent() {
               if (!isSortingOption(value)) return;
               setSortedBy(value);
             }}
-            className="inline-block border ml-2 pl-2 pr-10 py-2 rounded-md bg-transparent border-slate-200 dark:border-slate-950 text-(--clr-accent)"
+            className="ml-2 inline-block rounded-md border border-slate-200 bg-transparent py-2 pr-10 pl-2 text-(--clr-accent) dark:border-slate-950"
           >
             <option value="alpha-asc">Alphabet (ASC)</option>
             <option value="alpha-desc">Alphabet (DESC)</option>

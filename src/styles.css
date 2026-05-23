@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms';
 
@@ -20,7 +20,7 @@
 
   @apply selection:bg-violet-600 selection:text-white;
 
-  &[data-theme="dark"] {
+  &[data-theme='dark'] {
     /* Dark theme variables go here */
     --clr-bg-primary: var(--color-slate-900);
     --clr-bg-secondary: var(--color-slate-800);
@@ -62,7 +62,7 @@ body {
   @apply inline-block cursor-pointer rounded-md bg-slate-600 px-4 py-2 font-bold text-white;
 }
 
-.btn[data-btn-type="primary"] {
+.btn[data-btn-type='primary'] {
   @apply bg-(--clr-btn-primary);
 }
 
