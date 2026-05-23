@@ -40,7 +40,7 @@ export const Route = createFileRoute("/_app/dashboard")({
     const { user, habits, completions } = context;
     const today = new Date();
     const isoDate = getISODateWithTimezone(today, user.timeZone);
-    const formattedDate = getFormattedDate(today);
+    const formattedDate = getFormattedDate(today, user.timeZone);
 
     const dailyCompletionIds = completions
       .filter((completion) => completion.completions.completedOn === isoDate)

@@ -2,33 +2,34 @@ export function getLocalTimezone() {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
-export function getFormattedDate(date: Date) {
-  return Intl.DateTimeFormat('en-CA', {
-    dateStyle: 'full',
+export function getFormattedDate(date: Date, timeZone: string) {
+  return Intl.DateTimeFormat("en-CA", {
+    dateStyle: "full",
+    timeZone,
   }).format(date);
 }
 
 export function getISODateWithTimezone(date: Date, timeZone: string) {
-  const parts = new Intl.DateTimeFormat('en-US', {
+  const parts = new Intl.DateTimeFormat("en-US", {
     timeZone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   }).formatToParts(date);
 
-  const year = parts.find((part) => part.type === 'year')?.value;
-  const month = parts.find((part) => part.type === 'month')?.value;
-  const day = parts.find((part) => part.type === 'day')?.value;
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  const day = parts.find((part) => part.type === "day")?.value;
 
   if (!year || !month || !day) {
-    throw new Error('Unable to format ISO date for timezone');
+    throw new Error("Unable to format ISO date for timezone");
   }
 
   return `${year}-${month}-${day}`;
 }
 
 function getPreviousISODate(isoDate: string, timeZone: string) {
-  const [year, month, day] = isoDate.split('-').map(Number);
+  const [year, month, day] = isoDate.split("-").map(Number);
   const date = new Date(year, month - 1, day);
   date.setDate(date.getDate() - 1);
 
