@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router';
 
-import { type Habit } from "#/db/schema";
+import { type Habit } from '#/db/schema';
 
 interface HabitsListProps {
   habits: Habit[];

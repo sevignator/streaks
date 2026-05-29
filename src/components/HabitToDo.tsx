@@ -51,7 +51,7 @@ export default function HabitToDo({
         'flex items-center gap-3 rounded-lg border p-3 text-lg transition hover:scale-[1.015] hover:cursor-pointer active:scale-[1.01]',
         isDone
           ? 'border-green-400 bg-green-100 text-green-950'
-          : 'border-violet-200 bg-violet-100 text-violet-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-300',
+          : 'border-slate-200 bg-white dark:border-slate-900 dark:bg-slate-700 dark:text-slate-300',
       )}
     >
       <div className="relative min-w-10">
@@ -66,7 +66,7 @@ export default function HabitToDo({
             'block aspect-square transition-colors',
             isDone
               ? 'stroke-green-500'
-              : 'stroke-violet-300 dark:stroke-slate-800',
+              : 'stroke-violet-200 dark:stroke-slate-800',
           )}
         >
           <circle
