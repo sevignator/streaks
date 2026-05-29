@@ -1,3 +1,5 @@
+import Spinner from "#/components/Spinner";
+
 interface SubmitButtonProps {
   label: string;
   canSubmit: boolean;
@@ -12,10 +14,10 @@ export default function SubmitButton({
   return (
     <button
       type="submit"
-      className="mt-3 cursor-pointer rounded-md bg-(--clr-btn-primary) p-3 text-xl font-bold text-slate-50"
+      className="mt-3 grid h-12 cursor-pointer place-items-center rounded-md bg-(--clr-btn-primary) p-0 text-xl font-bold text-slate-50"
       disabled={!canSubmit}
     >
-      {isSubmitting ? '...' : label}
+      {isSubmitting ? <Spinner /> : label}
     </button>
   );
 }
