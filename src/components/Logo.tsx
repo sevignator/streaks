@@ -5,7 +5,7 @@ interface LogoProps {
 export default function Logo({ size }: LogoProps) {
   return (
     <span
-      className="inline-block font-extrabold tracking-tighter text-violet-700 dark:text-violet-300"
+      className="inline-block font-extrabold tracking-tighter text-(--clr-accent)"
       style={{
         fontSize: size,
       }}

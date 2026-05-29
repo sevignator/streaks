@@ -79,7 +79,7 @@ function RouteComponent() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-between gap-8">
+      <div className="mb-4 flex flex-wrap justify-between gap-x-8 gap-y-4">
         <PageTitle text="Dashboard" />
 
         <label htmlFor="todos-sort">
@@ -93,7 +93,7 @@ function RouteComponent() {
               if (!isSortingOption(value)) return;
               setSortedBy(value);
             }}
-            className="ml-2 inline-block rounded-md border border-slate-200 bg-transparent py-2 pr-10 pl-2 text-(--clr-accent) dark:border-slate-950"
+            className="ml-2 inline-block cursor-pointer rounded-md border border-[rgb(0_0_0/0.1)] bg-[rgb(0_0_0/0.025)] py-2 pr-10 pl-2 font-medium text-(--clr-accent) dark:border-[rgb(0_0_0/0.5)] dark:bg-[rgb(0_0_0/0.1)]"
           >
             <option value="alpha-asc">Alphabet (ASC)</option>
             <option value="alpha-desc">Alphabet (DESC)</option>
@@ -101,7 +101,7 @@ function RouteComponent() {
         </label>
       </div>
 
-      <h2 className="mb-9 text-lg font-semibold text-slate-400 dark:text-slate-300">
+      <h2 className="mb-8 text-lg font-semibold text-slate-400 dark:text-slate-300">
         {formattedDate}
       </h2>
 

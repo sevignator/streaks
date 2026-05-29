@@ -12,7 +12,7 @@ function RouteComponent() {
 
   return (
     <div>
-      <PageTitle text="Habits" />
+      <PageTitle text="Habits" className="mb-8" />
 
       <HabitsList habits={habits} />
 
