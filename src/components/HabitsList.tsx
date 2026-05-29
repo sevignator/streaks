@@ -1,6 +1,6 @@
-import { Link } from '@tanstack/react-router';
+import { Link } from "@tanstack/react-router";
 
-import { type Habit } from '#/db/schema';
+import { type Habit } from "#/db/schema";
 
 interface HabitsListProps {
   habits: Habit[];
@@ -24,7 +24,7 @@ function HabitListItem({ habit }: HabitListItemProps) {
   const { id, title } = habit;
 
   return (
-    <li className="flex justify-between gap-4 rounded-md border border-slate-200 bg-slate-50 p-3 text-slate-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-50">
+    <li className="flex justify-between gap-4 rounded-md border border-slate-200 bg-white p-3 text-slate-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-50">
       {title}
 
       <div>
