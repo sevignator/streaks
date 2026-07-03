@@ -2,6 +2,7 @@ import { useServerFn } from '@tanstack/react-start';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
+import { appRoute } from '#/utils/routeApis';
 import {
   inputHabitIntervalSchema,
   inputHabitTitleSchema,
@@ -17,7 +18,7 @@ export const Route = createFileRoute('/_app/habits_/create')({
 });
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext();
+  const { user } = appRoute.useLoaderData();
 
   const router = useRouter();
   const createHabit = useServerFn(createHabitFn);

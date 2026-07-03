@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { type Habit } from '#/db/schema';
 import {
@@ -7,6 +7,7 @@ import {
   getISODateWithTimezone,
 } from '#/utils/datetime';
 
+import { appRoute } from '#/utils/routeApis';
 import HabitToDo from '#/components/HabitToDo';
 import PageTitle from '#/components/PageTitle';
 import { useEffect, useState } from 'react';
@@ -30,14 +31,14 @@ function isSortingOption(text: string): text is SortingOptions {
 
 export const Route = createFileRoute('/_app/dashboard')({
   component: RouteComponent,
-  loader: ({
-    context,
-  }): {
-    habitsWithIsDone: HabitWithIsDone[];
-    isoDate: string;
-    formattedDate: string;
-  } => {
-    const { user, habits, completions } = context;
+  loader: async ({ parentMatchPromise }) => {
+    const parentMatch = await parentMatchPromise;
+
+    if (!parentMatch.loaderData) {
+      throw notFound();
+    }
+
+    const { user, habits, completions } = parentMatch.loaderData;
     const today = new Date();
     const isoDate = getISODateWithTimezone(today, user.timeZone);
     const formattedDate = getFormattedDate(today, user.timeZone);
@@ -60,17 +61,13 @@ export const Route = createFileRoute('/_app/dashboard')({
 });
 
 function RouteComponent() {
-  const { user, completions } = Route.useRouteContext();
+  const { user, completions } = appRoute.useLoaderData();
   const { habitsWithIsDone, isoDate, formattedDate } = Route.useLoaderData();
 
   const [sortedBy, setSortedBy] = useState<SortingOptions>('alpha-asc');
   const [habits, setHabits] = useState(
     habitsWithIsDone.toSorted(compareFns[sortedBy]),
   );
-
-  useEffect(() => {
-    console.log('Changing');
-  }, [habits]);
 
   useEffect(() => {
     const sortedHabits = [...habits].toSorted(compareFns[sortedBy]);

@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
+import { appRoute } from '#/utils/routeApis';
+
 import PageTitle from '#/components/PageTitle';
 import HabitsList from '#/components/HabitsList';
 
@@ -8,7 +10,7 @@ export const Route = createFileRoute('/_app/habits')({
 });
 
 function RouteComponent() {
-  const { habits } = Route.useRouteContext();
+  const { habits } = appRoute.useLoaderData();
 
   return (
     <div>

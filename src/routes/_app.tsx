@@ -11,7 +11,7 @@ import Sidebar from '#/components/Sidebar';
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
-  beforeLoad: async () => {
+  loader: async () => {
     const currentUser = await getCurrentUserFn();
 
     if (!currentUser) {
@@ -41,7 +41,7 @@ export const Route = createFileRoute('/_app')({
 });
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext();
+  const { user } = Route.useLoaderData();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleMenu() {

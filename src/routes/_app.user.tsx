@@ -1,6 +1,7 @@
 import { useServerFn } from '@tanstack/react-start';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 
+import { appRoute } from '#/utils/routeApis';
 import { userLogoutFn } from '#/utils/users.functions';
 
 import PageTitle from '#/components/PageTitle';
@@ -11,7 +12,7 @@ export const Route = createFileRoute('/_app/user')({
 
 function RouteComponent() {
   const router = useRouter();
-  const { user } = Route.useRouteContext();
+  const { user } = appRoute.useLoaderData();
 
   const userLogout = useServerFn(userLogoutFn);
 

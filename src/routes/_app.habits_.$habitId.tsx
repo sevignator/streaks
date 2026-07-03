@@ -2,6 +2,7 @@ import { useServerFn } from '@tanstack/react-start';
 import { createFileRoute, notFound, useRouter } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
+import { appRoute } from '#/utils/routeApis';
 import {
   inputHabitIntervalSchema,
   inputHabitTitleSchema,
@@ -14,8 +15,14 @@ import SubmitButton from '#/components/SubmitButton';
 
 export const Route = createFileRoute('/_app/habits_/$habitId')({
   component: RouteComponent,
-  loader: async ({ context, params }) => {
-    const { habits } = context;
+  loader: async ({ params, parentMatchPromise }) => {
+    const parentMatch = await parentMatchPromise;
+
+    if (!parentMatch.loaderData) {
+      throw notFound();
+    }
+
+    const { habits } = parentMatch.loaderData;
     const { habitId } = params;
 
     const habit = habits.find(

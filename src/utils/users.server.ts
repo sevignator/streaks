@@ -61,7 +61,6 @@ export async function getUserById(id: schema.User['id']) {
 }
 
 export function getUserImageUrl(email: string, size = 100) {
-  console.log('Loading image');
   const normalized = email.trim().toLowerCase();
   const hash = createHash('md5').update(normalized).digest('hex');
   const imageUrl = `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon`;
