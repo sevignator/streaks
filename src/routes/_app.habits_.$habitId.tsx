@@ -18,7 +18,9 @@ export const Route = createFileRoute('/_app/habits_/$habitId')({
     const { habits } = context;
     const { habitId } = params;
 
-    const habit = habits.find((habit) => habit.id === Number.parseInt(habitId));
+    const habit = habits.find(
+      (currentHabit) => currentHabit.id === Number.parseInt(habitId),
+    );
 
     if (!habit) {
       throw notFound();
