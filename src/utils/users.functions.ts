@@ -62,17 +62,16 @@ export const userResetPasswordFn = createServerFn({
 
       await sendEmailFn({
         data: {
-          to: user.email,
-          subject: 'Password reset',
-          html: `
-            <p>Hi ${user.nickname}!</p>
-
-            <p>A password reset was requested for your account. Visit the following link to reset your password:</p>
-
-            <p>http://localhost:3000/login/reset/${token}</p>
-
-            <p>This link is only valid for the next 30 minutes.</p>
-          `,
+          email: {
+            to: user.email,
+            subject: 'Password reset',
+            html: `
+              <p>Hi ${user.nickname}!</p>
+              <p>A password reset was requested for your account. Visit the following link to reset your password:</p>
+              <p>http://localhost:3000/login/reset/${token}</p>
+              <p>This link is only valid for the next 30 minutes.</p>
+            `,
+          },
         },
       });
     }

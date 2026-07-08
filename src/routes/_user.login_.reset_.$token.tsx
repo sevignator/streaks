@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_user/login_/reset_/$token')({
   component: RouteComponent,
   loader: async ({ params }) => {
     const { token } = params;
-    const data = await getPasswordResetTokenDataFn({ data: token });
+    const data = await getPasswordResetTokenDataFn({ data: { token } });
 
     if (!data) throw notFound();
 

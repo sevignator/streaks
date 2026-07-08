@@ -10,15 +10,18 @@ import {
 } from '#/utils/auth.server';
 import { getServerDateFn } from '#/utils/datetime.function';
 import { getUserById } from '#/utils/users.server';
-import {
-  inputPasswordSchema,
-  userIdSchema,
-  type passwordResetTokenSchema,
-} from '#/utils/schemas';
+import { inputPasswordSchema, userIdSchema } from '#/utils/schemas';
+
+const getPasswordResetTokenDataSchema = z.object({
+  token: z.string(),
+});
 
 export const getPasswordResetTokenDataFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof passwordResetTokenSchema>) => input)
-  .handler(async ({ data: token }) => {
+  .inputValidator(
+    (input: z.input<typeof getPasswordResetTokenDataSchema>) => input,
+  )
+  .handler(async ({ data }) => {
+    const { token } = data;
     const tokenHash = getPasswordResetTokenHash(token);
     const resetTokenRecord = await getPasswordResetTokenByHash(tokenHash);
 

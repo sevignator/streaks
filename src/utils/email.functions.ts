@@ -1,20 +1,25 @@
 import { createServerFn } from '@tanstack/react-start';
 import { Resend } from 'resend';
-import { type z } from 'zod';
+import { z } from 'zod';
 
 import { env } from '../env';
-import { type emailSchema } from '#/utils/schemas';
+import { emailSchema } from '#/utils/schemas';
 
 const resend = new Resend(env.RESEND_API_KEY);
 
+const sendEmailSchema = z.object({
+  email: emailSchema,
+});
+
 export const sendEmailFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof emailSchema>) => input)
-  .handler(async ({ data: handlerData }) => {
+  .inputValidator((input: z.input<typeof sendEmailSchema>) => input)
+  .handler(async ({ data }) => {
+    const { email } = data;
     const { error } = await resend.emails.send({
       from: 'Streaks <notification@streaks.fyi>',
-      to: handlerData.to,
-      subject: handlerData.subject,
-      html: handlerData.html,
+      to: email.to,
+      subject: email.subject,
+      html: email.html,
     });
 
     if (error) {

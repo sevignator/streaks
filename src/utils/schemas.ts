@@ -31,6 +31,4 @@ export const emailSchema = z.object({
 
 export const habitIdSchema = z.number();
 
-export const passwordResetTokenSchema = z.string();
-
 export const userIdSchema = z.number();
