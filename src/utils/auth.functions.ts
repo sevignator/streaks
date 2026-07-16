@@ -17,9 +17,7 @@ const getPasswordResetTokenDataSchema = z.object({
 });
 
 export const getPasswordResetTokenDataFn = createServerFn({ method: 'POST' })
-  .inputValidator(
-    (input: z.input<typeof getPasswordResetTokenDataSchema>) => input,
-  )
+  .validator((input: z.input<typeof getPasswordResetTokenDataSchema>) => input)
   .handler(async ({ data }) => {
     const { token } = data;
     const tokenHash = getPasswordResetTokenHash(token);
@@ -45,7 +43,7 @@ export const updateUserPasswordSchema = z.object({
 });
 
 export const updateUserPasswordFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof updateUserPasswordSchema>) => input)
+  .validator((input: z.input<typeof updateUserPasswordSchema>) => input)
   .handler(async ({ data }) => {
     const { userId, newPassword } = data;
 
@@ -66,7 +64,7 @@ export const updateUserPasswordWithTokenSchema = z.object({
 });
 
 export const updateUserPasswordWithTokenFn = createServerFn({ method: 'POST' })
-  .inputValidator(
+  .validator(
     (input: z.input<typeof updateUserPasswordWithTokenSchema>) => input,
   )
   .handler(async ({ data }) => {

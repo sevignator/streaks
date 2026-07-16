@@ -12,7 +12,7 @@ const sendEmailSchema = z.object({
 });
 
 export const sendEmailFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof sendEmailSchema>) => input)
+  .validator((input: z.input<typeof sendEmailSchema>) => input)
   .handler(async ({ data }) => {
     const { email } = data;
     const { error } = await resend.emails.send({

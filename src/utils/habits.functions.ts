@@ -18,7 +18,7 @@ export const createHabitSchema = z.object({
 });
 
 export const createHabitFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof createHabitSchema>) => input)
+  .validator((input: z.input<typeof createHabitSchema>) => input)
   .handler(async ({ data }) => {
     const { title, userId, interval } = data;
 
@@ -36,7 +36,7 @@ export const editHabitSchema = z.object({
 });
 
 export const editHabitFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof editHabitSchema>) => input)
+  .validator((input: z.input<typeof editHabitSchema>) => input)
   .handler(async ({ data }) => {
     const { habitId, title, interval } = data;
 
@@ -48,7 +48,7 @@ export const editHabitFn = createServerFn({ method: 'POST' })
   });
 
 export const deleteHabitFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof habitIdSchema>) => input)
+  .validator((input: z.input<typeof habitIdSchema>) => input)
   .handler(async ({ data: habitId }) => {
     await deleteHabit(habitId);
 
@@ -65,7 +65,7 @@ export const getHabitByUserIdSchema = z.object({
 export const getHabitByUserIdFn = createServerFn({
   method: 'GET',
 })
-  .inputValidator((input: z.input<typeof getHabitByUserIdSchema>) => input)
+  .validator((input: z.input<typeof getHabitByUserIdSchema>) => input)
   .handler(async ({ data }) => {
     const { habitId, userId } = data;
 
@@ -73,7 +73,7 @@ export const getHabitByUserIdFn = createServerFn({
   });
 
 export const getAllHabitsByUserIdFn = createServerFn({ method: 'GET' })
-  .inputValidator((input: z.input<typeof userIdSchema>) => input)
+  .validator((input: z.input<typeof userIdSchema>) => input)
   .handler(async ({ data: userId }) => {
     return await getAllHabitsByUserId(userId);
   });

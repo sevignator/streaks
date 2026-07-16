@@ -33,7 +33,7 @@ export const userSignupSchema = z
   });
 
 export const userSignupFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof userSignupSchema>) => input)
+  .validator((input: z.input<typeof userSignupSchema>) => input)
   .handler(async ({ data }) => {
     const user = await getUserByEmail(data.email);
 
@@ -53,7 +53,7 @@ export const userSignupFn = createServerFn({ method: 'POST' })
 export const userResetPasswordFn = createServerFn({
   method: 'POST',
 })
-  .inputValidator((input: z.input<typeof inputEmailSchema>) => input)
+  .validator((input: z.input<typeof inputEmailSchema>) => input)
   .handler(async ({ data }) => {
     const user = await getUserByEmail(data);
 
@@ -90,7 +90,7 @@ export const userLoginSchema = z.object({
 });
 
 export const userLoginFn = createServerFn({ method: 'POST' })
-  .inputValidator((input: z.input<typeof userLoginSchema>) => input)
+  .validator((input: z.input<typeof userLoginSchema>) => input)
   .handler(async ({ data }) => {
     const user = await authenticateUser(data.email, data.password);
 
@@ -139,7 +139,7 @@ const getUserImageUrlSchema = z.object({
 export const getUserImageUrlFn = createServerFn({
   method: 'GET',
 })
-  .inputValidator(getUserImageUrlSchema)
+  .validator(getUserImageUrlSchema)
   .handler(async ({ data }) => {
     return getUserImageUrl(data.email);
   });

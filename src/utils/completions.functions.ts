@@ -17,7 +17,7 @@ const createCompletionOnSchema = z.object({
 export const createCompletionOnFn = createServerFn({
   method: 'POST',
 })
-  .inputValidator((input: z.input<typeof createCompletionOnSchema>) => input)
+  .validator((input: z.input<typeof createCompletionOnSchema>) => input)
   .handler(async ({ data: { date, habitId } }) => {
     return await createCompletionOn(date, habitId);
   });
@@ -30,7 +30,7 @@ const deleteCompletionOnSchema = z.object({
 export const deleteCompletionOnFn = createServerFn({
   method: 'POST',
 })
-  .inputValidator((input: z.input<typeof deleteCompletionOnSchema>) => input)
+  .validator((input: z.input<typeof deleteCompletionOnSchema>) => input)
   .handler(async ({ data: { date, habitId } }) => {
     return await deleteCompletionOn(date, habitId);
   });
@@ -42,9 +42,7 @@ const getAllCompletionsByUserIdSchema = z.object({
 export const getAllCompletionsByUserIdFn = createServerFn({
   method: 'GET',
 })
-  .inputValidator(
-    (input: z.input<typeof getAllCompletionsByUserIdSchema>) => input,
-  )
+  .validator((input: z.input<typeof getAllCompletionsByUserIdSchema>) => input)
   .handler(async ({ data: { userId } }) => {
     return await getAllCompletionsByUserId(userId);
   });
@@ -56,9 +54,7 @@ const getAllCompletionsByHabitSchema = z.object({
 export const getAllCompletionsByHabitIdFn = createServerFn({
   method: 'GET',
 })
-  .inputValidator(
-    (input: z.input<typeof getAllCompletionsByHabitSchema>) => input,
-  )
+  .validator((input: z.input<typeof getAllCompletionsByHabitSchema>) => input)
   .handler(async ({ data: { habitId } }) => {
     return await getAllCompletionsByHabitId(habitId);
   });
