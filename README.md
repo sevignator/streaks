@@ -4,7 +4,7 @@
 
 Streaks is a habit-tracking web application that helps dedicated folks achieve their goals by maintaining... well, you guessed it: _streaks_! It's about showing up and "[not breaking the chain](https://lifehacker.com/jerry-seinfelds-productivity-secret-281626)", as Jerry Seinfeld would put it.
 
-## Getting Started
+## Getting started
 
 To run this application:
 
@@ -13,7 +13,7 @@ pnpm install
 pnpm dev
 ```
 
-## Building For Production
+## Building for production
 
 To build this application for production:
 
@@ -33,7 +33,7 @@ pnpm test
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
 
-## Linting & Formatting
+## Linting and formatting
 
 This project uses [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.htmlprettier) for linting and formatting. The following scripts are available:
 
