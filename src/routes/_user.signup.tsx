@@ -38,7 +38,7 @@ function RouteComponent() {
   });
 
   return (
-    <div>
+    <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -122,6 +122,6 @@ function RouteComponent() {
           )}
         />
       </form>
-    </div>
+    </>
   );
 }

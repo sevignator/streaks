@@ -1,5 +1,10 @@
 import { useServerFn } from '@tanstack/react-start';
-import { createFileRoute, notFound, useRouter } from '@tanstack/react-router';
+import {
+  createFileRoute,
+  Link,
+  notFound,
+  useRouter,
+} from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
 import {
@@ -63,8 +68,8 @@ function RouteComponent() {
   }
 
   return (
-    <div>
-      <PageTitle text={`Edit "${habit.title}"`} />
+    <>
+      <PageTitle text={`Edit "${habit.title}"`} className="mb-8" />
 
       <form
         onSubmit={(e) => {
@@ -95,24 +100,32 @@ function RouteComponent() {
           )}
         />
 
-        <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
-            <SubmitButton
-              label="Save changes"
-              canSubmit={canSubmit}
-              isSubmitting={isSubmitting}
-            />
-          )}
-        />
-      </form>
+        <div className="mt-4 flex items-baseline gap-6">
+          <form.Subscribe
+            selector={(state) => [state.canSubmit, state.isSubmitting]}
+            children={([canSubmit, isSubmitting]) => (
+              <SubmitButton
+                label="Save changes"
+                canSubmit={canSubmit}
+                isSubmitting={isSubmitting}
+              />
+            )}
+          />
 
-      <button
-        className="mx-auto mt-4 block cursor-pointer text-lg text-red-600 dark:text-red-400"
-        onClick={handleDelete}
-      >
-        Delete habit
-      </button>
-    </div>
+          <Link to="/habits" className="block">
+            Cancel
+          </Link>
+
+          <button
+            className="btn ml-auto"
+            data-btn-type="danger"
+            data-btn-variant="outline"
+            onClick={handleDelete}
+          >
+            Delete habit
+          </button>
+        </div>
+      </form>
+    </>
   );
 }

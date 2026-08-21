@@ -22,7 +22,7 @@ function RouteComponent() {
   }
 
   return (
-    <div>
+    <>
       <PageTitle text={user.nickname} />
 
       <p className="mb-8">Timezone: {user.timeZone}</p>
@@ -30,6 +30,6 @@ function RouteComponent() {
       <button onClick={handleLogout} className="btn">
         Logout
       </button>
-    </div>
+    </>
   );
 }

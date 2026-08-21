@@ -13,7 +13,7 @@ function RouteComponent() {
   const { habits } = appRoute.useLoaderData();
 
   return (
-    <div>
+    <>
       <PageTitle text="Habits" className="mb-8" />
 
       <HabitsList habits={habits} />
@@ -21,6 +21,6 @@ function RouteComponent() {
       <Link to="/habits/create" className="btn mt-6" data-btn-type="primary">
         Create habit
       </Link>
-    </div>
+    </>
   );
 }

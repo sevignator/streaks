@@ -39,8 +39,8 @@ function RouteComponent() {
   });
 
   return (
-    <div>
-      <PageTitle text="New habit" />
+    <>
+      <PageTitle text="New habit" className="mb-8" />
 
       <form
         onSubmit={(e) => {
@@ -82,6 +82,6 @@ function RouteComponent() {
           )}
         />
       </form>
-    </div>
+    </>
   );
 }

@@ -59,11 +59,28 @@ body {
 }
 
 .btn {
-  @apply inline-block cursor-pointer rounded-md bg-slate-600 px-4 py-2 font-bold text-white;
+  --clr-button: var(--color-slate-700);
+
+  @apply inline-grid cursor-pointer place-content-center rounded-md bg-(--clr-button) px-[1.15em] py-[0.65em] font-semibold text-white transition-colors;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--clr-button), black 15%);
+  }
+  & > * {
+    @apply col-1 row-1 m-auto;
+  }
 }
 
 .btn[data-btn-type='primary'] {
-  @apply bg-(--clr-btn-primary);
+  --clr-button: var(--clr-btn-primary);
+}
+
+.btn[data-btn-type='danger'] {
+  --clr-button: var(--color-red-500);
+}
+
+.btn[data-btn-variant='outline'] {
+  @apply bg-transparent outline outline-(--clr-button);
 }
 
 .visually-hidden:not(:focus):not(:active) {

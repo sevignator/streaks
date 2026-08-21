@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import Spinner from '#/components/Spinner';
 
 interface SubmitButtonProps {
@@ -14,10 +16,16 @@ export default function SubmitButton({
   return (
     <button
       type="submit"
-      className="mt-3 grid h-12 cursor-pointer place-items-center rounded-md bg-(--clr-btn-primary) p-0 text-xl font-bold text-slate-50"
+      className="btn"
+      data-btn-type="primary"
       disabled={!canSubmit}
     >
-      {isSubmitting ? <Spinner /> : label}
+      <div className={clsx(isSubmitting ? 'invisible' : 'visible')}>
+        {label}
+      </div>
+      <div className={clsx(isSubmitting ? 'visible' : 'invisible')}>
+        <Spinner />
+      </div>
     </button>
   );
 }

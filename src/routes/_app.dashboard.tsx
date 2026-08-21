@@ -75,7 +75,7 @@ function RouteComponent() {
   }, [sortedBy]);
 
   return (
-    <div>
+    <>
       <div className="mb-4 flex flex-wrap justify-between gap-x-8 gap-y-4">
         <PageTitle text="Dashboard" />
 
@@ -130,6 +130,6 @@ function RouteComponent() {
       ) : (
         <p>You don't have any habits yet.</p>
       )}
-    </div>
+    </>
   );
 }

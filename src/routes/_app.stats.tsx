@@ -8,8 +8,8 @@ export const Route = createFileRoute('/_app/stats')({
 
 function RouteComponent() {
   return (
-    <div>
+    <>
       <PageTitle text="Stats" />
-    </div>
+    </>
   );
 }

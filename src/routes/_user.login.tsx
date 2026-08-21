@@ -31,7 +31,7 @@ function RouteComponent() {
   });
 
   return (
-    <div>
+    <>
       {search.message === 'account-created' && (
         <p className="mb-6 rounded-md border border-green-200 bg-green-100 p-2 text-center text-green-600">
           Your account has successfully been created.
@@ -103,6 +103,6 @@ function RouteComponent() {
       <p className="mt-4 text-center">
         <Link to="/login/reset">Reset password</Link>
       </p>
-    </div>
+    </>
   );
 }
