@@ -13,6 +13,7 @@
     "**/build/**",
     "**/coverage/**",
     "**/dist/**",
+    "**/drizzle/**",
     "**/snap/**",
     "**/vite.config.*.timestamp-*.*",
     "eslint.config.js",
