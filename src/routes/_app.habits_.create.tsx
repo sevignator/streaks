@@ -1,5 +1,5 @@
 import { useServerFn } from '@tanstack/react-start';
-import { createFileRoute, useRouter } from '@tanstack/react-router';
+import { createFileRoute, Link, useRouter } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
 import { appRoute } from '#/utils/routeApis';
@@ -71,16 +71,22 @@ function RouteComponent() {
           )}
         />
 
-        <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
-            <SubmitButton
-              label="Create"
-              canSubmit={canSubmit}
-              isSubmitting={isSubmitting}
-            />
-          )}
-        />
+        <div className="btn-group">
+          <form.Subscribe
+            selector={(state) => [state.canSubmit, state.isSubmitting]}
+            children={([canSubmit, isSubmitting]) => (
+              <SubmitButton
+                label="Create habit"
+                canSubmit={canSubmit}
+                isSubmitting={isSubmitting}
+              />
+            )}
+          />
+
+          <Link to="/habits" className="btn">
+            Cancel
+          </Link>
+        </div>
       </form>
     </>
   );

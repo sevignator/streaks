@@ -58,30 +58,35 @@ body {
   @apply mx-auto max-w-4xl;
 }
 
-.btn {
-  --clr-button: var(--color-slate-700);
+.btn-group {
+  @apply mt-2 flex items-baseline gap-3;
+}
 
+.btn {
   @apply inline-grid cursor-pointer place-content-center rounded-md bg-(--clr-button) px-[1.15em] py-[0.65em] font-semibold text-white transition-colors;
 
   &:hover {
     background-color: color-mix(in srgb, var(--clr-button), black 15%);
+  }
+  &[data-btn-type='default'] {
+    --clr-button: var(--color-slate-700);
+  }
+  &[data-btn-type='primary'] {
+    --clr-button: var(--clr-btn-primary);
+  }
+
+  &[data-btn-type='danger'] {
+    --clr-button: var(--color-red-500);
+  }
+  &[data-btn-variant='outline'] {
+    @apply bg-transparent outline outline-(--clr-button);
   }
   & > * {
     @apply col-1 row-1 m-auto;
   }
 }
 
-.btn[data-btn-type='primary'] {
-  --clr-button: var(--clr-btn-primary);
-}
 
-.btn[data-btn-type='danger'] {
-  --clr-button: var(--color-red-500);
-}
-
-.btn[data-btn-variant='outline'] {
-  @apply bg-transparent outline outline-(--clr-button);
-}
 
 .visually-hidden:not(:focus):not(:active) {
   position: absolute;

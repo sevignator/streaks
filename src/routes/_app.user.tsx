@@ -27,7 +27,7 @@ function RouteComponent() {
 
       <p className="mb-8">Timezone: {user.timeZone}</p>
 
-      <button onClick={handleLogout} className="btn">
+      <button onClick={handleLogout} className="btn" data-btn-type="default">
         Logout
       </button>
     </>

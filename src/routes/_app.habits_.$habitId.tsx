@@ -100,7 +100,7 @@ function RouteComponent() {
           )}
         />
 
-        <div className="mt-4 flex items-baseline gap-6">
+        <div className="btn-group">
           <form.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
@@ -112,7 +112,7 @@ function RouteComponent() {
             )}
           />
 
-          <Link to="/habits" className="block">
+          <Link to="/habits" className="btn">
             Cancel
           </Link>
 

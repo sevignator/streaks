@@ -18,9 +18,11 @@ function RouteComponent() {
 
       <HabitsList habits={habits} />
 
-      <Link to="/habits/create" className="btn mt-6" data-btn-type="primary">
-        Create habit
-      </Link>
+      <div className="btn-group">
+        <Link to="/habits/create" className="btn mt-6" data-btn-type="primary">
+          Add habit
+        </Link>
+      </div>
     </>
   );
 }
