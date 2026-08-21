@@ -11,7 +11,9 @@ import {
 } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
-  id: bigint({ mode: 'number' }).generatedAlwaysAsIdentity().primaryKey(),
+  userId: bigint('user_id', { mode: 'number' })
+    .generatedAlwaysAsIdentity()
+    .primaryKey(),
   nickname: text('nickname').notNull(),
   email: text('email').unique().notNull(),
   passwordHash: text('password_hash').notNull(),
@@ -19,12 +21,14 @@ export const users = pgTable('users', {
 });
 
 export const habits = pgTable('habits', {
-  id: bigint({ mode: 'number' }).generatedAlwaysAsIdentity().primaryKey(),
+  habitId: bigint('habit_id', { mode: 'number' })
+    .generatedAlwaysAsIdentity()
+    .primaryKey(),
   title: text('title').notNull(),
   interval: integer('interval').notNull(),
   isActive: boolean('is_active').default(true).notNull(),
   userId: bigint('user_id', { mode: 'number' })
-    .references(() => users.id, {
+    .references(() => users.userId, {
       onDelete: 'cascade',
     })
     .notNull(),
@@ -36,9 +40,11 @@ export const habits = pgTable('habits', {
 export const completions = pgTable(
   'completions',
   {
-    id: bigint({ mode: 'number' }).generatedAlwaysAsIdentity().primaryKey(),
+    completionId: bigint('completion_id', { mode: 'number' })
+      .generatedAlwaysAsIdentity()
+      .primaryKey(),
     habitId: bigint('habit_id', { mode: 'number' })
-      .references(() => habits.id, {
+      .references(() => habits.habitId, {
         onDelete: 'cascade',
       })
       .notNull(),
@@ -50,11 +56,13 @@ export const completions = pgTable(
   (t) => [unique('habit_completion').on(t.habitId, t.completedOn)],
 );
 
-export const passwordResetTokens = pgTable('password_reset_tokens', {
-  id: bigint({ mode: 'number' }).generatedAlwaysAsIdentity().primaryKey(),
+export const resetTokens = pgTable('reset_tokens', {
+  resetTokenId: bigint('reset_token_id', { mode: 'number' })
+    .generatedAlwaysAsIdentity()
+    .primaryKey(),
   tokenHash: text('token_hash').unique().notNull(),
   userId: bigint('user_id', { mode: 'number' })
-    .references(() => users.id, {
+    .references(() => users.userId, {
       onDelete: 'cascade',
     })
     .notNull(),
@@ -76,5 +84,5 @@ export type Habit = typeof habits.$inferSelect;
 export type NewCompletion = typeof completions.$inferInsert;
 export type Completion = typeof completions.$inferSelect;
 
-export type NewPasswordResetToken = typeof passwordResetTokens.$inferInsert;
-export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+export type NewPasswordResetToken = typeof resetTokens.$inferInsert;
+export type PasswordResetToken = typeof resetTokens.$inferSelect;

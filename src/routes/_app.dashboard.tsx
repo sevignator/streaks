@@ -49,7 +49,7 @@ export const Route = createFileRoute('/_app/dashboard')({
 
     const habitsWithIsDone = habits.map((habit) => ({
       ...habit,
-      isDone: dailyCompletionIds.includes(habit.id),
+      isDone: dailyCompletionIds.includes(habit.habitId),
     }));
 
     return {
@@ -104,15 +104,15 @@ function RouteComponent() {
 
       {habits.length > 0 ? (
         <div className="grid gap-3">
-          {habits.map(({ id, title, isDone }) => {
+          {habits.map(({ habitId, title, isDone }) => {
             const relatedCompletions = completions.filter((completion) => {
-              return completion.habits.id === id;
+              return completion.habits.habitId === habitId;
             });
 
             return (
               <HabitToDo
-                key={id}
-                id={id}
+                key={habitId}
+                id={habitId}
                 title={title}
                 initialIsDone={isDone}
                 isoDate={isoDate}

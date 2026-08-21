@@ -16,13 +16,13 @@ export async function createHabit(
       err instanceof DrizzleQueryError &&
       err.cause instanceof DatabaseError
     ) {
-      console.error(err.cause.detail);
+      console.error(err.cause);
     }
   }
 }
 
 export async function editHabit(
-  habitId: Habit['id'],
+  habitId: Habit['habitId'],
   title: Habit['title'],
   interval: Habit['interval'],
 ) {
@@ -30,42 +30,42 @@ export async function editHabit(
     await db
       .update(habits)
       .set({ title, interval })
-      .where(eq(habits.id, habitId));
+      .where(eq(habits.habitId, habitId));
   } catch (err) {
     if (
       err instanceof DrizzleQueryError &&
       err.cause instanceof DatabaseError
     ) {
-      console.error(err.cause.detail);
+      console.error(err.cause);
     }
   }
 }
 
-export async function deleteHabit(habitId: Habit['id']) {
+export async function deleteHabit(habitId: Habit['habitId']) {
   try {
-    await db.delete(habits).where(eq(habits.id, habitId));
+    await db.delete(habits).where(eq(habits.habitId, habitId));
   } catch (err) {
     if (
       err instanceof DrizzleQueryError &&
       err.cause instanceof DatabaseError
     ) {
-      console.error(err.cause.detail);
+      console.error(err.cause);
     }
   }
 }
 
 export async function getHabitByUserId(
-  habitId: Habit['id'],
-  userId: User['id'],
+  habitId: Habit['habitId'],
+  userId: User['userId'],
 ) {
   const matches = await db
     .select()
     .from(habits)
-    .where(and(eq(habits.id, habitId), eq(habits.userId, userId)));
+    .where(and(eq(habits.habitId, habitId), eq(habits.userId, userId)));
 
   return matches[0];
 }
 
-export async function getAllHabitsByUserId(userId: User['id']) {
+export async function getAllHabitsByUserId(userId: User['userId']) {
   return await db.select().from(habits).where(eq(habits.userId, userId));
 }

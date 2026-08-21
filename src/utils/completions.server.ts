@@ -5,14 +5,14 @@ import { completions, habits, type Habit, type User } from '#/db/schema';
 
 export async function createCompletionOn(
   dateInISO: string,
-  habitId: Habit['id'],
+  habitId: Habit['habitId'],
 ) {
   await db.insert(completions).values({ habitId, completedOn: dateInISO });
 }
 
 export async function deleteCompletionOn(
   dateInISO: string,
-  habitId: Habit['id'],
+  habitId: Habit['habitId'],
 ) {
   await db
     .delete(completions)
@@ -24,15 +24,15 @@ export async function deleteCompletionOn(
     );
 }
 
-export async function getAllCompletionsByUserId(userId: User['id']) {
+export async function getAllCompletionsByUserId(userId: User['userId']) {
   return await db
     .select()
     .from(completions)
-    .innerJoin(habits, eq(completions.habitId, habits.id))
+    .innerJoin(habits, eq(completions.habitId, habits.habitId))
     .where(eq(habits.userId, userId));
 }
 
-export async function getAllCompletionsByHabitId(habitId: Habit['id']) {
+export async function getAllCompletionsByHabitId(habitId: Habit['habitId']) {
   return await db
     .select()
     .from(completions)

@@ -21,12 +21,12 @@ export const Route = createFileRoute('/_app')({
     }
 
     const { passwordHash, ...userWithoutPassword } = currentUser;
-    const { id, email } = userWithoutPassword;
+    const { userId, email } = userWithoutPassword;
     const imageUrl = await getUserImageUrlFn({ data: { email } });
 
-    const habits = await getAllHabitsByUserIdFn({ data: id });
+    const habits = await getAllHabitsByUserIdFn({ data: userId });
     const completions = await getAllCompletionsByUserIdFn({
-      data: { userId: id },
+      data: { userId },
     });
 
     return {

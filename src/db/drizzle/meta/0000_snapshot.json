@@ -1,5 +1,5 @@
 {
-  "id": "cbc41293-0110-4d25-91d0-57d3f466f6b0",
+  "id": "34096182-3ab0-4294-9bdc-2aa384ed51d6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,14 +8,14 @@
       "name": "completions",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "completion_id": {
+          "name": "completion_id",
           "type": "bigint",
           "primaryKey": true,
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "completions_id_seq",
+            "name": "completions_completion_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -47,15 +47,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "completions_habit_id_habits_id_fk": {
-          "name": "completions_habit_id_habits_id_fk",
+        "completions_habit_id_habits_habit_id_fk": {
+          "name": "completions_habit_id_habits_habit_id_fk",
           "tableFrom": "completions",
           "tableTo": "habits",
           "columnsFrom": [
             "habit_id"
           ],
           "columnsTo": [
-            "id"
+            "habit_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -80,14 +80,14 @@
       "name": "habits",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "habit_id": {
+          "name": "habit_id",
           "type": "bigint",
           "primaryKey": true,
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "habits_id_seq",
+            "name": "habits_habit_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -132,15 +132,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "habits_user_id_users_id_fk": {
-          "name": "habits_user_id_users_id_fk",
+        "habits_user_id_users_user_id_fk": {
+          "name": "habits_user_id_users_user_id_fk",
           "tableFrom": "habits",
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -152,18 +152,18 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.password_reset_tokens": {
-      "name": "password_reset_tokens",
+    "public.reset_tokens": {
+      "name": "reset_tokens",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "reset_token_id": {
+          "name": "reset_token_id",
           "type": "bigint",
           "primaryKey": true,
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "password_reset_tokens_id_seq",
+            "name": "reset_tokens_reset_token_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -209,15 +209,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "password_reset_tokens_user_id_users_id_fk": {
-          "name": "password_reset_tokens_user_id_users_id_fk",
-          "tableFrom": "password_reset_tokens",
+        "reset_tokens_user_id_users_user_id_fk": {
+          "name": "reset_tokens_user_id_users_user_id_fk",
+          "tableFrom": "reset_tokens",
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -225,8 +225,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "password_reset_tokens_token_hash_unique": {
-          "name": "password_reset_tokens_token_hash_unique",
+        "reset_tokens_token_hash_unique": {
+          "name": "reset_tokens_token_hash_unique",
           "nullsNotDistinct": false,
           "columns": [
             "token_hash"
@@ -241,14 +241,14 @@
       "name": "users",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "user_id": {
+          "name": "user_id",
           "type": "bigint",
           "primaryKey": true,
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "users_id_seq",
+            "name": "users_user_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",

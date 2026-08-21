@@ -23,7 +23,7 @@ export async function createUser(
       err instanceof DrizzleQueryError &&
       err.cause instanceof DatabaseError
     ) {
-      console.error(err.cause.detail);
+      console.error(err.cause);
     }
   }
 }
@@ -54,8 +54,12 @@ export async function getUserByEmail(email: schema.User['email']) {
   return query[0];
 }
 
-export async function getUserById(id: schema.User['id']) {
-  const query = await db.select().from(users).where(eq(users.id, id)).limit(1);
+export async function getUserById(id: schema.User['userId']) {
+  const query = await db
+    .select()
+    .from(users)
+    .where(eq(users.userId, id))
+    .limit(1);
 
   return query[0];
 }

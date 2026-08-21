@@ -58,7 +58,7 @@ export const userResetPasswordFn = createServerFn({
     const user = await getUserByEmail(data);
 
     if (user) {
-      const token = await createPasswordResetToken(user.id);
+      const token = await createPasswordResetToken(user.userId);
 
       await sendEmailFn({
         data: {
@@ -103,7 +103,7 @@ export const userLoginFn = createServerFn({ method: 'POST' })
 
     const session = await useAppSession();
     await session.update({
-      userId: user.id,
+      userId: user.userId,
       email: user.email,
     });
 

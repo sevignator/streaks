@@ -2,7 +2,6 @@ import { useServerFn } from '@tanstack/react-start';
 import { createFileRoute, notFound, useRouter } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
 
-import { appRoute } from '#/utils/routeApis';
 import {
   inputHabitIntervalSchema,
   inputHabitTitleSchema,
@@ -26,7 +25,7 @@ export const Route = createFileRoute('/_app/habits_/$habitId')({
     const { habitId } = params;
 
     const habit = habits.find(
-      (currentHabit) => currentHabit.id === Number.parseInt(habitId),
+      (currentHabit) => currentHabit.habitId === Number.parseInt(habitId),
     );
 
     if (!habit) {
@@ -50,7 +49,7 @@ function RouteComponent() {
       interval: habit.interval,
     },
     onSubmit: async ({ value }) => {
-      const { id: habitId } = habit;
+      const { habitId } = habit;
       const { title, interval } = value;
 
       await editHabit({ data: { habitId, title, interval } });
@@ -59,7 +58,7 @@ function RouteComponent() {
   });
 
   async function handleDelete() {
-    await deleteHabit({ data: habit.id });
+    await deleteHabit({ data: habit.habitId });
     await router.invalidate();
   }
 

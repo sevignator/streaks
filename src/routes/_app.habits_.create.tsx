@@ -31,7 +31,7 @@ function RouteComponent() {
       if (!user) return;
 
       const { title, interval } = value;
-      const { id: userId } = user;
+      const { userId } = user;
 
       await createHabit({ data: { title, userId, interval } });
       await router.invalidate();

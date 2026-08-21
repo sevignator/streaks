@@ -36,7 +36,7 @@ function RouteComponent() {
       confirmPassword: '',
     },
     onSubmit: async ({ value }) => {
-      const userId = data.user.id;
+      const userId = data.user.userId;
       const newPassword = value.password;
       await updateUserPasswordWithToken({
         data: { token, userId, newPassword },

@@ -14,21 +14,21 @@ export default function HabitsList({ habits }: HabitsListProps) {
   return (
     <ul className="flex flex-col gap-2">
       {habits.map((habit) => (
-        <HabitListItem key={habit.id} habit={habit} />
+        <HabitListItem key={habit.habitId} habit={habit} />
       ))}
     </ul>
   );
 }
 
 function HabitListItem({ habit }: HabitListItemProps) {
-  const { id, title } = habit;
+  const { habitId, title } = habit;
 
   return (
     <li className="flex justify-between gap-4 rounded-md border border-slate-200 bg-white p-3 text-slate-950 dark:border-slate-900 dark:bg-slate-700 dark:text-slate-50">
       {title}
 
       <div>
-        <Link to="/habits/$habitId" params={{ habitId: String(id) }}>
+        <Link to="/habits/$habitId" params={{ habitId: String(habitId) }}>
           Edit
         </Link>
       </div>

@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 
 interface HabitToDoProps {
-  id: Habit['id'];
+  id: Habit['habitId'];
   title: Habit['title'];
   isoDate: string;
   initialIsDone?: boolean;

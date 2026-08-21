@@ -4,7 +4,7 @@ import { env } from '../env';
 import { type User } from '#/db/schema.ts';
 
 interface SessionData {
-  userId?: User['id'];
+  userId?: User['userId'];
   email?: User['email'];
 }
 

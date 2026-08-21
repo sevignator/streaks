@@ -7,7 +7,7 @@ import { env } from '../env';
 import { db } from '#/db';
 import * as schema from '#/db/schema';
 
-const { users, passwordResetTokens } = schema;
+const { users, resetTokens: passwordResetTokens } = schema;
 
 export async function getPasswordHash(password: string): Promise<string> {
   return await argon2.hash(password);
@@ -33,7 +33,7 @@ export function checkPasswordResetTokens(tokenA: string, tokenB: string) {
 }
 
 export async function createPasswordResetToken(
-  userId: schema.User['id'],
+  userId: schema.User['userId'],
 ): Promise<string> {
   const token = randomBytes(32).toString('base64url');
 
@@ -45,7 +45,7 @@ export async function createPasswordResetToken(
       err instanceof DrizzleQueryError &&
       err.cause instanceof DatabaseError
     ) {
-      console.error(err.cause.detail);
+      console.error(err.cause);
     }
   }
 
@@ -53,11 +53,11 @@ export async function createPasswordResetToken(
 }
 
 export async function updateUserPassword(
-  userId: schema.User['id'],
+  userId: schema.User['userId'],
   password: string,
 ) {
   const passwordHash = await getPasswordHash(password);
-  await db.update(users).set({ passwordHash }).where(eq(users.id, userId));
+  await db.update(users).set({ passwordHash }).where(eq(users.userId, userId));
 }
 
 export async function getPasswordResetTokenByHash(
