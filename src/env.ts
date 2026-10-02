@@ -5,7 +5,7 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['production', 'development', 'test']),
     DATABASE_URL: z.url(),
-    SESSION_SECRET: z.string(),
+    SESSION_SECRET: z.string().min(32),
     RESET_TOKEN_SECRET: z.string(),
     RESEND_API_KEY: z.string(),
   },
