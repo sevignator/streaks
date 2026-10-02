@@ -16,7 +16,14 @@ const config = defineConfig({
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
     tailwindcss(),
     tanstackStart(),
-    netlify(),
+    // See https://www.npmx.dev/package/@netlify/vite-plugin.
+    netlify({
+      dev: {
+        edgeFunctions: {
+          enabled: false,
+        }
+      }
+    }),
     viteReact({
       babel: {
         plugins: ['babel-plugin-react-compiler'],
