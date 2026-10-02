@@ -9,51 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UserRouteImport } from './routes/_user'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as UserSignupRouteImport } from './routes/_user.signup'
-import { Route as UserLoginRouteImport } from './routes/_user.login'
-import { Route as AppUserRouteImport } from './routes/_app.user'
-import { Route as AppStatsRouteImport } from './routes/_app.stats'
-import { Route as AppHabitsRouteImport } from './routes/_app.habits'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as UserRouteImport } from './routes/_user'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
-import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset'
-import { Route as AppHabitsCreateRouteImport } from './routes/_app.habits_.create'
+import { Route as AppHabitsRouteImport } from './routes/_app.habits'
+import { Route as AppStatsRouteImport } from './routes/_app.stats'
+import { Route as AppUserRouteImport } from './routes/_app.user'
+import { Route as UserLoginRouteImport } from './routes/_user.login'
+import { Route as UserSignupRouteImport } from './routes/_user.signup'
 import { Route as AppHabitsHabitIdRouteImport } from './routes/_app.habits_.$habitId'
+import { Route as AppHabitsCreateRouteImport } from './routes/_app.habits_.create'
+import { Route as UserLoginResetRouteImport } from './routes/_user.login_.reset'
 import { Route as UserLoginResetTokenRouteImport } from './routes/_user.login_.reset_.$token'
 
-const UserRoute = UserRouteImport.update({
-  id: '/_user',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const UserRoute = UserRouteImport.update({
+  id: '/_user',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserSignupRoute = UserSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserLoginRoute = UserLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => UserRoute,
-} as any)
-const AppUserRoute = AppUserRouteImport.update({
-  id: '/user',
-  path: '/user',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppStatsRoute = AppStatsRouteImport.update({
-  id: '/stats',
-  path: '/stats',
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
 const AppHabitsRoute = AppHabitsRouteImport.update({
@@ -61,25 +46,40 @@ const AppHabitsRoute = AppHabitsRouteImport.update({
   path: '/habits',
   getParentRoute: () => AppRoute,
 } as any)
-const AppDashboardRoute = AppDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AppStatsRoute = AppStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => AppRoute,
 } as any)
-const UserLoginResetRoute = UserLoginResetRouteImport.update({
-  id: '/login_/reset',
-  path: '/login/reset',
+const AppUserRoute = AppUserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => AppRoute,
+} as any)
+const UserLoginRoute = UserLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => UserRoute,
+} as any)
+const UserSignupRoute = UserSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => UserRoute,
+} as any)
+const AppHabitsHabitIdRoute = AppHabitsHabitIdRouteImport.update({
+  id: '/habits_/$habitId',
+  path: '/habits/$habitId',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppHabitsCreateRoute = AppHabitsCreateRouteImport.update({
   id: '/habits_/create',
   path: '/habits/create',
   getParentRoute: () => AppRoute,
 } as any)
-const AppHabitsHabitIdRoute = AppHabitsHabitIdRouteImport.update({
-  id: '/habits_/$habitId',
-  path: '/habits/$habitId',
-  getParentRoute: () => AppRoute,
+const UserLoginResetRoute = UserLoginResetRouteImport.update({
+  id: '/login_/reset',
+  path: '/login/reset',
+  getParentRoute: () => UserRoute,
 } as any)
 const UserLoginResetTokenRoute = UserLoginResetTokenRouteImport.update({
   id: '/login_/reset_/$token',
@@ -181,11 +181,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_user': {
-      id: '/_user'
-      path: ''
+    '/': {
+      id: '/'
+      path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof UserRouteImport
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -195,39 +195,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
+    '/_user': {
+      id: '/_user'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof UserRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_user/signup': {
-      id: '/_user/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof UserSignupRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/_user/login': {
-      id: '/_user/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof UserLoginRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/_app/user': {
-      id: '/_app/user'
-      path: '/user'
-      fullPath: '/user'
-      preLoaderRoute: typeof AppUserRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/stats': {
-      id: '/_app/stats'
-      path: '/stats'
-      fullPath: '/stats'
-      preLoaderRoute: typeof AppStatsRouteImport
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/habits': {
@@ -237,19 +216,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHabitsRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/dashboard': {
-      id: '/_app/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
+    '/_app/stats': {
+      id: '/_app/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof AppStatsRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_user/login_/reset': {
-      id: '/_user/login_/reset'
-      path: '/login/reset'
-      fullPath: '/login/reset'
-      preLoaderRoute: typeof UserLoginResetRouteImport
+    '/_app/user': {
+      id: '/_app/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof AppUserRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_user/login': {
+      id: '/_user/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof UserLoginRouteImport
       parentRoute: typeof UserRoute
+    }
+    '/_user/signup': {
+      id: '/_user/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof UserSignupRouteImport
+      parentRoute: typeof UserRoute
+    }
+    '/_app/habits_/$habitId': {
+      id: '/_app/habits_/$habitId'
+      path: '/habits/$habitId'
+      fullPath: '/habits/$habitId'
+      preLoaderRoute: typeof AppHabitsHabitIdRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/habits_/create': {
       id: '/_app/habits_/create'
@@ -258,12 +258,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHabitsCreateRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/habits_/$habitId': {
-      id: '/_app/habits_/$habitId'
-      path: '/habits/$habitId'
-      fullPath: '/habits/$habitId'
-      preLoaderRoute: typeof AppHabitsHabitIdRouteImport
-      parentRoute: typeof AppRoute
+    '/_user/login_/reset': {
+      id: '/_user/login_/reset'
+      path: '/login/reset'
+      fullPath: '/login/reset'
+      preLoaderRoute: typeof UserLoginResetRouteImport
+      parentRoute: typeof UserRoute
     }
     '/_user/login_/reset_/$token': {
       id: '/_user/login_/reset_/$token'
