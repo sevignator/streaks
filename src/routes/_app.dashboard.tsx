@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 
 import { type Habit } from '#/db/schema';
 import {
@@ -128,7 +128,12 @@ function RouteComponent() {
           })}
         </div>
       ) : (
-        <p>You don't have any habits yet.</p>
+        <>
+          <p>You don't have any habits yet.</p>
+          <Link to="/habits/create" className="btn mt-6" data-btn-type="primary">
+            Add habit
+          </Link>
+        </>
       )}
     </>
   );
