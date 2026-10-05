@@ -4,7 +4,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 
 import appCss from '../styles.css?url';
 
-// Initial theme set up
+// Initial theme setup
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.dataset.mode=mode;root.dataset.theme=resolved;root.style.colorScheme=resolved;}catch(e){}})();`;
 
 export const Route = createRootRoute({

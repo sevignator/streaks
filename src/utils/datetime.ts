@@ -36,31 +36,6 @@ function getPreviousISODate(isoDate: string, timeZone = 'UTC') {
   return getISODateWithTimezone(date, timeZone);
 }
 
-export function getCurrentStreak(
-  completionDates: string[],
-  todayISODate: string,
-  timeZone = 'UTC',
-) {
-  let streak = 0;
-
-  const completionDatesSet = new Set(completionDates);
-  const yesterdayISODate = getPreviousISODate(todayISODate, timeZone);
-
-  if (
-    !completionDatesSet.has(todayISODate) &&
-    !completionDatesSet.has(yesterdayISODate)
-  ) {
-    return streak;
-  }
-
-  let streakDate = completionDatesSet.has(todayISODate)
-    ? todayISODate
-    : yesterdayISODate;
-
-  while (completionDatesSet.has(streakDate)) {
-    streak += 1;
-    streakDate = getPreviousISODate(streakDate, timeZone);
-  }
-
-  return streak;
+export function getCurrentStreak() {
+  return 0;
 }

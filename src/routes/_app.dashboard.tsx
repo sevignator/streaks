@@ -61,7 +61,6 @@ export const Route = createFileRoute('/_app/dashboard')({
 });
 
 function RouteComponent() {
-  const { user, completions } = appRoute.useLoaderData();
   const { habitsWithIsDone, isoDate, formattedDate } = Route.useLoaderData();
 
   const [sortedBy, setSortedBy] = useState<SortingOptions>('alpha-asc');
@@ -105,10 +104,6 @@ function RouteComponent() {
       {habits.length > 0 ? (
         <div className="grid gap-3">
           {habits.map(({ habitId, title, isDone }) => {
-            const relatedCompletions = completions.filter((completion) => {
-              return completion.habits.habitId === habitId;
-            });
-
             return (
               <HabitToDo
                 key={habitId}
@@ -116,13 +111,7 @@ function RouteComponent() {
                 title={title}
                 initialIsDone={isDone}
                 isoDate={isoDate}
-                streak={getCurrentStreak(
-                  relatedCompletions
-                    .map((completion) => completion.completions.completedOn)
-                    .filter((date): date is string => Boolean(date)),
-                  isoDate,
-                  user.timeZone,
-                )}
+                streak={getCurrentStreak()}
               />
             );
           })}
