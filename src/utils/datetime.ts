@@ -1,41 +1,37 @@
-export function getLocalTimezone() {
+import { Temporal } from "temporal-polyfill/implementation";
+
+export function getLocalTimezone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
-export function getFormattedDate(date: Date, timeZone = 'UTC') {
-  return Intl.DateTimeFormat('en-CA', {
-    dateStyle: 'full',
-    timeZone,
-  }).format(date);
+export function getFormattedDate(isoDate: string): string {
+  const date = Temporal.PlainDate.from(isoDate);
+  return date.toLocaleString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
-export function getISODateWithTimezone(date: Date, timeZone = 'UTC') {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(date);
-
-  const year = parts.find((part) => part.type === 'year')?.value;
-  const month = parts.find((part) => part.type === 'month')?.value;
-  const day = parts.find((part) => part.type === 'day')?.value;
-
-  if (!year || !month || !day) {
-    throw new Error('Unable to format ISO date for timezone');
-  }
-
-  return `${year}-${month}-${day}`;
+export function getTodayISODate(): string {
+  return Temporal.Now.plainDateISO().toString();
 }
 
-function getPreviousISODate(isoDate: string, timeZone = 'UTC') {
-  const [year, month, day] = isoDate.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  date.setDate(date.getDate() - 1);
+export function getYesterdayISODate(isoDate: string): string {
+  const date = Temporal.PlainDate.from(isoDate);
+  const yesterday = date.subtract({
+    days: 1,
+  });
 
-  return getISODateWithTimezone(date, timeZone);
+  return yesterday.toString();
 }
 
-export function getCurrentStreak() {
-  return 0;
+export function getTommorrowISODate(isoDate: string): string {
+  const date = Temporal.PlainDate.from(isoDate);
+  const yesterday = date.add({
+    days: 1,
+  });
+
+  return yesterday.toString();
 }

@@ -1,26 +1,23 @@
-import { createFileRoute, Link, notFound } from '@tanstack/react-router';
+import { useEffect, useState } from "react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { type Habit } from '#/db/schema';
-import {
-  getCurrentStreak,
-  getFormattedDate,
-  getISODateWithTimezone,
-} from '#/utils/datetime';
+import { type Habit } from "#/db/schema";
+import { getTodayISODate, getFormattedDate } from "#/utils/datetime";
+import { getCurrentStreakFromCompletions } from "#/utils/streaks";
 
-import { appRoute } from '#/utils/routeApis';
-import HabitToDo from '#/components/HabitToDo';
-import PageTitle from '#/components/PageTitle';
-import { useEffect, useState } from 'react';
+import HabitToDo from "#/components/HabitToDo";
+import PageTitle from "#/components/PageTitle";
 
-interface HabitWithIsDone extends Habit {
+interface HabitWithProps extends Habit {
+  streak: number;
   isDone: boolean;
 }
 
-type CompareFn = (a: HabitWithIsDone, b: HabitWithIsDone) => number;
+type CompareFn = (a: HabitWithProps, b: HabitWithProps) => number;
 
 const compareFns = {
-  'alpha-asc': (a, b) => (a.title < b.title ? -1 : 1),
-  'alpha-desc': (a, b) => (a.title > b.title ? -1 : 1),
+  "alpha-asc": (a, b) => (a.title < b.title ? -1 : 1),
+  "alpha-desc": (a, b) => (a.title > b.title ? -1 : 1),
 } satisfies Record<string, CompareFn>;
 
 type SortingOptions = keyof typeof compareFns;
@@ -29,7 +26,7 @@ function isSortingOption(text: string): text is SortingOptions {
   return Object.hasOwn(compareFns, text);
 }
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute("/_app/dashboard")({
   component: RouteComponent,
   loader: async ({ parentMatchPromise }) => {
     const parentMatch = await parentMatchPromise;
@@ -38,34 +35,51 @@ export const Route = createFileRoute('/_app/dashboard')({
       throw notFound();
     }
 
-    const { user, habits, completions } = parentMatch.loaderData;
-    const today = new Date();
-    const isoDate = getISODateWithTimezone(today, user.timeZone);
-    const formattedDate = getFormattedDate(today, user.timeZone);
+    const { habits, completions } = parentMatch.loaderData;
+    const todayISODate = getTodayISODate();
+    const formattedDate = getFormattedDate(todayISODate);
 
     const dailyCompletionIds = completions
-      .filter((completion) => completion.completions.completedOn === isoDate)
+      .filter(
+        (completion) => completion.completions.completedOn === todayISODate,
+      )
       .map((completion) => completion.completions.habitId);
 
-    const habitsWithIsDone = habits.map((habit) => ({
-      ...habit,
-      isDone: dailyCompletionIds.includes(habit.habitId),
-    }));
+    const habitsWithProps = habits.map((habit) => {
+      // Get and sort completions for this habit.
+      const habitCompletions = completions
+        .filter((c) => c.completions.habitId === habit.habitId)
+        .map((c) => c.completions)
+        .toSorted((a, b) => (a.completedOn > b.completedOn ? -1 : 1));
+
+      const streak = getCurrentStreakFromCompletions(
+        habitCompletions,
+        todayISODate,
+      );
+
+      const habitWithProps: HabitWithProps = {
+        ...habit,
+        streak,
+        isDone: dailyCompletionIds.includes(habit.habitId),
+      };
+
+      return habitWithProps;
+    });
 
     return {
-      habitsWithIsDone,
-      isoDate,
+      habitsWithProps,
+      isoDate: todayISODate,
       formattedDate,
     };
   },
 });
 
 function RouteComponent() {
-  const { habitsWithIsDone, isoDate, formattedDate } = Route.useLoaderData();
+  const { habitsWithProps, isoDate, formattedDate } = Route.useLoaderData();
 
-  const [sortedBy, setSortedBy] = useState<SortingOptions>('alpha-asc');
+  const [sortedBy, setSortedBy] = useState<SortingOptions>("alpha-asc");
   const [habits, setHabits] = useState(
-    habitsWithIsDone.toSorted(compareFns[sortedBy]),
+    habitsWithProps.toSorted(compareFns[sortedBy]),
   );
 
   useEffect(() => {
@@ -103,7 +117,7 @@ function RouteComponent() {
 
       {habits.length > 0 ? (
         <div className="grid gap-3">
-          {habits.map(({ habitId, title, isDone }) => {
+          {habits.map(({ habitId, title, streak, isDone }) => {
             return (
               <HabitToDo
                 key={habitId}
@@ -111,7 +125,7 @@ function RouteComponent() {
                 title={title}
                 initialIsDone={isDone}
                 isoDate={isoDate}
-                streak={getCurrentStreak()}
+                streak={streak}
               />
             );
           })}
@@ -119,7 +133,11 @@ function RouteComponent() {
       ) : (
         <>
           <p>You don't have any habits yet.</p>
-          <Link to="/habits/create" className="btn mt-6" data-btn-type="primary">
+          <Link
+            to="/habits/create"
+            className="btn mt-6"
+            data-btn-type="primary"
+          >
             Add habit
           </Link>
         </>

@@ -30,6 +30,13 @@ export default function HabitToDo({
 
   const [isDone, setIsDone] = useState(initialIsDone);
 
+  // Increment or decrement the streak value based on the initial and changed states.
+  if (initialIsDone && !isDone) {
+    streak--;
+  } else if (!initialIsDone && isDone) {
+    streak++;
+  }
+
   async function toggleIsDone() {
     const nextIsDone = !isDone;
 
