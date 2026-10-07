@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useRouter } from "@tanstack/react-router";
 import useSound from "use-sound";
@@ -7,11 +8,7 @@ import popSound from "../../public/pop-sound.mp3";
 import offSound from "../../public/off-sound.mp3";
 
 import { type Habit } from "#/db/schema";
-import {
-  createCompletionOnFn,
-  deleteCompletionOnFn,
-} from "#/utils/completions.functions";
-import { useState } from "react";
+import { createCompletionOnFn, deleteCompletionOnFn } from "#/utils/completions.functions";
 
 interface HabitToDoProps {
   id: Habit["habitId"];
@@ -79,9 +76,7 @@ export default function HabitToDo({
           strokeLinejoin="round"
           className={clsx(
             "block aspect-square transition-colors",
-            isDone
-              ? "stroke-green-500"
-              : "stroke-violet-200 dark:stroke-slate-800",
+            isDone ? "stroke-green-500" : "stroke-violet-200 dark:stroke-slate-800",
           )}
         >
           <circle
