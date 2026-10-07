@@ -4,8 +4,8 @@ import { useRouter } from "@tanstack/react-router";
 import useSound from "use-sound";
 import clsx from "clsx";
 
-import popSound from "../../public/pop-sound.mp3";
-import offSound from "../../public/off-sound.mp3";
+import popSound from "#/sounds/pop-sound.mp3";
+import offSound from "#/sounds/off-sound.mp3";
 
 import { type Habit } from "#/db/schema";
 import { createCompletionOnFn, deleteCompletionOnFn } from "#/utils/completions.functions";
