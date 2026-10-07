@@ -1,6 +1,10 @@
 import { useServerFn } from "@tanstack/react-start";
 import { useRouter } from "@tanstack/react-router";
+import { useSound } from "use-sound";
 import clsx from "clsx";
+
+import popSound from "../../public/pop-sound.mp3";
+import offSound from "../../public/off-sound.mp3";
 
 import { type Habit } from "#/db/schema";
 import {
@@ -29,6 +33,8 @@ export default function HabitToDo({
   const deleteCompletionOnDate = useServerFn(deleteCompletionOnFn);
 
   const [isDone, setIsDone] = useState(initialIsDone);
+  const [playPop] = useSound(popSound);
+  const [playOff] = useSound(offSound);
 
   // Increment or decrement the streak value based on the initial and changed states.
   if (initialIsDone && !isDone) {
@@ -43,8 +49,10 @@ export default function HabitToDo({
     setIsDone(nextIsDone);
 
     if (nextIsDone) {
+      playPop();
       await createCompletionOnDate({ data: { date: isoDate, habitId: id } });
     } else {
+      playOff();
       await deleteCompletionOnDate({ data: { date: isoDate, habitId: id } });
     }
 

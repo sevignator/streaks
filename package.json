@@ -46,6 +46,7 @@
     "streaks": "link:",
     "tailwindcss": "^4.3.3",
     "temporal-polyfill": "^1.0.5",
+    "use-sound": "^5.0.0",
     "vite-plugin-neon-new": "^0.8.0",
     "zod": "^4.6.5"
   },
