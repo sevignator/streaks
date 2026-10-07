@@ -1,6 +1,6 @@
 import { useServerFn } from "@tanstack/react-start";
 import { useRouter } from "@tanstack/react-router";
-import { useSound } from "use-sound";
+import useSound from "use-sound";
 import clsx from "clsx";
 
 import popSound from "../../public/pop-sound.mp3";
